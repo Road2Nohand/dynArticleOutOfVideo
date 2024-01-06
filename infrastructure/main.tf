@@ -51,10 +51,10 @@ resource "aws_s3_bucket_policy" "public_access" {
     })
 }
 
-resource "aws_s3_object" "index_html" {
+resource "aws_s3_object" "index_upload" {
     bucket          = aws_s3_bucket.website_bucket.id
     key             = var.html_file_name
-    source          = "../${var.html_file_name}" # Pfad zu Ihrer lokalen index.html-Datei
+    source          = "../${var.html_file_name}" # Pfad zur lokalen index.html-Datei
     content_type    = "text/html"
 }
 
