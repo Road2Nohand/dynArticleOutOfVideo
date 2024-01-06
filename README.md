@@ -13,6 +13,7 @@ Task 2:
   * What factors influence your choice of AWS services for a project?
   * Highlight key considerations in your choice of technology like costs, realiability, time-to-market.
 
+
 ## Task 1 - Solution
 
 ### Tech Stack
@@ -27,7 +28,6 @@ Task 2:
 
    * Nutze den AWS Transcribe Service, um den gesprochenen Inhalt des Videos in Text umzuwandeln. Dieser Service ist in der Lage, automatisch Sprache zu transkribieren und könnte daher für die Texterstellung des Artikels verwendet werden.
    * Alternativ zu Transcribe: **AWS Recognition** (für Bild und Video analysen)
-   * Alternative Ergänzung/Erweiterung: **AWS Polly** (für die Verbesserung der Transkription)
 4. **AWS Comprehend:**
 
    * Verwende AWS Comprehend, um wichtige Informationen aus dem transkribierten Text zu extrahieren. Dies könnte Schlüsselwörter, Themen oder Stimmungen umfassen.
@@ -56,8 +56,8 @@ Task 2:
    * Erforsche die Grundlagen von AWS Step Functions und MediaConvert.
    * Setze eine einfache Step Function auf, die MediaConvert für die Videoverarbeitung verwendet.
 2. **Tag 3-4: Lambda, Polly und S3:**
-   * Lerne die Grundlagen von AWS Lambda und AWS Polly.
-   * Integriere Lambda-Funktionen für die Textgenerierung und Sprachausgabe.
+   * Lerne die Grundlagen von AWS Lambda und AWS Transcribe.
+   * Integriere Lambda-Funktionen für die Transkribierung.
    * Arbeite mit S3, um Ressourcen zu speichern.
 3. **Tag 5-6: Comprehend (Bildanalyse) und erweiterte Konfiguration:**
    * Implementiere AWS Comprehend für die Bildanalyse.
