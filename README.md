@@ -52,10 +52,11 @@ Task 2:
 
 ### Lernzeitplan:
 
-1. **Tag 1-2: Grundlagen von Step Functions und MediaConvert:**
-   * Erforsche die Grundlagen von AWS Step Functions und MediaConvert.
-   * Setze eine einfache Step Function auf, die MediaConvert für die Videoverarbeitung verwendet.
-2. **Tag 3-4: Lambda, Polly und S3:**
+1. **Tag 1-2: Grundlagen von Lambda und EventBridge mit Terraform**:
+   * Erlerne die Grundlagen von Terraform für das Erstellen von S3 Buckets und Lambda Functions
+   * Erforsche die Grundlagen von Lambda und EventBridge.
+   * Setze eine einfache Lambda-Funktion mit Terraform auf, die auf ein Event reagiert.
+2. **Tag 3-4: Lambda, Transcribe und S3:**
    * Lerne die Grundlagen von AWS Lambda und AWS Transcribe.
    * Integriere Lambda-Funktionen für die Transkribierung.
    * Arbeite mit S3, um Ressourcen zu speichern.
