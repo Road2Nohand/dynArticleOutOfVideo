@@ -6,8 +6,12 @@ on:
       - main
 
 jobs:
-  validate:
+  terraform_ci:
     runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
       - name: Checkout repository
@@ -23,62 +27,19 @@ jobs:
 
       # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
       - name: Terraform Validate
-        run: |
-          terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="key=terraform-state"
-          terraform workspace select DEV
-          terraform validate
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: latest
-
-      - name: Change to Infrastructure Directory
-        run: cd infrastructure/
+        run: terraform validate
 
       - name: Terraform Init
         run: |
           terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="key=terraform-state"
           terraform workspace select DEV
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Apply 1st
         run: terraform apply -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Apply 2nd
         run: terraform apply -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  upload-html:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt werden
+      # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt
       - name: Upload HTML to S3
-        run: |
-          terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="key=terraform-state"
-          terraform workspace select DEV
-          aws s3 cp index.html s3://s3-bucket-with-static-index-html-dev/
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
