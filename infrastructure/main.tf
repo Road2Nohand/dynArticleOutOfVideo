@@ -13,7 +13,7 @@ variable "html_file_name" {
 
 
 resource "aws_s3_bucket" "website_bucket" {
-    bucket          = var.website_bucket_name
+    bucket          = "${var.website_bucket_name}-${lower(terraform.workspace)}"
     force_destroy   = true # weil sonst nur leere Buckets gelöscht werden können
 }
 
@@ -45,7 +45,7 @@ resource "aws_s3_bucket_policy" "public_access" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::${var.website_bucket_name}/${var.html_file_name}" # nur für die index.html wird der Read zugriff von Public erlaubt, für alle anderen Objekte gibt es keinen public access.
+            "Resource": "arn:aws:s3:::${var.website_bucket_name}-${lower(terraform.workspace)}/${var.html_file_name}" # nur für die index.html wird der Read zugriff von Public erlaubt, für alle anderen Objekte gibt es keinen public access.
             }
         ]
     })
