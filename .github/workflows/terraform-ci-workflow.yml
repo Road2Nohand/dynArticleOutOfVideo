@@ -29,16 +29,16 @@ jobs:
         with:
           terraform_version: latest
 
-      - name: Terraform Validate
-        run: terraform validate
-
       - name: Change to Infrastructure Directory
         run: cd infrastructure/
+
+      - name: Terraform Validate
+        run: terraform validate
 
       # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
       - name: Terraform Init
         run: |
-          terraform init
+          terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="region=eu-central-1" -backend-config="key=terraform-state"
           terraform workspace select DEV
         env:
           TF_LOG: "DEBUG"
