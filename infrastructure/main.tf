@@ -58,19 +58,65 @@ resource "aws_s3_bucket_policy" "public_access" {
     })
 }
 
-/* Wird im Actions Workflow gepushed, weil es ein Artefakt ist und dann kann man auch nur für pushes auf das Artefakt einen deploy workflow bauen */
-resource "aws_s3_object" "test_file_upload" {
-    bucket          = aws_s3_bucket.website_bucket.id
-    key             = "test.txt"
-    source          = "../test.txt" # Pfad zur lokalen index.html-Datei
-    content_type    = "text"
-}
-
-
 /* Outputs */
 
 output "website_url" {
     value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"
+}
+
+
+
+
+
+
+
+# Lambda-Functions:
+
+data "archive_file" "bundle" {
+    type = "zip"
+    source_dir = "lambda_functions"
+    output_path = "1_transcribe__function.zip"
+}
+
+resource "aws_iam_role" "lambda_role" {
+    assume_role_policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "Service": "lambda.amazonaws.com"
+                },
+            "Effect": "Allow"
+            }
+        ]
+    })
+
+    managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
+}
+
+resource "aws_lambda_function" "transcribe_lambda_function" {
+    function_name = "1_transcribe_function"
+    filename = "1_transcribe__function.zip"
+    runtime = "python3.9"
+    role = aws_iam_role.lambda_role.arn
+    handler = "1_transcribe_function.handler"
+}
+
+resource "aws_lambda_function_url" "transcribe_lambda_function_url" {
+    authorization_type = "NONE"
+    function_name = aws_lambda_function.transcribe_lambda_function.function_name
+    depends_on = [aws_lambda_function.transcribe_lambda_function]
+}
+
+resource "aws_s3_bucket_notification" "lambda_trigger" {
+  bucket = aws_s3_bucket.website_bucket.id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.transcribe_lambda_function.arn
+    events = ["s3:ObjectCreated:Post"]
+    filter_suffix       = ".mp4"
+  }
 }
 
 
