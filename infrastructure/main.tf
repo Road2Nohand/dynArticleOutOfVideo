@@ -77,27 +77,26 @@ output "website_url" {
 # Bucket für die Videos
 resource "aws_s3_bucket" "video_bucket" {
     bucket          = "${var.video_bucket_name}-${lower(terraform.workspace)}"
-    force_destroy   = true # weil sonst nur leere Buckets gelöscht werden können
+    force_destroy   = true
 }
 
-# Lambda-Functions:
-
-data "archive_file" "bundle" {
-    type = "zip"
-    source_dir = "lambda_functions"
-    output_path = "1_transcribe__function.zip"
+# Bucket für Transcribe-Ergebnisse
+resource "aws_s3_bucket" "transcribe_bucket" {
+    bucket          = "${var.transcribe_bucket_name}-${lower(terraform.workspace)}"
+    force_destroy   = true
 }
 
-resource "aws_iam_role" "lambda_role" {
+# IAM-Rolle für die Lambda-Funktion
+resource "aws_iam_role" "lambda_transcribe_role" {
     assume_role_policy = jsonencode({
-        "Version": "2012-10-17",
-        "Statement": [
+        Version = "2012-10-17",
+        Statement = [
             {
-            "Action": "sts:AssumeRole",
-            "Principal": {
-                "Service": "lambda.amazonaws.com"
-                },
-            "Effect": "Allow"
+                Action = "sts:AssumeRole",
+                Effect = "Allow",
+                Principal = {
+                    Service = "lambda.amazonaws.com"
+                }
             }
         ]
     })
@@ -105,82 +104,99 @@ resource "aws_iam_role" "lambda_role" {
     managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
 }
 
+# IAM-Policy für Lesezugriff auf den Video-Bucket
+resource "aws_iam_policy" "policy_transcribe_function_can_read_video_bucket_files" {
+    name = "policy_transcribe_function_can_read_video_bucket_files"
+
+    policy = jsonencode({
+        Version = "2012-10-17",
+        Statement = [
+            {
+                Action = [
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                ],
+                Effect = "Allow",
+                Resource = [
+                    aws_s3_bucket.video_bucket.arn,
+                    "${aws_s3_bucket.video_bucket.arn}/*"
+                ]
+            }
+        ]
+    })
+}
+
+# IAM-Policy für Zugriff auf den Transcribe-Bucket
+resource "aws_iam_policy" "policy_transcribe_function_can_access_transcribe_bucket" {
+    name = "policy_transcribe_function_can_access_transcribe_bucket"
+
+    policy = jsonencode({
+        Version = "2012-10-17",
+        Statement = [
+            {
+                Action = [
+                    "s3:GetObject",
+                    "s3:PutObject",
+                    "s3:ListBucket",
+                    "s3:DeleteObject"
+                ],
+                Effect = "Allow",
+                Resource = [
+                    aws_s3_bucket.transcribe_bucket.arn,
+                    "${aws_s3_bucket.transcribe_bucket.arn}/*"
+                ]
+            }
+        ]
+    })
+}
+
+# Anhängen der IAM-Policies an die Lambda-Rolle
+resource "aws_iam_role_policy_attachment" "attach_video_bucket_policy" {
+    policy_arn = aws_iam_policy.policy_transcribe_function_can_read_video_bucket_files.arn
+    role       = aws_iam_role.lambda_transcribe_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "attach_transcribe_bucket_policy" {
+    policy_arn = aws_iam_policy.policy_transcribe_function_can_access_transcribe_bucket.arn
+    role       = aws_iam_role.lambda_transcribe_role.name
+}
+
+# Lambda-Funktion für Transkription
 resource "aws_lambda_function" "transcribe_lambda_function" {
     function_name = "1_transcribe_function"
-    filename = "1_transcribe__function.zip"
-    runtime = "python3.9"
-    role = aws_iam_role.lambda_role.arn
-    handler = "1_transcribe_function.handler"
+    filename      = "1_transcribe__function.zip"
+    runtime       = "python3.9"
+    role          = aws_iam_role.lambda_transcribe_role.arn
+    handler       = "1_transcribe_function.handler"
+
+    # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
+    environment {
+        variables = {
+            TRANSCRIBE_BUCKET_PATH = aws_s3_bucket.transcribe_bucket.bucket
+            DATA_ACCESS_ROLE_ARN   = aws_iam_role.lambda_transcribe_role.arn
+        }
+    }
 }
 
-# URL sollte später abgebaut werden, da öffenltich zugänglich
-resource "aws_lambda_function_url" "transcribe_lambda_function_url" {
-    authorization_type = "NONE"
-    function_name = aws_lambda_function.transcribe_lambda_function.function_name
-    depends_on = [aws_lambda_function.transcribe_lambda_function]
-}
-
-# Video-Bucket die Rechte geben die Lambda-Function zu triggern, wenn eine .mp4 hochgeladen wurde
+# Lambda-Funktionstrigger durch S3 Video-Bucket
 resource "aws_lambda_permission" "allow_bucket" {
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.transcribe_lambda_function.function_name
-  principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.video_bucket.arn
+    statement_id  = "AllowExecutionFromS3Bucket"
+    action        = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.transcribe_lambda_function.function_name
+    principal     = "s3.amazonaws.com"
+    source_arn    = aws_s3_bucket.video_bucket.arn
 }
+
 resource "aws_s3_bucket_notification" "lambda_mp4_upload_trigger" {
-  bucket = aws_s3_bucket.video_bucket.id
+    bucket = aws_s3_bucket.video_bucket.id
 
-  lambda_function {
-    lambda_function_arn = aws_lambda_function.transcribe_lambda_function.arn
-    events = ["s3:ObjectCreated:*"]
-    filter_suffix       = ".mp4"
-  }
+    lambda_function {
+        lambda_function_arn = aws_lambda_function.transcribe_lambda_function.arn
+        events              = ["s3:ObjectCreated:*"]
+        filter_suffix       = ".mp4"
+    }
 }
 
-# transcribe-function die Berechtigung geben, den Video-Bucket zu lesen
-resource "aws_iam_policy" "policy_transcribe_function_can_read_video_bucket_files" {
-  name = "policy_transcribe_function_can_read_video_bucket_files"
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = [
-          "s3:GetObject",  # Berechtigung zum Lesen von Objekten im Bucket
-          "s3:ListBucket", # Berechtigung zum Auflisten des Bucket-Inhalts
-        ],
-        Effect   = "Allow",
-        Resource = [
-          aws_s3_bucket.video_bucket.arn,
-          "${aws_s3_bucket.video_bucket.arn}/*",
-        ],
-      },
-    ],
-  })
-}
-
-# Video-Bucket Lese Policy der Rolle geben und der transcribe-function zuweisen
-resource "aws_iam_role" "lambda_video_read_role" {
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "lambda.amazonaws.com",
-        },
-      },
-    ],
-  })
-
-  # IAM-Policy zur Rolle hinzufügen
-  inline_policy {
-    name   = "s3_policy"
-    policy = aws_iam_policy.policy_transcribe_function_can_read_video_bucket_files.policy
-  }
-}
 
 
 

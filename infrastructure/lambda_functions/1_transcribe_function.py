@@ -1,3 +1,4 @@
+import os
 import json
 import boto3
 from time import sleep
@@ -10,6 +11,10 @@ def handler(event, context):
         bucket_name = record['s3']['bucket']['name']
         file_name = record['s3']['object']['key']
 
+        # Terraform Umgebungsvariablen auslesen
+        transcribe_bucket_path = os.environ.get('TRANSCRIBE_BUCKET_PATH')
+        data_access_role_arn = os.environ.get('DATA_ACCESS_ROLE_ARN')
+
         print(f"Transcribe-Function: {file_name} wurde in bucket {bucket_name} hochgeladen!")
 
         job_name = file_name.split('.')[0]
@@ -19,8 +24,8 @@ def handler(event, context):
         transcribe.start_call_analytics_job(
             CallAnalyticsJobName=job_name,
             Media={'MediaFileUri': file_uri},
-            MediaFormat='mp4',
-            LanguageCode='de-DE',  # Sprache anpassen
+            OutputLocation=transcribe_bucket_path,
+            DataAccessRoleArn=data_access_role_arn,
             Settings={
                 # Hier können spezifische Einstellungen für Call Analytics angepasst werden
             }
@@ -39,7 +44,6 @@ def handler(event, context):
             transcription_response = s3.get_object(Bucket=bucket_name, Key=transcription_file_uri)
             transcription_content = json.loads(transcription_response['Body'].read().decode('utf-8'))
 
-            # Hier können Sie das Transkript und die Analyseergebnisse weiterverarbeiten
             print(transcription_content)
 
     return {
