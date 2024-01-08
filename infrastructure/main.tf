@@ -14,6 +14,10 @@ variable "website_bucket_name" {
     type = string
 }
 
+variable "video_bucket_name" {
+    type = string
+}
+
 variable "html_file_name" {
     type = string
 }
@@ -66,9 +70,11 @@ output "website_url" {
 
 
 
-
-
-
+# Bucket für die Videos
+resource "aws_s3_bucket" "video_bucket" {
+    bucket          = "${var.video_bucket_name}-${lower(terraform.workspace)}"
+    force_destroy   = true # weil sonst nur leere Buckets gelöscht werden können
+}
 
 # Lambda-Functions:
 
@@ -103,14 +109,25 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
     handler = "1_transcribe_function.handler"
 }
 
+# URL sollte später abgebaut werden, da öffenltich zugänglich
 resource "aws_lambda_function_url" "transcribe_lambda_function_url" {
     authorization_type = "NONE"
     function_name = aws_lambda_function.transcribe_lambda_function.function_name
     depends_on = [aws_lambda_function.transcribe_lambda_function]
 }
 
+# Lambda die Rechte den S3 Bucket lesen zu dürfen
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.transcribe_lambda_function.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.video_bucket.arn
+}
+
+
 resource "aws_s3_bucket_notification" "lambda_trigger" {
-  bucket = aws_s3_bucket.website_bucket.id
+  bucket = aws_s3_bucket.video_bucket.id
 
   lambda_function {
     lambda_function_arn = aws_lambda_function.transcribe_lambda_function.arn

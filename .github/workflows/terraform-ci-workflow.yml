@@ -74,7 +74,7 @@ jobs:
       - name: Upload HTML to S3
         run: |
           ls -al
-          aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
+          aws s3 cp ../index.html s3://dyn-bucket-for-static-article-website-dev/
 
 
 # später noch einen parallelen Job anlegen, für Info-Email das ein Deployment gestartet wurde
