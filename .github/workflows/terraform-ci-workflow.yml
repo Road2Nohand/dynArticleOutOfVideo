@@ -9,10 +9,6 @@ jobs:
   terraform_ci:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3    
@@ -33,7 +29,9 @@ jobs:
         run: cd infrastructure/
 
       - name: Terraform Validate
-        run: terraform validate
+        run: |
+          ls -al
+          terraform validate
 
       # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
       - name: Terraform Init
@@ -45,11 +43,17 @@ jobs:
           TF_LOG: "DEBUG"
 
       - name: Terraform Apply 1st
-        run: terraform apply -auto-approve
+        run: |
+          ls -al
+          terraform apply -auto-approve
 
       - name: Terraform Apply 2nd
-        run: terraform apply -auto-approve
+        run: |
+          ls -al
+          terraform apply -auto-approve
 
       # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt
       - name: Upload HTML to S3
-        run: aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
+        run: |
+          ls -al
+          aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
