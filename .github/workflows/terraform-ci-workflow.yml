@@ -9,9 +9,13 @@ jobs:
   terraform_ci:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./infrastructure
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3    
+        uses: actions/checkout@v3
         
       - name: Configure AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
@@ -24,9 +28,6 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
-
-      - name: Change to Infrastructure Directory
-        run: cd infrastructure/
 
       - name: Terraform Validate
         run: |
