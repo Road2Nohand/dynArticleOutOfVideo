@@ -58,14 +58,13 @@ resource "aws_s3_bucket_policy" "public_access" {
     })
 }
 
-/* Wird im Actions Workflow gepushed, weil es ein Artefakt ist und dann kann man auch nur für pushes auf das Artefakt einen deploy workflow bauen 
-resource "aws_s3_object" "index_upload" {
+/* Wird im Actions Workflow gepushed, weil es ein Artefakt ist und dann kann man auch nur für pushes auf das Artefakt einen deploy workflow bauen */
+resource "aws_s3_object" "test_file_upload" {
     bucket          = aws_s3_bucket.website_bucket.id
-    key             = var.html_file_name
-    source          = "../${var.html_file_name}" # Pfad zur lokalen index.html-Datei
-    content_type    = "text/html"
+    key             = "test.txt"
+    source          = "../test.txt" # Pfad zur lokalen index.html-Datei
+    content_type    = "text"
 }
-*/
 
 
 
