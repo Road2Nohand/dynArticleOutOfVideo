@@ -29,6 +29,9 @@ jobs:
         with:
           terraform_version: latest
 
+      - name: Terraform Init 1st
+        run: terraform init
+
       - name: Terraform Validate
         run: |
           ls -al
