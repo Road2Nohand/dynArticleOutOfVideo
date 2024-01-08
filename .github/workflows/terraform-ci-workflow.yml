@@ -35,8 +35,6 @@ jobs:
           ls -al
           terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="region=eu-central-1" -backend-config="key=terraform-state"
           terraform workspace select DEV
-        env:
-          TF_LOG: "DEBUG"
 
       - name: Terraform Validate
         run: |
