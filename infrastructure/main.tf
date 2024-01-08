@@ -112,34 +112,66 @@ resource "github_actions_workflow" "terraform_workflow" {
 
   # Hier kannst du die Konfiguration für deine GitHub Actions definieren
   content = <<-YAML
-    name: Terraform Workflow
-
+    name: Terraform Continuous Integration
+    
     on:
       push:
         branches:
           - main
-
+    
     jobs:
-      terraform:
+      terraform_ci:
         runs-on: ubuntu-latest
-
+    
+        defaults:
+          run:
+            working-directory: ./infrastructure
+    
         steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
-
-        - name: Set up Terraform
-          uses: hashicorp/setup-terraform@v1
-          with:
-            terraform_version: latest
-
-        - name: Terraform Init
-          run: terraform init -backend-config="bucket=your-s3-bucket-name" -backend-config="key=terraform-state"
-
-        - name: Terraform Apply
-          run: terraform apply -auto-approve
-
-        - name: Terraform Apply
-          run: terraform apply -auto-approve
+          - name: Checkout repository
+            uses: actions/checkout@v3
+            
+          - name: Configure AWS CLI
+            uses: aws-actions/configure-aws-credentials@v1
+            with:
+              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              aws-region: eu-central-1
+    
+          - name: Set up Terraform
+            uses: hashicorp/setup-terraform@v2
+            with:
+              terraform_version: latest
+    
+          # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
+          - name: Terraform Init
+            run: |
+              ls -al
+              terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="region=eu-central-1" -backend-config="key=terraform-state"
+              terraform workspace select DEV
+            env:
+              TF_LOG: "DEBUG"
+    
+          - name: Terraform Validate
+            run: |
+              ls -al
+              terraform validate
+    
+          - name: Terraform Apply 1st
+            run: |
+              ls -al
+              terraform apply -auto-approve || true
+    
+          - name: Terraform Apply 2nd
+            run: |
+              ls -al
+              terraform apply -auto-approve
+    
+          # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt
+          - name: Upload HTML to S3
+            run: |
+              ls -al
+              aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
   YAML
 }
 

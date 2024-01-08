@@ -46,7 +46,7 @@ jobs:
       - name: Terraform Apply 1st
         run: |
           ls -al
-          terraform apply -auto-approve
+          terraform apply -auto-approve || true
 
       - name: Terraform Apply 2nd
         run: |
