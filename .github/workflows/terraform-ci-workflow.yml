@@ -40,6 +40,8 @@ jobs:
         run: |
           terraform init
           terraform workspace select DEV
+        env:
+          TF_LOG: "DEBUG"
 
       - name: Terraform Apply 1st
         run: terraform apply -auto-approve
