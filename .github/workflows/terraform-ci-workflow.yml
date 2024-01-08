@@ -1,4 +1,4 @@
-name: Terraform Continuous Integration
+name: Terraform Continuous Integration & Deployment
 
 on:
   push:
@@ -43,6 +43,25 @@ jobs:
           ls -al
           terraform validate
 
+      # Hier später noch einen Plan einfügen, sodass der Apply halb-automatisch ausgeführt werden muss wenn auf den "main" strang gepushed wird, ansonsten bei "develop" voll-automatisiert.
+      
+      #- name: Terraform Plan
+      #  run: |
+      #    ls -al
+      #    timestamp=$(date +"%Y%m%d%H%M%S")
+      #    terraform plan -out=tfplan-${timestamp}
+
+      #- name: Upload Terraform Plan
+      #  run: |
+      #    ls -al
+      #    git add tfplan-*
+      #    git commit -m "Terraform Plan for $(date +"%Y%m%d%H%M%S")"
+      #    git push
+
+      # Damit durch Pushes keine Differenz entsteht zwischen plan und apply, sollte im apply die tfplan-* verwendet werden
+      
+
+      # || true bewirkt ein continue on error -> workaround für die s3 policy
       - name: Terraform Apply 1st
         run: |
           ls -al
@@ -58,3 +77,6 @@ jobs:
         run: |
           ls -al
           aws s3 cp ../index.html s3://s3-bucket-with-static-index-html-dev/
+
+
+# später noch einen parallelen Job anlegen, für Info-Email das ein Deployment gestartet wurde

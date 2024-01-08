@@ -67,6 +67,12 @@ resource "aws_s3_object" "test_file_upload" {
 }
 
 
+/* Outputs */
+
+output "website_url" {
+    value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"
+}
+
 
 
 
@@ -176,19 +182,3 @@ resource "github_actions_workflow" "terraform_workflow" {
 }
 
 */
-
-
-
-
-
-
-
-
-
-
-/* Outputs */
-
-output "website_url" {
-    value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"
-}
-
