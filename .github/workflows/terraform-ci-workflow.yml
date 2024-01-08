@@ -38,7 +38,7 @@ jobs:
       # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
       - name: Terraform Init
         run: |
-          terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="key=terraform-state"
+          terraform init -backend-config="bucket=terraform-state-sportsvideo-to-article" -backend-config="key=env:/DEV/terraform-state"
           terraform workspace select DEV
 
       - name: Terraform Apply 1st

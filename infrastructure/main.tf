@@ -155,10 +155,9 @@ resource "github_actions_workflow" "terraform_workflow" {
 
 
 
-/* Outputs (ist in GitHub Actions deprecated und sollte besser mit .env's gehandelt werden)
+/* Outputs */
 
 output "website_url" {
     value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"
 }
 
-*/
