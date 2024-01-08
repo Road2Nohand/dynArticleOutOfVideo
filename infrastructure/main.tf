@@ -14,11 +14,15 @@ variable "website_bucket_name" {
     type = string
 }
 
+variable "html_file_name" {
+    type = string
+}
+
 variable "video_bucket_name" {
     type = string
 }
 
-variable "html_file_name" {
+variable "transcribe_bucket_name" {
     type = string
 }
 
@@ -116,7 +120,7 @@ resource "aws_lambda_function_url" "transcribe_lambda_function_url" {
     depends_on = [aws_lambda_function.transcribe_lambda_function]
 }
 
-# Lambda die Rechte den S3 Bucket lesen zu dürfen
+# Video-Bucket die Rechte geben die Lambda-Function zu triggern, wenn eine .mp4 hochgeladen wurde
 resource "aws_lambda_permission" "allow_bucket" {
   statement_id  = "AllowExecutionFromS3Bucket"
   action        = "lambda:InvokeFunction"
@@ -124,9 +128,7 @@ resource "aws_lambda_permission" "allow_bucket" {
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.video_bucket.arn
 }
-
-
-resource "aws_s3_bucket_notification" "lambda_trigger" {
+resource "aws_s3_bucket_notification" "lambda_mp4_upload_trigger" {
   bucket = aws_s3_bucket.video_bucket.id
 
   lambda_function {
@@ -135,6 +137,51 @@ resource "aws_s3_bucket_notification" "lambda_trigger" {
     filter_suffix       = ".mp4"
   }
 }
+
+# transcribe-function die Berechtigung geben, den Video-Bucket zu lesen
+resource "aws_iam_policy" "policy_transcribe_function_can_read_video_bucket_files" {
+  name = "policy_transcribe_function_can_read_video_bucket_files"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",  # Berechtigung zum Lesen von Objekten im Bucket
+          "s3:ListBucket", # Berechtigung zum Auflisten des Bucket-Inhalts
+        ],
+        Effect   = "Allow",
+        Resource = [
+          aws_s3_bucket.video_bucket.arn,
+          "${aws_s3_bucket.video_bucket.arn}/*",
+        ],
+      },
+    ],
+  })
+}
+
+# Video-Bucket Lese Policy der Rolle geben und der transcribe-function zuweisen
+resource "aws_iam_role" "lambda_video_read_role" {
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com",
+        },
+      },
+    ],
+  })
+
+  # IAM-Policy zur Rolle hinzufügen
+  inline_policy {
+    name   = "s3_policy"
+    policy = aws_iam_policy.policy_transcribe_function_can_read_video_bucket_files.policy
+  }
+}
+
 
 
 
