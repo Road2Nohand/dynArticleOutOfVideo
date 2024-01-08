@@ -114,7 +114,7 @@ resource "aws_s3_bucket_notification" "lambda_trigger" {
 
   lambda_function {
     lambda_function_arn = aws_lambda_function.transcribe_lambda_function.arn
-    events = ["s3:ObjectCreated:Post"]
+    events = ["s3:ObjectCreated:*"]
     filter_suffix       = ".mp4"
   }
 }
