@@ -29,14 +29,6 @@ jobs:
         with:
           terraform_version: latest
 
-      - name: Terraform Init 1st
-        run: terraform init
-
-      - name: Terraform Validate
-        run: |
-          ls -al
-          terraform validate
-
       # Den Workspace Wechsel, sollte man später branch-abhängig machen DEV -> develop und PROD -> main
       - name: Terraform Init
         run: |
@@ -45,6 +37,11 @@ jobs:
           terraform workspace select DEV
         env:
           TF_LOG: "DEBUG"
+
+      - name: Terraform Validate
+        run: |
+          ls -al
+          terraform validate
 
       - name: Terraform Apply 1st
         run: |
