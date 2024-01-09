@@ -2,7 +2,7 @@
 
 Task 1:
 
-* Create a **working prototype** that automatically creates an article out of video Content (using AWS Services
+* Create a **working prototype** that automatically creates an article out of video Content (using AWS Services)
   * The Article should contain text and a relevant picture to the article.
   * Use IaC only
 

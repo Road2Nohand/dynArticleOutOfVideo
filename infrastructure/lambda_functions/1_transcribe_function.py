@@ -7,13 +7,13 @@ def handler(event, context):
     s3 = boto3.client('s3')
     transcribe = boto3.client('transcribe')
 
+    # Terraform Umgebungsvariablen auslesen
+    website_bucket_path = os.environ.get('WEBSITE_BUCKET_PATH')
+    data_access_role_arn = os.environ.get('DATA_ACCESS_ROLE_ARN')
+
     for record in event['Records']:
         bucket_name = record['s3']['bucket']['name']
         file_name = record['s3']['object']['key']
-
-        # Terraform Umgebungsvariablen auslesen
-        transcribe_bucket_path = os.environ.get('TRANSCRIBE_BUCKET_PATH')
-        data_access_role_arn = os.environ.get('DATA_ACCESS_ROLE_ARN')
 
         print(f"Transcribe-Function: {file_name} wurde in bucket {bucket_name} hochgeladen!")
 
@@ -24,7 +24,7 @@ def handler(event, context):
         transcribe.start_call_analytics_job(
             CallAnalyticsJobName=job_name,
             Media={'MediaFileUri': file_uri},
-            OutputLocation=transcribe_bucket_path,
+            OutputLocation=website_bucket_path,
             DataAccessRoleArn=data_access_role_arn,
             Settings={
                 # Hier können spezifische Einstellungen für Call Analytics angepasst werden

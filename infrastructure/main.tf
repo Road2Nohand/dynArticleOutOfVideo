@@ -10,6 +10,8 @@ terraform {
   }
 }
 
+#region Variables
+
 variable "website_bucket_name" {
     type = string
 }
@@ -22,10 +24,10 @@ variable "video_bucket_name" {
     type = string
 }
 
-variable "transcribe_bucket_name" {
-    type = string
-}
+#endregion Variables
 
+
+#region website_bucket
 
 resource "aws_s3_bucket" "website_bucket" {
     bucket          = "${var.website_bucket_name}-${lower(terraform.workspace)}"
@@ -49,7 +51,8 @@ resource "aws_s3_bucket_public_access_block" "public_access_block" {
     restrict_public_buckets = false # wenn true, können nur autorisierte user zugreifen
 }
 
-resource "aws_s3_bucket_policy" "public_access" {
+# index.html im website_bucket ist öffentlich lesbar
+resource "aws_s3_bucket_policy" "policy_website_bucket_public_read_access_to_specific_files" {
     bucket                  = aws_s3_bucket.website_bucket.id
     depends_on              = [aws_s3_bucket.website_bucket]
     policy                  = jsonencode({
@@ -66,45 +69,40 @@ resource "aws_s3_bucket_policy" "public_access" {
     })
 }
 
-/* Outputs */
-
 output "website_url" {
     value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"
 }
 
+#endregion website_bucket
 
 
-# Bucket für die Videos
+#region transcribe_function und video_bucket
+
+# video_bucket für die .mp4's
 resource "aws_s3_bucket" "video_bucket" {
     bucket          = "${var.video_bucket_name}-${lower(terraform.workspace)}"
     force_destroy   = true
 }
 
-# Bucket für Transcribe-Ergebnisse
-resource "aws_s3_bucket" "transcribe_bucket" {
-    bucket          = "${var.transcribe_bucket_name}-${lower(terraform.workspace)}"
-    force_destroy   = true
-}
-
-# IAM-Rolle für die Lambda-Funktion
+# IAM-Rolle für die Lambda-Funktion, damit sie Events an "CloudWatch" senden kann
 resource "aws_iam_role" "lambda_transcribe_role" {
     assume_role_policy = jsonencode({
         Version = "2012-10-17",
         Statement = [
             {
                 Action = "sts:AssumeRole",
-                Effect = "Allow",
+                Effect = "Allow", # erlaubt der Lambda-Funktion diese Rolle anzunehmen
                 Principal = {
-                    Service = "lambda.amazonaws.com"
+                    Service = "lambda.amazonaws.com" # nur Lambda-Funktionen dürfen diese Rolle annehmen
                 }
             }
         ]
     })
 
-    managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
+    managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"] # AWS Managed Policy für Lambda-Funktionen
 }
 
-# IAM-Policy für Lesezugriff auf den Video-Bucket
+# IAM-Policy für Read-Access auf den Video-Bucket von der transcribe_function
 resource "aws_iam_policy" "policy_transcribe_function_can_read_video_bucket_files" {
     name = "policy_transcribe_function_can_read_video_bucket_files"
 
@@ -126,9 +124,9 @@ resource "aws_iam_policy" "policy_transcribe_function_can_read_video_bucket_file
     })
 }
 
-# IAM-Policy für Zugriff auf den Transcribe-Bucket
-resource "aws_iam_policy" "policy_transcribe_function_can_access_transcribe_bucket" {
-    name = "policy_transcribe_function_can_access_transcribe_bucket"
+# IAM-Policy für Write-Access auf den Website-Bucket, für Transkribierungsergebnisse
+resource "aws_iam_policy" "policy_transcribe_function_can_write_to_website_bucket" {
+    name = "policy_transcribe_function_can_write_to_website_bucket"
 
     policy = jsonencode({
         Version = "2012-10-17",
@@ -142,8 +140,8 @@ resource "aws_iam_policy" "policy_transcribe_function_can_access_transcribe_buck
                 ],
                 Effect = "Allow",
                 Resource = [
-                    aws_s3_bucket.transcribe_bucket.arn,
-                    "${aws_s3_bucket.transcribe_bucket.arn}/*"
+                    aws_s3_bucket.website_bucket.arn,
+                    "${aws_s3_bucket.website_bucket.arn}/*"
                 ]
             }
         ]
@@ -155,10 +153,17 @@ resource "aws_iam_role_policy_attachment" "attach_video_bucket_policy" {
     policy_arn = aws_iam_policy.policy_transcribe_function_can_read_video_bucket_files.arn
     role       = aws_iam_role.lambda_transcribe_role.name
 }
-
-resource "aws_iam_role_policy_attachment" "attach_transcribe_bucket_policy" {
-    policy_arn = aws_iam_policy.policy_transcribe_function_can_access_transcribe_bucket.arn
+resource "aws_iam_role_policy_attachment" "attach_website_bucket_policy" {
+    policy_arn = aws_iam_policy.policy_transcribe_function_can_write_to_website_bucket.arn
     role       = aws_iam_role.lambda_transcribe_role.name
+}
+
+
+# Data Block zum Zippen des Lambda-Funktionscodes
+data "archive_file" "lambda_function_zip" {
+    type        = "zip"
+    source_dir  = "lambda_functions"
+    output_path = "${path.module}/1_transcribe__function.zip"
 }
 
 # Lambda-Funktion für Transkription
@@ -172,14 +177,14 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
     # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
     environment {
         variables = {
-            TRANSCRIBE_BUCKET_PATH = aws_s3_bucket.transcribe_bucket.bucket
+            WEBSITE_BUCKET_PATH = aws_s3_bucket.website_bucket.bucket
             DATA_ACCESS_ROLE_ARN   = aws_iam_role.lambda_transcribe_role.arn
         }
     }
 }
 
-# Lambda-Funktionstrigger durch S3 Video-Bucket
-resource "aws_lambda_permission" "allow_bucket" {
+# Video-Bucket erlauben Transcribe-Function zu triggern bei .mp4 Upload
+resource "aws_lambda_permission" "allow_video_bucket_to_trigger_transcribe_function" {
     statement_id  = "AllowExecutionFromS3Bucket"
     action        = "lambda:InvokeFunction"
     function_name = aws_lambda_function.transcribe_lambda_function.function_name
@@ -187,6 +192,7 @@ resource "aws_lambda_permission" "allow_bucket" {
     source_arn    = aws_s3_bucket.video_bucket.arn
 }
 
+# S3 Event wenn .mp4 in Video-Bucket hochgeladen wird
 resource "aws_s3_bucket_notification" "lambda_mp4_upload_trigger" {
     bucket = aws_s3_bucket.video_bucket.id
 
@@ -197,11 +203,13 @@ resource "aws_s3_bucket_notification" "lambda_mp4_upload_trigger" {
     }
 }
 
+#endregion transcribe_function und video_bucket
 
 
 
 
 
+#region GitHub Actions
 
 /* GitHub Repo und Github-Actions Workflow selbst auch über Terraform anlegen lassen, falls Änderungen am Repo oder am Workflow commitet werden
 
@@ -308,3 +316,5 @@ resource "github_actions_workflow" "terraform_workflow" {
 }
 
 */
+
+#endregion GitHub Actions
