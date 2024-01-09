@@ -70,6 +70,11 @@ jobs:
           ls -al
           terraform apply -auto-approve
 
+      - name: Terraform Apply 3rd
+        run: |
+          ls -al
+          terraform apply -auto-approve
+
       # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt
       - name: Upload HTML to S3
         run: |
