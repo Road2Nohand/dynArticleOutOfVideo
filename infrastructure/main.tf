@@ -84,7 +84,7 @@ resource "aws_s3_bucket" "video_bucket" {
     force_destroy   = true
 }
 
-# IAM-Rolle für die Lambda-Funktion, damit sie Events an "CloudWatch" senden kann
+# IAM-Rolle für die Lambda-Funktion, damit sie Events an "CloudWatch" senden kann, wird später noch um Policies für Video-Bucket und Website-Bucket Rechte erweitert
 resource "aws_iam_role" "lambda_transcribe_role" {
     assume_role_policy = jsonencode({
         Version = "2012-10-17",
@@ -100,6 +100,23 @@ resource "aws_iam_role" "lambda_transcribe_role" {
     })
 
     managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"] # AWS Managed Policy für Lambda-Funktionen
+}
+
+# IAM-Rolle für AWS Transcribe, die später per PassRole von der transcribe_function an AWS Transcribe weitergegeben wird
+resource "aws_iam_role" "transcribe_role" {
+    name = "transcribe_role"
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17",
+        Statement = [
+            {
+                Effect = "Allow",
+                Principal = {
+                    Service = "transcribe.amazonaws.com" # Nur Transcribe Ressourcen dürfen diese Rolle annehmen
+                },
+                Action = "sts:AssumeRole"
+            }
+        ]
+    })
 }
 
 # IAM-Policy für Read-Access auf den Video-Bucket von der transcribe_function
@@ -148,6 +165,40 @@ resource "aws_iam_policy" "policy_transcribe_function_can_write_to_website_bucke
     })
 }
 
+# IAM-Policy für PassRole-Aktion
+resource "aws_iam_policy" "lambda_pass_role_policy" {
+    name = "lambda_pass_role_policy"
+    policy = jsonencode({
+        Version = "2012-10-17",
+        Statement = [
+            {
+                Effect = "Allow",
+                Action = "iam:PassRole",
+                Resource = aws_iam_role.transcribe_role.arn
+            }
+        ]
+    })
+}
+
+resource "aws_iam_policy" "lambda_transcribe_policy" {
+  name = "lambda_transcribe_policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "transcribe:StartCallAnalyticsJob",
+          "transcribe:GetCallAnalyticsJob"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
 # Anhängen der IAM-Policies an die Lambda-Rolle
 resource "aws_iam_role_policy_attachment" "attach_video_bucket_policy" {
     policy_arn = aws_iam_policy.policy_transcribe_function_can_read_video_bucket_files.arn
@@ -157,13 +208,26 @@ resource "aws_iam_role_policy_attachment" "attach_website_bucket_policy" {
     policy_arn = aws_iam_policy.policy_transcribe_function_can_write_to_website_bucket.arn
     role       = aws_iam_role.lambda_transcribe_role.name
 }
-
+resource "aws_iam_role_policy_attachment" "attach_pass_role_policy" {
+    policy_arn = aws_iam_policy.lambda_pass_role_policy.arn
+    role       = aws_iam_role.lambda_transcribe_role.name
+}
+resource "aws_iam_role_policy_attachment" "attach_lambda_transcribe_policy" {
+  policy_arn = aws_iam_policy.lambda_transcribe_policy.arn
+  role       = aws_iam_role.lambda_transcribe_role.name
+}
 
 # Data Block zum Zippen des Lambda-Funktionscodes
 data "archive_file" "lambda_function_zip" {
     type        = "zip"
     source_dir  = "lambda_functions"
     output_path = "${path.module}/1_transcribe__function.zip"
+}
+
+# Damit die ARN der lambda_transcribe_role immer aktuell bleibt, auch wenn Änderungen an der ARN vorgenommen werden, wenn Terraform apply mehrmals ausgeführt wird
+data "aws_iam_role" "transcribe_role" {
+  name = "transcribe_role"
+  depends_on = [aws_iam_role.transcribe_role]
 }
 
 # Lambda-Funktion für Transkription
@@ -173,12 +237,13 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
     runtime       = "python3.9"
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
+    timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden
 
     # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
     environment {
         variables = {
             WEBSITE_BUCKET_PATH = aws_s3_bucket.website_bucket.bucket
-            DATA_ACCESS_ROLE_ARN   = aws_iam_role.lambda_transcribe_role.arn
+            DATA_ACCESS_ROLE_ARN = data.aws_iam_role.transcribe_role.arn
         }
     }
 }
