@@ -1,0 +1,2734 @@
+{
+    "AccountId": "194277335307",
+    "JobName": "BundesligaSpiel_Stereo-20240109205158",
+    "LanguageCode": "de-DE",
+    "JobStatus": "COMPLETED",
+    "Channel": "VOICE",
+    "Participants": [
+        {
+            "ParticipantRole": "AGENT"
+        },
+        {
+            "ParticipantRole": "CUSTOMER"
+        }
+    ],
+    "ContentMetadata": {
+        "Output": "Raw"
+    },
+    "Categories": {
+        "MatchedCategories": [],
+        "MatchedDetails": {}
+    },
+    "ConversationCharacteristics": {
+        "TotalConversationDurationMillis": 107959,
+        "NonTalkTime": {
+            "TotalTimeMillis": 8611,
+            "Instances": [
+                {
+                    "BeginOffsetMillis": 79150,
+                    "EndOffsetMillis": 84050,
+                    "DurationMillis": 4900
+                },
+                {
+                    "BeginOffsetMillis": 95519,
+                    "EndOffsetMillis": 99230,
+                    "DurationMillis": 3711
+                }
+            ]
+        },
+        "TalkTime": {
+            "TotalTimeMillis": 140086,
+            "DetailsByParticipant": {
+                "AGENT": {
+                    "TotalTimeMillis": 89876
+                },
+                "CUSTOMER": {
+                    "TotalTimeMillis": 50210
+                }
+            }
+        },
+        "TalkSpeed": {
+            "DetailsByParticipant": {
+                "AGENT": {
+                    "AverageWordsPerMinute": 95
+                },
+                "CUSTOMER": {
+                    "AverageWordsPerMinute": 176
+                }
+            }
+        },
+        "Interruptions": {
+            "TotalCount": 7,
+            "TotalTimeMillis": 42720,
+            "InterruptionsByInterrupter": {
+                "CUSTOMER": [
+                    {
+                        "BeginOffsetMillis": 4849,
+                        "EndOffsetMillis": 20270,
+                        "DurationMillis": 15421
+                    },
+                    {
+                        "BeginOffsetMillis": 25290,
+                        "EndOffsetMillis": 29239,
+                        "DurationMillis": 3949
+                    },
+                    {
+                        "BeginOffsetMillis": 32840,
+                        "EndOffsetMillis": 36669,
+                        "DurationMillis": 3829
+                    },
+                    {
+                        "BeginOffsetMillis": 37860,
+                        "EndOffsetMillis": 45090,
+                        "DurationMillis": 7230
+                    },
+                    {
+                        "BeginOffsetMillis": 70589,
+                        "EndOffsetMillis": 75919,
+                        "DurationMillis": 5330
+                    },
+                    {
+                        "BeginOffsetMillis": 85959,
+                        "EndOffsetMillis": 90889,
+                        "DurationMillis": 4930
+                    },
+                    {
+                        "BeginOffsetMillis": 103589,
+                        "EndOffsetMillis": 105620,
+                        "DurationMillis": 2031
+                    }
+                ]
+            }
+        },
+        "Sentiment": {
+            "OverallSentiment": {
+                "AGENT": 2.5,
+                "CUSTOMER": 0.0
+            },
+            "SentimentByPeriod": {
+                "QUARTER": {
+                    "AGENT": [
+                        {
+                            "BeginOffsetMillis": 0,
+                            "EndOffsetMillis": 26989,
+                            "Score": 0.0
+                        },
+                        {
+                            "BeginOffsetMillis": 26989,
+                            "EndOffsetMillis": 53979,
+                            "Score": 0.0
+                        },
+                        {
+                            "BeginOffsetMillis": 53979,
+                            "EndOffsetMillis": 80969,
+                            "Score": 0.0
+                        },
+                        {
+                            "BeginOffsetMillis": 80969,
+                            "EndOffsetMillis": 107959,
+                            "Score": 5.0
+                        }
+                    ],
+                    "CUSTOMER": [
+                        {
+                            "BeginOffsetMillis": 0,
+                            "EndOffsetMillis": 26405,
+                            "Score": -3.8
+                        },
+                        {
+                            "BeginOffsetMillis": 26405,
+                            "EndOffsetMillis": 52810,
+                            "Score": 0.0
+                        },
+                        {
+                            "BeginOffsetMillis": 52810,
+                            "EndOffsetMillis": 79215,
+                            "Score": 5.0
+                        },
+                        {
+                            "BeginOffsetMillis": 79215,
+                            "EndOffsetMillis": 105620,
+                            "Score": 3.3
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Transcript": [
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                66.77,
+                68.55,
+                68.24,
+                74.46,
+                82.74,
+                80.85,
+                80.87,
+                83.1
+            ],
+            "Content": "ein herzliches Willkommen zu einem DFB Pokal Klassiker und das, obwohl dieses Spiel gerade mal etwas mehr als ein Jahr zurückliegt.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.941",
+                    "Content": "ein",
+                    "BeginOffsetMillis": 1509,
+                    "EndOffsetMillis": 1710
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.887",
+                    "Content": "herzliches",
+                    "BeginOffsetMillis": 1730,
+                    "EndOffsetMillis": 2140
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.97",
+                    "Content": "Willkommen",
+                    "BeginOffsetMillis": 2150,
+                    "EndOffsetMillis": 2509
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.955",
+                    "Content": "zu",
+                    "BeginOffsetMillis": 2519,
+                    "EndOffsetMillis": 2670
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.952",
+                    "Content": "einem",
+                    "BeginOffsetMillis": 2690,
+                    "EndOffsetMillis": 2829
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.858",
+                    "Content": "DFB",
+                    "BeginOffsetMillis": 2960,
+                    "EndOffsetMillis": 3309
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.856",
+                    "Content": "Pokal",
+                    "BeginOffsetMillis": 3319,
+                    "EndOffsetMillis": 3880
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.242",
+                    "Content": "Klassiker",
+                    "BeginOffsetMillis": 3890,
+                    "EndOffsetMillis": 4849
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.871",
+                    "Content": "und",
+                    "BeginOffsetMillis": 4900,
+                    "EndOffsetMillis": 4989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.889",
+                    "Content": "das",
+                    "BeginOffsetMillis": 5000,
+                    "EndOffsetMillis": 5179
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.968",
+                    "Content": "obwohl",
+                    "BeginOffsetMillis": 5230,
+                    "EndOffsetMillis": 5489
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "dieses",
+                    "BeginOffsetMillis": 5530,
+                    "EndOffsetMillis": 5789
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.985",
+                    "Content": "Spiel",
+                    "BeginOffsetMillis": 5800,
+                    "EndOffsetMillis": 6110
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.985",
+                    "Content": "gerade",
+                    "BeginOffsetMillis": 6119,
+                    "EndOffsetMillis": 6469
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.957",
+                    "Content": "mal",
+                    "BeginOffsetMillis": 6480,
+                    "EndOffsetMillis": 6670
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "etwas",
+                    "BeginOffsetMillis": 6679,
+                    "EndOffsetMillis": 6980
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "mehr",
+                    "BeginOffsetMillis": 6989,
+                    "EndOffsetMillis": 7360
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "als",
+                    "BeginOffsetMillis": 7380,
+                    "EndOffsetMillis": 7570
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "ein",
+                    "BeginOffsetMillis": 7579,
+                    "EndOffsetMillis": 7769
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "Jahr",
+                    "BeginOffsetMillis": 7780,
+                    "EndOffsetMillis": 8010
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.691",
+                    "Content": "zurückliegt",
+                    "BeginOffsetMillis": 8020,
+                    "EndOffsetMillis": 8659
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 1509,
+            "EndOffsetMillis": 8659,
+            "Sentiment": "MIXED",
+            "Id": "d382835d-217f-44ae-8472-ad0eea6cb6a0"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                89.75,
+                89.89,
+                89.75,
+                89.78,
+                93.08,
+                90.37,
+                90.77,
+                90.33,
+                88.95,
+                87.94,
+                91.04,
+                90.17,
+                90.46,
+                91.24,
+                91.98
+            ],
+            "Content": "ja auch von mir, ich bin ja als zweiter Moderator dabei, ich simuliere quasi einen agenten, der normalerweise beim as callcenter mit dabei wäre beim Amazon Callcenter als die zweite Auto Spur, die man dann natürlich durch einen zweiten Moderator später ersetzen könnte.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.93",
+                    "Content": "ja",
+                    "BeginOffsetMillis": 4849,
+                    "EndOffsetMillis": 5139
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.962",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 5150,
+                    "EndOffsetMillis": 5239
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.977",
+                    "Content": "von",
+                    "BeginOffsetMillis": 5250,
+                    "EndOffsetMillis": 5400
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "mir",
+                    "BeginOffsetMillis": 5409,
+                    "EndOffsetMillis": 5860
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 6300,
+                    "EndOffsetMillis": 6710
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "bin",
+                    "BeginOffsetMillis": 6719,
+                    "EndOffsetMillis": 6820
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.986",
+                    "Content": "ja",
+                    "BeginOffsetMillis": 6829,
+                    "EndOffsetMillis": 6969
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "als",
+                    "BeginOffsetMillis": 6980,
+                    "EndOffsetMillis": 7099
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "zweiter",
+                    "BeginOffsetMillis": 7110,
+                    "EndOffsetMillis": 7500
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "Moderator",
+                    "BeginOffsetMillis": 7510,
+                    "EndOffsetMillis": 7989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "dabei",
+                    "BeginOffsetMillis": 8000,
+                    "EndOffsetMillis": 8409
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 8420,
+                    "EndOffsetMillis": 8680
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.953",
+                    "Content": "simuliere",
+                    "BeginOffsetMillis": 8689,
+                    "EndOffsetMillis": 9109
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "quasi",
+                    "BeginOffsetMillis": 9119,
+                    "EndOffsetMillis": 9420
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.564",
+                    "Content": "einen",
+                    "BeginOffsetMillis": 9430,
+                    "EndOffsetMillis": 9539
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.696",
+                    "Content": "agenten",
+                    "BeginOffsetMillis": 9550,
+                    "EndOffsetMillis": 9869
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "der",
+                    "BeginOffsetMillis": 9880,
+                    "EndOffsetMillis": 9989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "normalerweise",
+                    "BeginOffsetMillis": 10000,
+                    "EndOffsetMillis": 10779
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "beim",
+                    "BeginOffsetMillis": 10970,
+                    "EndOffsetMillis": 11340
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.799",
+                    "Content": "as",
+                    "BeginOffsetMillis": 11350,
+                    "EndOffsetMillis": 11909
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.513",
+                    "Content": "callcenter",
+                    "BeginOffsetMillis": 11920,
+                    "EndOffsetMillis": 12149
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "mit",
+                    "BeginOffsetMillis": 12159,
+                    "EndOffsetMillis": 12310
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "dabei",
+                    "BeginOffsetMillis": 12319,
+                    "EndOffsetMillis": 12579
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "wäre",
+                    "BeginOffsetMillis": 12590,
+                    "EndOffsetMillis": 12810
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.836",
+                    "Content": "beim",
+                    "BeginOffsetMillis": 12819,
+                    "EndOffsetMillis": 13020
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.602",
+                    "Content": "Amazon",
+                    "BeginOffsetMillis": 13029,
+                    "EndOffsetMillis": 13250
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.645",
+                    "Content": "Callcenter",
+                    "BeginOffsetMillis": 13260,
+                    "EndOffsetMillis": 13949
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.567",
+                    "Content": "als",
+                    "BeginOffsetMillis": 14819,
+                    "EndOffsetMillis": 14880
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "die",
+                    "BeginOffsetMillis": 14890,
+                    "EndOffsetMillis": 14989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.988",
+                    "Content": "zweite",
+                    "BeginOffsetMillis": 15000,
+                    "EndOffsetMillis": 15229
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.475",
+                    "Content": "Auto",
+                    "BeginOffsetMillis": 15239,
+                    "EndOffsetMillis": 15409
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.018",
+                    "Content": "Spur",
+                    "BeginOffsetMillis": 15420,
+                    "EndOffsetMillis": 15560
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "die",
+                    "BeginOffsetMillis": 15569,
+                    "EndOffsetMillis": 15680
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "man",
+                    "BeginOffsetMillis": 15689,
+                    "EndOffsetMillis": 15800
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.958",
+                    "Content": "dann",
+                    "BeginOffsetMillis": 15810,
+                    "EndOffsetMillis": 15890
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.992",
+                    "Content": "natürlich",
+                    "BeginOffsetMillis": 15899,
+                    "EndOffsetMillis": 16399
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "durch",
+                    "BeginOffsetMillis": 16409,
+                    "EndOffsetMillis": 16700
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "einen",
+                    "BeginOffsetMillis": 16709,
+                    "EndOffsetMillis": 16909
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "zweiten",
+                    "BeginOffsetMillis": 16920,
+                    "EndOffsetMillis": 17209
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "Moderator",
+                    "BeginOffsetMillis": 17219,
+                    "EndOffsetMillis": 17659
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "später",
+                    "BeginOffsetMillis": 17670,
+                    "EndOffsetMillis": 17959
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "ersetzen",
+                    "BeginOffsetMillis": 17969,
+                    "EndOffsetMillis": 18350
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "könnte",
+                    "BeginOffsetMillis": 18360,
+                    "EndOffsetMillis": 18709
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 4849,
+            "EndOffsetMillis": 18709,
+            "Sentiment": "NEUTRAL",
+            "Id": "a2b5a220-3231-45ad-8dbe-04ab52c58636"
+        },
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                83.1,
+                80.67,
+                78.25,
+                79.65,
+                79.91,
+                79.15,
+                78.52,
+                82.38,
+                81.88,
+                81.67,
+                80.91,
+                79.91,
+                76.29,
+                65.52,
+                62.65
+            ],
+            "Content": "Wir befinden uns am 27. Oktober 2021, 20,45 im Borussia Park. Das Duell der zweiten Runde wartet auf uns Borussia Mönchengladbach empfängt den FC Bayern München.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.988",
+                    "Content": "Wir",
+                    "BeginOffsetMillis": 8670,
+                    "EndOffsetMillis": 8970
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.983",
+                    "Content": "befinden",
+                    "BeginOffsetMillis": 8979,
+                    "EndOffsetMillis": 9529
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "uns",
+                    "BeginOffsetMillis": 9539,
+                    "EndOffsetMillis": 9739
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "am",
+                    "BeginOffsetMillis": 9750,
+                    "EndOffsetMillis": 9869
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "27",
+                    "BeginOffsetMillis": 9880,
+                    "EndOffsetMillis": 10500
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "Oktober",
+                    "BeginOffsetMillis": 10510,
+                    "EndOffsetMillis": 11229
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "2021",
+                    "BeginOffsetMillis": 11239,
+                    "EndOffsetMillis": 12510
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.977",
+                    "Content": "20,45",
+                    "BeginOffsetMillis": 12520,
+                    "EndOffsetMillis": 13789
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.984",
+                    "Content": "im",
+                    "BeginOffsetMillis": 14199,
+                    "EndOffsetMillis": 14539
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.971",
+                    "Content": "Borussia",
+                    "BeginOffsetMillis": 14550,
+                    "EndOffsetMillis": 15409
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.814",
+                    "Content": "Park",
+                    "BeginOffsetMillis": 15420,
+                    "EndOffsetMillis": 15619
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "Das",
+                    "BeginOffsetMillis": 15630,
+                    "EndOffsetMillis": 15869
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "Duell",
+                    "BeginOffsetMillis": 15880,
+                    "EndOffsetMillis": 16209
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "der",
+                    "BeginOffsetMillis": 16629,
+                    "EndOffsetMillis": 16889
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.922",
+                    "Content": "zweiten",
+                    "BeginOffsetMillis": 16899,
+                    "EndOffsetMillis": 17250
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "Runde",
+                    "BeginOffsetMillis": 17260,
+                    "EndOffsetMillis": 17690
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.992",
+                    "Content": "wartet",
+                    "BeginOffsetMillis": 17700,
+                    "EndOffsetMillis": 18139
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "auf",
+                    "BeginOffsetMillis": 18149,
+                    "EndOffsetMillis": 18370
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "uns",
+                    "BeginOffsetMillis": 18379,
+                    "EndOffsetMillis": 18700
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.856",
+                    "Content": "Borussia",
+                    "BeginOffsetMillis": 18709,
+                    "EndOffsetMillis": 19090
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.922",
+                    "Content": "Mönchengladbach",
+                    "BeginOffsetMillis": 19100,
+                    "EndOffsetMillis": 19829
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.974",
+                    "Content": "empfängt",
+                    "BeginOffsetMillis": 19840,
+                    "EndOffsetMillis": 20530
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "den",
+                    "BeginOffsetMillis": 20540,
+                    "EndOffsetMillis": 20850
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "FC",
+                    "BeginOffsetMillis": 20860,
+                    "EndOffsetMillis": 21379
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "Bayern",
+                    "BeginOffsetMillis": 21389,
+                    "EndOffsetMillis": 22000
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.986",
+                    "Content": "München",
+                    "BeginOffsetMillis": 22010,
+                    "EndOffsetMillis": 22520
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 8670,
+            "EndOffsetMillis": 22520,
+            "Sentiment": "NEUTRAL",
+            "Id": "77ef09cd-2dc2-41d4-b28a-d756c3b67525"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                91.98,
+                89.55,
+                88.68
+            ],
+            "Content": "Hätte man zwei audiospur",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "Hätte",
+                    "BeginOffsetMillis": 18719,
+                    "EndOffsetMillis": 19090
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "man",
+                    "BeginOffsetMillis": 19100,
+                    "EndOffsetMillis": 19260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "zwei",
+                    "BeginOffsetMillis": 19270,
+                    "EndOffsetMillis": 19559
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.298",
+                    "Content": "audiospur",
+                    "BeginOffsetMillis": 19569,
+                    "EndOffsetMillis": 20270
+                }
+            ],
+            "BeginOffsetMillis": 18719,
+            "EndOffsetMillis": 20270,
+            "Sentiment": "NEGATIVE",
+            "Id": "25b835c1-e066-43bd-92b1-edf63690dc0b"
+        },
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                62.65,
+                63.64,
+                63.52,
+                79.13,
+                81.46,
+                84.15,
+                78.54,
+                74.12,
+                64.62,
+                60.35,
+                65.35,
+                80.97,
+                80.36,
+                82.06,
+                79.01,
+                67.32,
+                86.09,
+                83.02,
+                82.88,
+                79.06,
+                78.19,
+                83.64,
+                83.26,
+                77.8
+            ],
+            "Content": "Eines der historischsten Duelle Freistoß Hofmann ja, Kopfballchance, aber letzten Endes Bence Bai Doch ein gutes Stück über neues Tor haben wie Benin ein extrem torgefährlicher Außenverteidiger.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "Eines",
+                    "BeginOffsetMillis": 22530,
+                    "EndOffsetMillis": 22979
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "der",
+                    "BeginOffsetMillis": 22989,
+                    "EndOffsetMillis": 23540
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.978",
+                    "Content": "historischsten",
+                    "BeginOffsetMillis": 23610,
+                    "EndOffsetMillis": 24670
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "Duelle",
+                    "BeginOffsetMillis": 24680,
+                    "EndOffsetMillis": 25219
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.751",
+                    "Content": "Freistoß",
+                    "BeginOffsetMillis": 26739,
+                    "EndOffsetMillis": 27450
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.215",
+                    "Content": "Hofmann",
+                    "BeginOffsetMillis": 27459,
+                    "EndOffsetMillis": 28059
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.734",
+                    "Content": "ja",
+                    "BeginOffsetMillis": 29629,
+                    "EndOffsetMillis": 29649
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.756",
+                    "Content": "Kopfballchance",
+                    "BeginOffsetMillis": 29659,
+                    "EndOffsetMillis": 30750
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.977",
+                    "Content": "aber",
+                    "BeginOffsetMillis": 30799,
+                    "EndOffsetMillis": 31260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "letzten",
+                    "BeginOffsetMillis": 31270,
+                    "EndOffsetMillis": 31600
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.946",
+                    "Content": "Endes",
+                    "BeginOffsetMillis": 31610,
+                    "EndOffsetMillis": 31969
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.564",
+                    "Content": "Bence",
+                    "BeginOffsetMillis": 31979,
+                    "EndOffsetMillis": 32270
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.249",
+                    "Content": "Bai",
+                    "BeginOffsetMillis": 32279,
+                    "EndOffsetMillis": 32540
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.956",
+                    "Content": "Doch",
+                    "BeginOffsetMillis": 34270,
+                    "EndOffsetMillis": 34560
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.948",
+                    "Content": "ein",
+                    "BeginOffsetMillis": 34569,
+                    "EndOffsetMillis": 34770
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.992",
+                    "Content": "gutes",
+                    "BeginOffsetMillis": 34779,
+                    "EndOffsetMillis": 35229
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.985",
+                    "Content": "Stück",
+                    "BeginOffsetMillis": 35240,
+                    "EndOffsetMillis": 35770
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.99",
+                    "Content": "über",
+                    "BeginOffsetMillis": 36400,
+                    "EndOffsetMillis": 36840
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "neues",
+                    "BeginOffsetMillis": 36849,
+                    "EndOffsetMillis": 37150
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.975",
+                    "Content": "Tor",
+                    "BeginOffsetMillis": 37159,
+                    "EndOffsetMillis": 37610
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.333",
+                    "Content": "haben",
+                    "BeginOffsetMillis": 39270,
+                    "EndOffsetMillis": 39310
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.614",
+                    "Content": "wie",
+                    "BeginOffsetMillis": 39360,
+                    "EndOffsetMillis": 39430
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.195",
+                    "Content": "Benin",
+                    "BeginOffsetMillis": 39700,
+                    "EndOffsetMillis": 40150
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "ein",
+                    "BeginOffsetMillis": 40159,
+                    "EndOffsetMillis": 40729
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.99",
+                    "Content": "extrem",
+                    "BeginOffsetMillis": 40779,
+                    "EndOffsetMillis": 41639
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.965",
+                    "Content": "torgefährlicher",
+                    "BeginOffsetMillis": 41650,
+                    "EndOffsetMillis": 42790
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.974",
+                    "Content": "Außenverteidiger",
+                    "BeginOffsetMillis": 43799,
+                    "EndOffsetMillis": 45090
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 22530,
+            "EndOffsetMillis": 45090,
+            "Sentiment": "MIXED",
+            "Id": "bb1d7cd5-f967-48fe-96c1-0862364607f2"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                90.68,
+                85.3,
+                89.71,
+                87.61,
+                89.35,
+                88.75,
+                90.38,
+                91.99,
+                87.79,
+                88.7,
+                91.12,
+                89.41,
+                90.49,
+                83.17,
+                90.33,
+                90.64,
+                89.23,
+                90.0,
+                78.85,
+                90.01,
+                78.81,
+                80.81
+            ],
+            "Content": "glaube ich auch ich habe zwar gar keine Ahnung vom Fußball, aber nicht schlimm. Ich werde jetzt mal gleich ein paar bösere Sachen sagen, damit wir die Sentimentales auch sehen können. Ah, ich find fußball echt scheiße also fußball ist so doof, ich finde das hier so schlecht alles schaut immer diese bösen fussballmanager hier an grauenvoll.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.687",
+                    "Content": "glaube",
+                    "BeginOffsetMillis": 25290,
+                    "EndOffsetMillis": 25579
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 25590,
+                    "EndOffsetMillis": 25700
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.986",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 25709,
+                    "EndOffsetMillis": 25860
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.984",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 25870,
+                    "EndOffsetMillis": 25940
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.537",
+                    "Content": "habe",
+                    "BeginOffsetMillis": 25950,
+                    "EndOffsetMillis": 26049
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "zwar",
+                    "BeginOffsetMillis": 26059,
+                    "EndOffsetMillis": 26200
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.985",
+                    "Content": "gar",
+                    "BeginOffsetMillis": 26209,
+                    "EndOffsetMillis": 26340
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "keine",
+                    "BeginOffsetMillis": 26350,
+                    "EndOffsetMillis": 26489
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "Ahnung",
+                    "BeginOffsetMillis": 26500,
+                    "EndOffsetMillis": 26690
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.97",
+                    "Content": "vom",
+                    "BeginOffsetMillis": 26700,
+                    "EndOffsetMillis": 26829
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "Fußball",
+                    "BeginOffsetMillis": 26840,
+                    "EndOffsetMillis": 27270
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "aber",
+                    "BeginOffsetMillis": 28200,
+                    "EndOffsetMillis": 28840
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.941",
+                    "Content": "nicht",
+                    "BeginOffsetMillis": 28850,
+                    "EndOffsetMillis": 28969
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.978",
+                    "Content": "schlimm",
+                    "BeginOffsetMillis": 28979,
+                    "EndOffsetMillis": 29239
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "Ich",
+                    "BeginOffsetMillis": 32840,
+                    "EndOffsetMillis": 33049
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.963",
+                    "Content": "werde",
+                    "BeginOffsetMillis": 33060,
+                    "EndOffsetMillis": 33229
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.678",
+                    "Content": "jetzt",
+                    "BeginOffsetMillis": 33240,
+                    "EndOffsetMillis": 33330
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.979",
+                    "Content": "mal",
+                    "BeginOffsetMillis": 33340,
+                    "EndOffsetMillis": 33419
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "gleich",
+                    "BeginOffsetMillis": 33430,
+                    "EndOffsetMillis": 33630
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.978",
+                    "Content": "ein",
+                    "BeginOffsetMillis": 33639,
+                    "EndOffsetMillis": 33669
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "paar",
+                    "BeginOffsetMillis": 33680,
+                    "EndOffsetMillis": 33819
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "bösere",
+                    "BeginOffsetMillis": 33830,
+                    "EndOffsetMillis": 34229
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "Sachen",
+                    "BeginOffsetMillis": 34240,
+                    "EndOffsetMillis": 34450
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "sagen",
+                    "BeginOffsetMillis": 34459,
+                    "EndOffsetMillis": 34630
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "damit",
+                    "BeginOffsetMillis": 34639,
+                    "EndOffsetMillis": 34790
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "wir",
+                    "BeginOffsetMillis": 34799,
+                    "EndOffsetMillis": 34869
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.986",
+                    "Content": "die",
+                    "BeginOffsetMillis": 34880,
+                    "EndOffsetMillis": 34990
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.37",
+                    "Content": "Sentimentales",
+                    "BeginOffsetMillis": 35000,
+                    "EndOffsetMillis": 36029
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.954",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 36040,
+                    "EndOffsetMillis": 36150
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "sehen",
+                    "BeginOffsetMillis": 36159,
+                    "EndOffsetMillis": 36389
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "können",
+                    "BeginOffsetMillis": 36400,
+                    "EndOffsetMillis": 36669
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.275",
+                    "Content": "Ah",
+                    "BeginOffsetMillis": 37860,
+                    "EndOffsetMillis": 37909
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.994",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 37959,
+                    "EndOffsetMillis": 38189
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.396",
+                    "Content": "find",
+                    "BeginOffsetMillis": 38200,
+                    "EndOffsetMillis": 38290
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "fußball",
+                    "BeginOffsetMillis": 38299,
+                    "EndOffsetMillis": 38610
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.33",
+                    "Content": "echt",
+                    "BeginOffsetMillis": 38619,
+                    "EndOffsetMillis": 38790
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "scheiße",
+                    "BeginOffsetMillis": 38799,
+                    "EndOffsetMillis": 39389
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.889",
+                    "Content": "also",
+                    "BeginOffsetMillis": 39400,
+                    "EndOffsetMillis": 39509
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "fußball",
+                    "BeginOffsetMillis": 39520,
+                    "EndOffsetMillis": 39840
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 39849,
+                    "EndOffsetMillis": 39990
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "so",
+                    "BeginOffsetMillis": 40000,
+                    "EndOffsetMillis": 40150
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "doof",
+                    "BeginOffsetMillis": 40159,
+                    "EndOffsetMillis": 40470
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 40479,
+                    "EndOffsetMillis": 40590
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.625",
+                    "Content": "finde",
+                    "BeginOffsetMillis": 40599,
+                    "EndOffsetMillis": 40669
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.962",
+                    "Content": "das",
+                    "BeginOffsetMillis": 40680,
+                    "EndOffsetMillis": 40779
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.943",
+                    "Content": "hier",
+                    "BeginOffsetMillis": 40790,
+                    "EndOffsetMillis": 40900
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "so",
+                    "BeginOffsetMillis": 40909,
+                    "EndOffsetMillis": 41189
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "schlecht",
+                    "BeginOffsetMillis": 41200,
+                    "EndOffsetMillis": 41779
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "alles",
+                    "BeginOffsetMillis": 41790,
+                    "EndOffsetMillis": 42119
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.352",
+                    "Content": "schaut",
+                    "BeginOffsetMillis": 42470,
+                    "EndOffsetMillis": 42930
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.863",
+                    "Content": "immer",
+                    "BeginOffsetMillis": 42939,
+                    "EndOffsetMillis": 43060
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.988",
+                    "Content": "diese",
+                    "BeginOffsetMillis": 43069,
+                    "EndOffsetMillis": 43490
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "bösen",
+                    "BeginOffsetMillis": 43500,
+                    "EndOffsetMillis": 44009
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.85",
+                    "Content": "fussballmanager",
+                    "BeginOffsetMillis": 44020,
+                    "EndOffsetMillis": 44819
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.982",
+                    "Content": "hier",
+                    "BeginOffsetMillis": 44830,
+                    "EndOffsetMillis": 45119
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "an",
+                    "BeginOffsetMillis": 45130,
+                    "EndOffsetMillis": 45290
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.954",
+                    "Content": "grauenvoll",
+                    "BeginOffsetMillis": 45790,
+                    "EndOffsetMillis": 46479
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 25290,
+            "EndOffsetMillis": 46479,
+            "Sentiment": "NEGATIVE",
+            "Id": "1199b717-6858-4446-9276-27b9107bb6d2"
+        },
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                62.56,
+                62.24,
+                59.88,
+                58.43,
+                60.58,
+                60.87,
+                60.25,
+                57.88,
+                77.35,
+                76.61,
+                60.49,
+                60.86,
+                59.21,
+                60.33,
+                61.97,
+                59.38,
+                58.72,
+                76.96,
+                61.36,
+                60.9,
+                62.75,
+                64.6,
+                61.91,
+                77.31,
+                75.77,
+                82.91,
+                80.36,
+                70.53,
+                67.4
+            ],
+            "Content": "Und die Gesichtszüge der Bayern Bosse sahen schon nach drei Minuten eher unzufrieden aus und Mundwinkel Oliver Kans hängen keine zehn Minuten später noch deutlich weiter nach Süden Hofmann gute Kombination scall auch das stark Hofmann Hofmann ist das überragende Spiel 20",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.634",
+                    "Content": "Und",
+                    "BeginOffsetMillis": 47450,
+                    "EndOffsetMillis": 47479
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.967",
+                    "Content": "die",
+                    "BeginOffsetMillis": 47490,
+                    "EndOffsetMillis": 47509
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.943",
+                    "Content": "Gesichtszüge",
+                    "BeginOffsetMillis": 47520,
+                    "EndOffsetMillis": 48400
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "der",
+                    "BeginOffsetMillis": 48409,
+                    "EndOffsetMillis": 48650
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.949",
+                    "Content": "Bayern",
+                    "BeginOffsetMillis": 48659,
+                    "EndOffsetMillis": 49009
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.651",
+                    "Content": "Bosse",
+                    "BeginOffsetMillis": 49020,
+                    "EndOffsetMillis": 49610
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.859",
+                    "Content": "sahen",
+                    "BeginOffsetMillis": 51509,
+                    "EndOffsetMillis": 51970
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.975",
+                    "Content": "schon",
+                    "BeginOffsetMillis": 51979,
+                    "EndOffsetMillis": 52209
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "nach",
+                    "BeginOffsetMillis": 52279,
+                    "EndOffsetMillis": 52529
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "drei",
+                    "BeginOffsetMillis": 52540,
+                    "EndOffsetMillis": 52770
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "Minuten",
+                    "BeginOffsetMillis": 52779,
+                    "EndOffsetMillis": 53290
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.885",
+                    "Content": "eher",
+                    "BeginOffsetMillis": 53299,
+                    "EndOffsetMillis": 53520
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "unzufrieden",
+                    "BeginOffsetMillis": 53529,
+                    "EndOffsetMillis": 54099
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "aus",
+                    "BeginOffsetMillis": 54110,
+                    "EndOffsetMillis": 54500
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.961",
+                    "Content": "und",
+                    "BeginOffsetMillis": 54540,
+                    "EndOffsetMillis": 55009
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.916",
+                    "Content": "Mundwinkel",
+                    "BeginOffsetMillis": 56860,
+                    "EndOffsetMillis": 57770
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.984",
+                    "Content": "Oliver",
+                    "BeginOffsetMillis": 57779,
+                    "EndOffsetMillis": 58119
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.152",
+                    "Content": "Kans",
+                    "BeginOffsetMillis": 58130,
+                    "EndOffsetMillis": 58750
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.992",
+                    "Content": "hängen",
+                    "BeginOffsetMillis": 59000,
+                    "EndOffsetMillis": 59939
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "keine",
+                    "BeginOffsetMillis": 60250,
+                    "EndOffsetMillis": 60759
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "zehn",
+                    "BeginOffsetMillis": 60770,
+                    "EndOffsetMillis": 60959
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "Minuten",
+                    "BeginOffsetMillis": 60970,
+                    "EndOffsetMillis": 61270
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "später",
+                    "BeginOffsetMillis": 61279,
+                    "EndOffsetMillis": 61680
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "noch",
+                    "BeginOffsetMillis": 61689,
+                    "EndOffsetMillis": 61830
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "deutlich",
+                    "BeginOffsetMillis": 61840,
+                    "EndOffsetMillis": 62169
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "weiter",
+                    "BeginOffsetMillis": 62180,
+                    "EndOffsetMillis": 62500
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "nach",
+                    "BeginOffsetMillis": 62509,
+                    "EndOffsetMillis": 62630
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "Süden",
+                    "BeginOffsetMillis": 62639,
+                    "EndOffsetMillis": 63209
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.315",
+                    "Content": "Hofmann",
+                    "BeginOffsetMillis": 66610,
+                    "EndOffsetMillis": 67330
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.979",
+                    "Content": "gute",
+                    "BeginOffsetMillis": 67339,
+                    "EndOffsetMillis": 67760
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.975",
+                    "Content": "Kombination",
+                    "BeginOffsetMillis": 67769,
+                    "EndOffsetMillis": 68400
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.223",
+                    "Content": "scall",
+                    "BeginOffsetMillis": 68410,
+                    "EndOffsetMillis": 68650
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 71569,
+                    "EndOffsetMillis": 71830
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.978",
+                    "Content": "das",
+                    "BeginOffsetMillis": 71839,
+                    "EndOffsetMillis": 72040
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.973",
+                    "Content": "stark",
+                    "BeginOffsetMillis": 72050,
+                    "EndOffsetMillis": 72410
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.879",
+                    "Content": "Hofmann",
+                    "BeginOffsetMillis": 72419,
+                    "EndOffsetMillis": 72949
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.953",
+                    "Content": "Hofmann",
+                    "BeginOffsetMillis": 72959,
+                    "EndOffsetMillis": 73709
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 73800,
+                    "EndOffsetMillis": 74180
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "das",
+                    "BeginOffsetMillis": 74190,
+                    "EndOffsetMillis": 74360
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.915",
+                    "Content": "überragende",
+                    "BeginOffsetMillis": 74370,
+                    "EndOffsetMillis": 75180
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "Spiel",
+                    "BeginOffsetMillis": 75190,
+                    "EndOffsetMillis": 75489
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.9604999999999999",
+                    "Content": "20",
+                    "BeginOffsetMillis": 75500,
+                    "EndOffsetMillis": 75919
+                }
+            ],
+            "BeginOffsetMillis": 47450,
+            "EndOffsetMillis": 75919,
+            "Sentiment": "NEUTRAL",
+            "Id": "2b00a5d4-a448-4486-92d0-402a3a8a3315"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                82.56,
+                81.74,
+                88.35,
+                88.27,
+                88.91,
+                88.5,
+                91.34,
+                89.74,
+                86.09,
+                81.55,
+                90.42,
+                85.4,
+                92.72,
+                90.19,
+                85.06,
+                81.0,
+                90.91,
+                90.81,
+                94.3,
+                90.24,
+                91.71,
+                91.3,
+                82.39,
+                82.14,
+                0.0
+            ],
+            "Content": "Ja ich glaub das ist altersbedingt oh ja bald herlaufen mein gott tüten ist doch so viel besser überragend gespielt, wirklich überragend.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.286",
+                    "Content": "Ja",
+                    "BeginOffsetMillis": 55159,
+                    "EndOffsetMillis": 55180
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "ich",
+                    "BeginOffsetMillis": 55189,
+                    "EndOffsetMillis": 55400
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.617",
+                    "Content": "glaub",
+                    "BeginOffsetMillis": 55409,
+                    "EndOffsetMillis": 55580
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.946",
+                    "Content": "das",
+                    "BeginOffsetMillis": 55590,
+                    "EndOffsetMillis": 55659
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.912",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 55669,
+                    "EndOffsetMillis": 55799
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.953",
+                    "Content": "altersbedingt",
+                    "BeginOffsetMillis": 55810,
+                    "EndOffsetMillis": 56520
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.976",
+                    "Content": "oh",
+                    "BeginOffsetMillis": 63959,
+                    "EndOffsetMillis": 64239
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.982",
+                    "Content": "ja",
+                    "BeginOffsetMillis": 64250,
+                    "EndOffsetMillis": 64599
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.865",
+                    "Content": "bald",
+                    "BeginOffsetMillis": 70589,
+                    "EndOffsetMillis": 71029
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.742",
+                    "Content": "herlaufen",
+                    "BeginOffsetMillis": 71040,
+                    "EndOffsetMillis": 71699
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "mein",
+                    "BeginOffsetMillis": 71709,
+                    "EndOffsetMillis": 71900
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "gott",
+                    "BeginOffsetMillis": 71910,
+                    "EndOffsetMillis": 72250
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.143",
+                    "Content": "tüten",
+                    "BeginOffsetMillis": 72260,
+                    "EndOffsetMillis": 72540
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.954",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 72550,
+                    "EndOffsetMillis": 72709
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.982",
+                    "Content": "doch",
+                    "BeginOffsetMillis": 72720,
+                    "EndOffsetMillis": 72800
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.99",
+                    "Content": "so",
+                    "BeginOffsetMillis": 72809,
+                    "EndOffsetMillis": 72919
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.909",
+                    "Content": "viel",
+                    "BeginOffsetMillis": 72930,
+                    "EndOffsetMillis": 73080
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "besser",
+                    "BeginOffsetMillis": 73089,
+                    "EndOffsetMillis": 73449
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.963",
+                    "Content": "überragend",
+                    "BeginOffsetMillis": 76180,
+                    "EndOffsetMillis": 77349
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "gespielt",
+                    "BeginOffsetMillis": 77360,
+                    "EndOffsetMillis": 78019
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.503",
+                    "Content": "wirklich",
+                    "BeginOffsetMillis": 78029,
+                    "EndOffsetMillis": 78470
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.989",
+                    "Content": "überragend",
+                    "BeginOffsetMillis": 78480,
+                    "EndOffsetMillis": 79150
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 55159,
+            "EndOffsetMillis": 79150,
+            "Sentiment": "POSITIVE",
+            "Id": "ccb86a30-d13c-47ab-9511-5081b649e7e9"
+        },
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                62.4,
+                62.28,
+                81.16,
+                83.21,
+                77.8,
+                61.75,
+                66.32,
+                64.69,
+                62.8,
+                62.58
+            ],
+            "Content": "Rami Benze bei Ein Ergebnis, das nach einer Viertelstunde auch absolut verdient ist",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.808",
+                    "Content": "Rami",
+                    "BeginOffsetMillis": 84050,
+                    "EndOffsetMillis": 84510
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.635",
+                    "Content": "Benze",
+                    "BeginOffsetMillis": 84519,
+                    "EndOffsetMillis": 84830
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.28",
+                    "Content": "bei",
+                    "BeginOffsetMillis": 84839,
+                    "EndOffsetMillis": 85019
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.979",
+                    "Content": "Ein",
+                    "BeginOffsetMillis": 88760,
+                    "EndOffsetMillis": 89029
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "Ergebnis",
+                    "BeginOffsetMillis": 89050,
+                    "EndOffsetMillis": 89569
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.981",
+                    "Content": "das",
+                    "BeginOffsetMillis": 89580,
+                    "EndOffsetMillis": 89769
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "nach",
+                    "BeginOffsetMillis": 89779,
+                    "EndOffsetMillis": 89940
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "einer",
+                    "BeginOffsetMillis": 89949,
+                    "EndOffsetMillis": 90160
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.967",
+                    "Content": "Viertelstunde",
+                    "BeginOffsetMillis": 90169,
+                    "EndOffsetMillis": 91089
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.987",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 91599,
+                    "EndOffsetMillis": 91970
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "absolut",
+                    "BeginOffsetMillis": 91980,
+                    "EndOffsetMillis": 92459
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "verdient",
+                    "BeginOffsetMillis": 92470,
+                    "EndOffsetMillis": 92860
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 92870,
+                    "EndOffsetMillis": 93190
+                }
+            ],
+            "BeginOffsetMillis": 84050,
+            "EndOffsetMillis": 93190,
+            "Sentiment": "POSITIVE",
+            "Id": "746ec34e-d15f-4edb-b98a-9b40250a6b6e"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                86.73,
+                82.87,
+                82.65,
+                86.56,
+                89.0,
+                92.8,
+                88.7,
+                89.63,
+                87.11,
+                82.55,
+                83.86
+            ],
+            "Content": "Den namen kann niemand transkribieren von mir. Ja das war richtig schön.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.991",
+                    "Content": "Den",
+                    "BeginOffsetMillis": 85959,
+                    "EndOffsetMillis": 86199
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.835",
+                    "Content": "namen",
+                    "BeginOffsetMillis": 86209,
+                    "EndOffsetMillis": 86559
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.999",
+                    "Content": "kann",
+                    "BeginOffsetMillis": 86680,
+                    "EndOffsetMillis": 87029
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "niemand",
+                    "BeginOffsetMillis": 87040,
+                    "EndOffsetMillis": 87349
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.629",
+                    "Content": "transkribieren",
+                    "BeginOffsetMillis": 87360,
+                    "EndOffsetMillis": 87989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.237",
+                    "Content": "von",
+                    "BeginOffsetMillis": 90389,
+                    "EndOffsetMillis": 90419
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.504",
+                    "Content": "mir",
+                    "BeginOffsetMillis": 90569,
+                    "EndOffsetMillis": 90889
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.956",
+                    "Content": "Ja",
+                    "BeginOffsetMillis": 94639,
+                    "EndOffsetMillis": 94779
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.768",
+                    "Content": "das",
+                    "BeginOffsetMillis": 94790,
+                    "EndOffsetMillis": 94889
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.984",
+                    "Content": "war",
+                    "BeginOffsetMillis": 94900,
+                    "EndOffsetMillis": 94989
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.682",
+                    "Content": "richtig",
+                    "BeginOffsetMillis": 95000,
+                    "EndOffsetMillis": 95169
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "schön",
+                    "BeginOffsetMillis": 95180,
+                    "EndOffsetMillis": 95519
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 85959,
+            "EndOffsetMillis": 95519,
+            "Sentiment": "POSITIVE",
+            "Id": "f7b5d3b3-f134-46e7-b96e-919ff816c1a2"
+        },
+        {
+            "ParticipantRole": "AGENT",
+            "LoudnessScores": [
+                61.49,
+                59.87,
+                61.72,
+                60.99,
+                79.07,
+                79.46,
+                80.86,
+                67.82,
+                67.25
+            ],
+            "Content": "kein Abseits von Jonas Hofmann gut gesehen und dann ist diese übersicht einfach Weltklasse.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.972",
+                    "Content": "kein",
+                    "BeginOffsetMillis": 99230,
+                    "EndOffsetMillis": 99629
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.962",
+                    "Content": "Abseits",
+                    "BeginOffsetMillis": 99639,
+                    "EndOffsetMillis": 100250
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.993",
+                    "Content": "von",
+                    "BeginOffsetMillis": 100690,
+                    "EndOffsetMillis": 100900
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.983",
+                    "Content": "Jonas",
+                    "BeginOffsetMillis": 100910,
+                    "EndOffsetMillis": 101220
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.903",
+                    "Content": "Hofmann",
+                    "BeginOffsetMillis": 101230,
+                    "EndOffsetMillis": 101680
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "gut",
+                    "BeginOffsetMillis": 101809,
+                    "EndOffsetMillis": 102239
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.986",
+                    "Content": "gesehen",
+                    "BeginOffsetMillis": 102250,
+                    "EndOffsetMillis": 102680
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.962",
+                    "Content": "und",
+                    "BeginOffsetMillis": 103910,
+                    "EndOffsetMillis": 104260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.995",
+                    "Content": "dann",
+                    "BeginOffsetMillis": 104269,
+                    "EndOffsetMillis": 104440
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "ist",
+                    "BeginOffsetMillis": 104449,
+                    "EndOffsetMillis": 104790
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.996",
+                    "Content": "diese",
+                    "BeginOffsetMillis": 104800,
+                    "EndOffsetMillis": 105069
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.997",
+                    "Content": "übersicht",
+                    "BeginOffsetMillis": 105080,
+                    "EndOffsetMillis": 105980
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "einfach",
+                    "BeginOffsetMillis": 105989,
+                    "EndOffsetMillis": 107059
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.857",
+                    "Content": "Weltklasse",
+                    "BeginOffsetMillis": 107069,
+                    "EndOffsetMillis": 107959
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 99230,
+            "EndOffsetMillis": 107959,
+            "Sentiment": "POSITIVE",
+            "Id": "a1da8057-8eca-4698-8c45-68ee67ce5e14"
+        },
+        {
+            "ParticipantRole": "CUSTOMER",
+            "LoudnessScores": [
+                82.91,
+                89.94,
+                90.07
+            ],
+            "Content": "Mal gucken ob das AWS comp auch so sieht.",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.969",
+                    "Content": "Mal",
+                    "BeginOffsetMillis": 103589,
+                    "EndOffsetMillis": 103769
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.95",
+                    "Content": "gucken",
+                    "BeginOffsetMillis": 103779,
+                    "EndOffsetMillis": 104000
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.998",
+                    "Content": "ob",
+                    "BeginOffsetMillis": 104019,
+                    "EndOffsetMillis": 104050
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.984",
+                    "Content": "das",
+                    "BeginOffsetMillis": 104059,
+                    "EndOffsetMillis": 104220
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.161",
+                    "Content": "AWS",
+                    "BeginOffsetMillis": 104230,
+                    "EndOffsetMillis": 104589
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.606",
+                    "Content": "comp",
+                    "BeginOffsetMillis": 104599,
+                    "EndOffsetMillis": 104819
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.692",
+                    "Content": "auch",
+                    "BeginOffsetMillis": 104940,
+                    "EndOffsetMillis": 105110
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.965",
+                    "Content": "so",
+                    "BeginOffsetMillis": 105120,
+                    "EndOffsetMillis": 105260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": "0.878",
+                    "Content": "sieht",
+                    "BeginOffsetMillis": 105269,
+                    "EndOffsetMillis": 105620
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": "0.0",
+                    "Content": "."
+                }
+            ],
+            "BeginOffsetMillis": 103589,
+            "EndOffsetMillis": 105620,
+            "Sentiment": "NEUTRAL",
+            "Id": "2b3137d8-c378-40bb-aed4-cf8b6a085661"
+        }
+    ],
+    "LanguageIdentification": [
+        {
+            "Code": "de-DE",
+            "Score": "0.8942"
+        },
+        {
+            "Code": "ko-KR",
+            "Score": "0.0366"
+        },
+        {
+            "Code": "ja-JP",
+            "Score": "0.0156"
+        },
+        {
+            "Code": "de-CH",
+            "Score": "0.012"
+        },
+        {
+            "Code": "es-US",
+            "Score": "0.0103"
+        },
+        {
+            "Code": "en-US",
+            "Score": "0.0085"
+        },
+        {
+            "Code": "hi-IN",
+            "Score": "0.0064"
+        },
+        {
+            "Code": "zh-CN",
+            "Score": "0.0036"
+        },
+        {
+            "Code": "en-GB",
+            "Score": "0.0035"
+        },
+        {
+            "Code": "it-IT",
+            "Score": "0.0021"
+        },
+        {
+            "Code": "fr-FR",
+            "Score": "0.002"
+        },
+        {
+            "Code": "es-ES",
+            "Score": "0.0016"
+        },
+        {
+            "Code": "en-IN",
+            "Score": "0.0007"
+        },
+        {
+            "Code": "en-AB",
+            "Score": "0.0007"
+        },
+        {
+            "Code": "en-IE",
+            "Score": "0.0007"
+        },
+        {
+            "Code": "fr-CA",
+            "Score": "0.0004"
+        },
+        {
+            "Code": "pt-BR",
+            "Score": "0.0003"
+        },
+        {
+            "Code": "en-AU",
+            "Score": "0.0003"
+        },
+        {
+            "Code": "en-WL",
+            "Score": "0.0002"
+        },
+        {
+            "Code": "pt-PT",
+            "Score": "0.0001"
+        },
+        {
+            "Code": "ar-AE",
+            "Score": "0.0001"
+        }
+    ]
+}
