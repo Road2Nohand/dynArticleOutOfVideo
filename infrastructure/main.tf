@@ -192,7 +192,9 @@ resource "aws_iam_policy" "lambda_transcribe_policy" {
         Effect = "Allow",
         Action = [
           "transcribe:StartCallAnalyticsJob",
-          "transcribe:GetCallAnalyticsJob"
+          "transcribe:GetCallAnalyticsJob",
+          "transcribe:StartTranscriptionJob",
+          "transcribe:GetTranscriptionJob"
         ],
         Resource = "*"
       }
