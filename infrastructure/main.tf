@@ -27,6 +27,7 @@ variable "video_bucket_name" {
 #endregion Variables
 
 
+
 #region website_bucket
 
 resource "aws_s3_bucket" "website_bucket" {
@@ -74,6 +75,7 @@ output "website_url" {
 }
 
 #endregion website_bucket
+
 
 
 #region transcribe_function und video_bucket
@@ -198,6 +200,40 @@ resource "aws_iam_policy" "lambda_transcribe_policy" {
   })
 }
 
+resource "aws_iam_policy" "policy_transcribe_service_access_to_video_and_website_bucket" {
+    name = "transcribe_access_policy"
+
+    policy = jsonencode({
+        Version = "2012-10-17",
+        Statement = [
+            {
+                Action = [
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                ],
+                Effect = "Allow",
+                Resource = [
+                    aws_s3_bucket.video_bucket.arn,
+                    "${aws_s3_bucket.video_bucket.arn}/*"
+                ]
+            },
+            {
+                Action = [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                ],
+                Effect = "Allow",
+                Resource = [
+                    aws_s3_bucket.website_bucket.arn,
+                    "${aws_s3_bucket.website_bucket.arn}/*"
+                ]
+            }
+        ]
+    })
+}
+
+
 
 # Anhängen der IAM-Policies an die Lambda-Rolle
 resource "aws_iam_role_policy_attachment" "attach_video_bucket_policy" {
@@ -216,6 +252,11 @@ resource "aws_iam_role_policy_attachment" "attach_lambda_transcribe_policy" {
   policy_arn = aws_iam_policy.lambda_transcribe_policy.arn
   role       = aws_iam_role.lambda_transcribe_role.name
 }
+resource "aws_iam_role_policy_attachment" "attach_transcribe_service_policy" {
+    policy_arn = aws_iam_policy.policy_transcribe_service_access_to_video_and_website_bucket.arn
+    role       = aws_iam_role.transcribe_role.name
+}
+
 
 # Data Block zum Zippen des Lambda-Funktionscodes
 data "archive_file" "lambda_function_zip" {
@@ -242,8 +283,9 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
     # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
     environment {
         variables = {
-            WEBSITE_BUCKET_PATH = aws_s3_bucket.website_bucket.bucket
-            DATA_ACCESS_ROLE_ARN = data.aws_iam_role.transcribe_role.arn
+            WEBSITE_BUCKET_NAME = aws_s3_bucket.website_bucket.bucket,
+            DATA_ACCESS_ROLE_ARN = data.aws_iam_role.transcribe_role.arn,
+            VIDEO_BUCKET_NAME = aws_s3_bucket.video_bucket.bucket
         }
     }
 }
