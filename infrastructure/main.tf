@@ -75,30 +75,10 @@ resource "aws_iam_openid_connect_provider" "github_federated_idp_config" {
 #endregion GitHub OIDC Provider
 
 
+
 #region website_bucket
 
-resource "aws_s3_bucket" "website_bucket" {
-    bucket          = "${var.website_bucket_name}-${lower(terraform.workspace)}"
-    force_destroy   = true # weil sonst nur leere Buckets gelöscht werden können
-}
-
-resource "aws_s3_bucket_website_configuration" "webseite" {
-    bucket = aws_s3_bucket.website_bucket.id
-    index_document {
-      suffix = var.html_file_name
-    }
-}
-
-# access_block ist nicht mandatory, erhöht aber die Sicherheit
-resource "aws_s3_bucket_public_access_block" "public_access_block" {
-    bucket                  = aws_s3_bucket.website_bucket.id
-    depends_on              = [aws_s3_bucket.website_bucket]
-    block_public_acls       = true # der public access für bestimmte Dateien wird später durch die public policy überschrieben
-    block_public_policy     = false # auf false, weil wir eine public policy anwenden
-    ignore_public_acls      = true # öffentliche ACLs auf dem Bucket website_bucket ignoriert. Dies gilt auch für Objekte, die später im Bucket erstellt werden.
-    restrict_public_buckets = false # wenn true, können nur autorisierte user zugreifen
-}
-
+/* klappt nicht, deswegen als Workaround für AWS's "Eventually Consistent Nature of AWS Services" -> den ganzen Bucket public machen, ist auch gut für das Polling() vom der index.html per JS
 # index.html im website_bucket ist öffentlich lesbar
 resource "aws_s3_bucket_policy" "policy_website_bucket_public_read_access_to_specific_files" {
     bucket                  = aws_s3_bucket.website_bucket.id
@@ -116,6 +96,50 @@ resource "aws_s3_bucket_policy" "policy_website_bucket_public_read_access_to_spe
         ]
     })
 }
+*/
+
+resource "aws_s3_bucket" "website_bucket" {
+    bucket          = "${var.website_bucket_name}-${lower(terraform.workspace)}"
+    force_destroy   = true # weil sonst nur leere Buckets gelöscht werden können
+}
+
+resource "aws_s3_bucket_website_configuration" "webseite" {
+    bucket = aws_s3_bucket.website_bucket.id
+    index_document {
+      suffix = var.html_file_name
+    }
+}
+
+resource "aws_s3_bucket_ownership_controls" "website_bucket_ownership_controls" {
+  bucket = aws_s3_bucket.website_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred" # bewirkt das der Bucket-Besitzer auch der Besitzer der Objekte im Bucket ist, wenn ein anderer User die Objekte hochlädt (z.B. die Lambda-Funktion), ansonsten können User über das Internet Objekte in den Bucket hochladen und sind dann auch der Besitzer der Objekte, da sie die Objekte hochgeladen haben.
+  }
+}
+
+# access_block ist nicht mandatory, erhöht aber die Sicherheit
+resource "aws_s3_bucket_public_access_block" "public_access_block" {
+    bucket                  = aws_s3_bucket.website_bucket.id
+    block_public_acls       = false # der public access für bestimmte Dateien wird später durch die public policy überschrieben
+    block_public_policy     = false # auf false, weil wir eine public policy anwenden
+    ignore_public_acls      = false # öffentliche ACLs auf dem Bucket website_bucket ignoriert. Dies gilt auch für Objekte, die später im Bucket erstellt werden.
+    restrict_public_buckets = false # wenn true, können nur autorisierte user zugreifen
+}
+
+resource "aws_s3_bucket_acl" "website_bucket_acl" {
+  depends_on = [
+    aws_s3_bucket.website_bucket,
+    aws_s3_bucket_ownership_controls.website_bucket_ownership_controls,
+    aws_s3_bucket_public_access_block.public_access_block,
+  ]
+
+  bucket = aws_s3_bucket.website_bucket.id
+  acl    = "public-read-write"
+}
+
+# hochladen von Dateien wird später in der CICD mit GitHub Actions gemacht und der s3api gemacht
+# aws s3 cp ../index.html s3://dyn-bucket-for-static-article-website-dev/ --acl public-read
+
 
 output "website_url" {
     value = "https://${aws_s3_bucket.website_bucket.bucket_regional_domain_name}/${var.html_file_name}"

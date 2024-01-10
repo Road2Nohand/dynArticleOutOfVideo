@@ -29,6 +29,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
+      # Der AWS Zugriff sollte später auch per AWS Provider erfolgen, hat für den Prototypen aber auch einen zu großen Ratenschwanz
       #- name: "Configure AWS Credentials"
       #  uses: aws-actions/configure-aws-credentials@v4
       #  with:
@@ -74,23 +75,13 @@ jobs:
       - name: Terraform Apply 1st
         run: |
           ls -al
-          terraform apply -auto-approve || true
-
-      - name: Terraform Apply 2nd
-        run: |
-          ls -al
           terraform apply -auto-approve
 
-      - name: Terraform Apply 3rd
-        run: |
-          ls -al
-          terraform apply -auto-approve
-
-      # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt
+      # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt werden
       - name: Upload HTML to S3
         run: |
           ls -al
-          aws s3 cp ../index.html s3://dyn-bucket-for-static-article-website-dev/
+          aws s3 cp ../index.html s3://dyn-bucket-for-static-article-website-dev/ --acl public-read
 
 
 # später noch einen parallelen Job anlegen, für Info-Email das ein Deployment gestartet wurde
