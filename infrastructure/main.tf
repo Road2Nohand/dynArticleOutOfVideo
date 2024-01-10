@@ -336,6 +336,12 @@ data "archive_file" "lambda_function_zip" {
     type        = "zip"
     source_dir  = "lambda_functions"
     output_path = "${path.module}/1_transcribe__function.zip"
+
+    # openai-Bibliotheken aus der virtuellen Umgebung hinzufügen
+    source {
+        content  = file("${path.module}/lambda_functions/venv/Lib/site-packages")
+        filename = "venv/Lib/site-packages"
+    }
 }
 
 # Damit die ARN der lambda_transcribe_role immer aktuell bleibt, auch wenn Änderungen an der ARN vorgenommen werden, wenn Terraform apply mehrmals ausgeführt wird
@@ -348,7 +354,7 @@ data "aws_iam_role" "transcribe_role" {
 resource "aws_lambda_function" "transcribe_lambda_function" {
     function_name = "1_transcribe_function"
     filename      = "1_transcribe__function.zip"
-    runtime       = "python3.9"
+    runtime       = "python3.11"
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
     timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden

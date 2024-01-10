@@ -29,10 +29,11 @@ chat_completion = client.chat.completions.create(
 
 # Extrahieren und Drucken des Inhalts der Antwort
 response_content = chat_completion.choices[0].message.content
-print(f"\nAntwort: {response_content}")
+
+""" print(f"\nAntwort: {response_content}")
 
 # Extrahieren und Drucken der Token-Informationen
 completion_tokens = chat_completion.usage.completion_tokens
 prompt_tokens = chat_completion.usage.prompt_tokens
 total_tokens = chat_completion.usage.total_tokens
-print(f"\nCompletion Tokens: {completion_tokens}, Prompt Tokens: {prompt_tokens}, Total Tokens: {total_tokens}")
+print(f"\nCompletion Tokens: {completion_tokens}, Prompt Tokens: {prompt_tokens}, Total Tokens: {total_tokens}") """

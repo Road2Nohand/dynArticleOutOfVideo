@@ -6,9 +6,24 @@ import logging
 from datetime import datetime
 from datetime import timedelta
 
+# OpenAI Lib aus terraform adden
+import sys
+sys.path.append('/var/task/venv/Lib/site-packages')
+
 # Konfiguration des Loggings
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+
+# OpenAI Lib testen
+try:
+    import openai
+    # Einen Test-Print oder eine einfache Funktionsausführung durchführen
+    logger.info(f"OpenAI erfolgreich importiert. Version: {openai.__version__}")
+except ImportError as e:
+    # Loggen des Fehlers und ggf. Behandlung
+    logger.error("Fehler beim Import von OpenAI: %s", e)
+
 
 s3 = boto3.client('s3')
 transcribe = boto3.client('transcribe')
