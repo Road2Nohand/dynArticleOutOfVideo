@@ -342,7 +342,7 @@ data "archive_file" "lambda_function_zip" {
 resource "aws_lambda_layer_version" "openai_layer" {
   filename   = "lambda_functions/openai_layer.zip"
   layer_name = "openai_layer"
-  compatible_runtimes = ["python3.11"]
+  compatible_runtimes = ["python3.10"]
 }
 
 # Damit die ARN der lambda_transcribe_role immer aktuell bleibt, auch wenn Änderungen an der ARN vorgenommen werden, wenn Terraform apply mehrmals ausgeführt wird
@@ -355,7 +355,7 @@ data "aws_iam_role" "transcribe_role" {
 resource "aws_lambda_function" "transcribe_lambda_function" {
     function_name = "1_transcribe_function"
     filename      = "1_transcribe__function.zip"
-    runtime       = "python3.11"
+    runtime       = "python3.10"
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
     timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden

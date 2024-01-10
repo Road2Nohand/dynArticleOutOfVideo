@@ -13,9 +13,9 @@ logger.setLevel(logging.INFO)
 
 # OpenAI Lib testen
 try:
-    import openai
+    from openai import OpenAI
     # Einen Test-Print oder eine einfache Funktionsausführung durchführen
-    logger.info(f"OpenAI erfolgreich importiert. Version: {openai.__version__}")
+    logger.info(f"OpenAI erfolgreich importiert.")
 except ImportError as e:
     # Loggen des Fehlers und ggf. Behandlung
     logger.error("Fehler beim Import von OpenAI: %s", e)
