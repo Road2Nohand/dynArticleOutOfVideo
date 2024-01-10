@@ -1,34 +1,21 @@
 import json
-from datetime import timedelta
 import matplotlib.pyplot as plt
 import re
+from datetime import datetime
 
 def timestamp_to_minutes(timestamp):
-    """Converts a timestamp in the format hh:mm:ss to minutes"""
-    time = timestamp.split(':')
-    return int(time[0]) * 60 + int(time[1]) + int(time[2]) / 60
+    """Converts a timestamp in the format hh:mm:ss to minutes."""
+    time_parts = [int(part) for part in timestamp.split(':')]
+    return time_parts[0] * 60 + time_parts[1] + time_parts[2] / 60
 
 # Pfad zur JSON-Datei
-file_path = 'BundesligaSpiel1std37min_transcript_parsed.json'  # Ersetzen Sie dies mit dem tatsächlichen Dateipfad
+file_path = '/mnt/data/BundesligaSpiel1std37min_transcript_cleaned_from_noise.json'  # Ersetzen Sie dies mit dem tatsächlichen Dateipfad
 
 # JSON-Datei laden
 with open(file_path, 'r') as file:
     data = json.load(file)
 
-# Funktion zum Extrahieren der Karten-Informationen
-def extract_card_info(transcript_data):
-    card_events = []
-
-    for entry in transcript_data:
-        # Überprüfen, ob der Inhalt "Rote Karte" oder "Gelbe Karte" enthält
-        if "Rote Karte" in entry['content']:
-            card_events.append({'time': entry['timestamp'], 'type': 'Red Card'})
-        elif "Gelbe Karte" in entry['content']:
-            card_events.append({'time': entry['timestamp'], 'type': 'Yellow Card'})
-
-    return card_events
-
-# Updating the function to use regex for card detection and to include the content
+# Funktion zum Extrahieren der Karten-Informationen mit Regex
 def extract_card_info_regex(transcript_data):
     card_events = []
 
@@ -55,6 +42,7 @@ def extract_card_info_regex(transcript_data):
 
 card_events_regex = extract_card_info_regex(data)
 
+# Erstellen des Scatterplots
 plt.figure(figsize=(15, 6))
 for event in card_events_regex:
     time = timestamp_to_minutes(event['time'])
@@ -63,15 +51,17 @@ for event in card_events_regex:
     plt.text(time, 1, event['content'] + f"\nS: {event['sentiment']}\nL: {round(event['loudness'], 1)}\nC: {round(event['confidence'], 2)}", 
              fontsize=8, ha='left', va='bottom', rotation=45)
 
-# Customizing the plot
+# Anpassen des Plots
 plt.title('Zeitliche Verteilung der Karten im Bundesliga-Spiel (mit Content)')
 plt.xlabel('Spielzeit in Minuten')
 plt.ylabel('Karten')
 plt.yticks([])
 plt.grid(axis='x')
 
-# Adding legend
+# Hinzufügen einer Legende
+red_patch = mpatches.Patch(color='red', label='Rote Karte')
+yellow_patch = mpatches.Patch(color='yellow', label='Gelbe Karte')
 plt.legend(handles=[red_patch, yellow_patch])
 
-# Show the plot
+# Anzeigen des Plots
 plt.show()
