@@ -26,7 +26,20 @@ for entry in data.get('Transcript', []):
         timestamp = str(timedelta(milliseconds=begin_offset_millis))
         # timestamp nur die ersten 7 Zeichen (hh:mm:ss) behalten
         timestamp = timestamp[:7]
-        transcript_entry = {"timestamp": timestamp, "sentiment": sentiment, "content": content}
+        # Loudness-Scores und Confidences extrahieren
+        loudness_scores = entry.get("LoudnessScores", [])
+        confidences = [item.get("Confidence", "0.0") for item in entry.get("Items", [])]
+        # Durchschnitt der Loudness-Scores berechnen
+        loudness_average = sum(loudness_scores) / len(loudness_scores) if loudness_scores else None
+        # Durchschnitt der Confidences berechnen
+        confidence_average = sum(float(c) for c in confidences) / len(confidences) if confidences else None
+        transcript_entry = {
+            "timestamp": timestamp,
+            "sentiment": sentiment,
+            "loudness_avg": loudness_average,
+            "confidence_avg": confidence_average,
+            "content": content
+        }
         transcripts.append(transcript_entry)
 
 # Ergebnis als JSON-Datei speichern
