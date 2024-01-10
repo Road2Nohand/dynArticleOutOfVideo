@@ -33,7 +33,8 @@ variable "aws_account_id" {
 
 
 
-# GitHub OIDC Provider config
+#region GitHub OIDC Provider
+/*
 resource "aws_iam_role" "r2n_github_federated_idp_role" {
   name        = "r2nGitHubFederatedIDPRole"
   description = "This role is used to allow GitHub Actions to access AWS resources."
@@ -74,6 +75,8 @@ resource "aws_iam_openid_connect_provider" "github_federated_idp_config" {
   client_id_list = ["sts.amazonaws.com"]
   thumbprint_list = data.tls_certificate.github_federated_idp_config_tls_certificate.certificates[*].sha1_fingerprint
 }
+*/
+#endregion GitHub OIDC Provider
 
 
 #region website_bucket
