@@ -10,7 +10,7 @@ on:
 #   contents: read
 
 jobs:
-  terraform_ci:
+  terraform_cicd:
     runs-on: ubuntu-latest
 
     defaults:
