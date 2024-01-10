@@ -72,7 +72,7 @@ jobs:
       
 
       # || true bewirkt ein continue on error -> workaround für die s3 policy
-      - name: Terraform Apply 1st
+      - name: Terraform Apply
         run: |
           ls -al
           terraform apply -auto-approve
