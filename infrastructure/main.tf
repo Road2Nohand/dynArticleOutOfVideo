@@ -336,12 +336,13 @@ data "archive_file" "lambda_function_zip" {
     type        = "zip"
     source_dir  = "lambda_functions"
     output_path = "${path.module}/1_transcribe__function.zip"
+}
 
-    # openai-Bibliotheken aus der virtuellen Umgebung hinzufügen
-    source {
-        content  = file("${path.module}/lambda_functions/venv/Lib/site-packages")
-        filename = "venv/Lib/site-packages"
-    }
+# OpenAI Lib als Layer der Lambda-Funktion hinzufügen
+resource "aws_lambda_layer_version" "openai_layer" {
+  filename   = "lambda_functions/openai_layer.zip"
+  layer_name = "openai_layer"
+  compatible_runtimes = ["python3.11"]
 }
 
 # Damit die ARN der lambda_transcribe_role immer aktuell bleibt, auch wenn Änderungen an der ARN vorgenommen werden, wenn Terraform apply mehrmals ausgeführt wird
@@ -358,6 +359,7 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
     timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden
+    layers = [aws_lambda_layer_version.openai_layer.arn]
 
     # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
     environment {

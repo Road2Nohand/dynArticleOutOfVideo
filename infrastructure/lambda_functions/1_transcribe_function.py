@@ -6,10 +6,6 @@ import logging
 from datetime import datetime
 from datetime import timedelta
 
-# OpenAI Lib aus terraform adden
-import sys
-sys.path.append('/var/task/venv/Lib/site-packages')
-
 # Konfiguration des Loggings
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

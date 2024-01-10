@@ -1,3 +1,2 @@
 infrastructure/.terraform/
 *tfstate*
-infrastructure/lambda_functions/venv/
