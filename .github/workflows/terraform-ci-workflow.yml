@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   terraform_ci:
     runs-on: ubuntu-latest
@@ -16,12 +20,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-      - name: Configure AWS CLI
-        uses: aws-actions/configure-aws-credentials@v1
+      
+      
+      #- name: Configure AWS CLI
+      #  uses: aws-actions/configure-aws-credentials@v1
+      #  with:
+      #    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #    aws-region: eu-central-1
+
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::194277335307:role/r2nGitHubFederatedIDPRole
           aws-region: eu-central-1
 
       - name: Set up Terraform

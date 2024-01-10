@@ -2,7 +2,10 @@ import json
 from datetime import timedelta
 
 # Pfad zur JSON-Datei
-file_path = 'BundesligaSpiel1std37min.json' # Ersetzen Sie dies mit dem tatsächlichen Dateipfad
+file_path = 'BundesligaSpiel1std37min.json'  # Ersetzen Sie dies mit dem tatsächlichen Dateipfad
+
+# Output-Datei, ist der Name der Input Datei mit '_transcript_parsed.json' am Ende
+out_file_path = file_path.replace('.json', '_transcript_parsed.json')
 
 # JSON-Datei laden
 with open(file_path, 'r') as file:
@@ -23,7 +26,12 @@ for entry in data.get('Transcript', []):
         timestamp = str(timedelta(milliseconds=begin_offset_millis))
         # timestamp nur die ersten 7 Zeichen (hh:mm:ss) behalten
         timestamp = timestamp[:7]
-        transcripts.append(f"{timestamp} Sentiment: {sentiment} Content: {content}")
+        transcript_entry = {"timestamp": timestamp, "sentiment": sentiment, "content": content}
+        transcripts.append(transcript_entry)
+
+# Ergebnis als JSON-Datei speichern
+with open(out_file_path, 'w') as output_file:
+    json.dump(transcripts, output_file, indent=2)
 
 # Ergebnis ausgeben
 for transcript in transcripts:

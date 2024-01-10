@@ -10,6 +10,7 @@ terraform {
   }
 }
 
+
 #region Variables
 
 variable "website_bucket_name" {
@@ -24,8 +25,55 @@ variable "video_bucket_name" {
     type = string
 }
 
+variable "aws_account_id" {
+    type = string
+}
+
 #endregion Variables
 
+
+
+# GitHub OIDC Provider config
+resource "aws_iam_role" "r2n_github_federated_idp_role" {
+  name        = "r2nGitHubFederatedIDPRole"
+  description = "This role is used to allow GitHub Actions to access AWS resources."
+
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::${var.aws_account_id}:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:Road2Nohand/dynArticleOutOfVideo"
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "github_federated_idp_role_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  role       = aws_iam_role.r2n_github_federated_idp_role.name
+}
+
+data "tls_certificate" "github_federated_idp_config_tls_certificate" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
+resource "aws_iam_openid_connect_provider" "github_federated_idp_config" {
+  url = "https://token.actions.githubusercontent.com"
+  client_id_list = ["sts.amazonaws.com"]
+  thumbprint_list = data.tls_certificate.github_federated_idp_config_tls_certificate.certificates[*].sha1_fingerprint
+}
 
 
 #region website_bucket
