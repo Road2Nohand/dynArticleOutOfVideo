@@ -5,6 +5,7 @@ from time import sleep
 import logging
 from datetime import datetime
 from datetime import timedelta
+import requests
 
 # Konfiguration des Loggings
 logger = logging.getLogger()
@@ -58,11 +59,12 @@ def parse_transcript(file_name, bucket_name):
             else:
                 confidence_average = 0
 
+            # Loudness und confidence auf 3 Nachkomma-Stellen gerundet und Datensatz weiter zu verkleinern
             transcript_entry = {
                 "timestamp": timestamp,
                 "sentiment": sentiment,
-                "loudness_avg": loudness_average,
-                "confidence_avg": confidence_average,
+                "loudness_avg": round(loudness_average, 3),
+                "confidence_avg": round(confidence_average, 3),
                 "content": content
             }
             transcripts.append(transcript_entry)
@@ -161,7 +163,7 @@ def handler(event, context):
                             }
                         ]
                     )
-                    html_content = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                    article = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
                 except Exception as e:
                     logger.error(f"Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}")
                     return {
@@ -170,8 +172,42 @@ def handler(event, context):
                     }
 
                 # Speichern des HTML-Artikels im S3 Bucket
-                s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=html_content)
+                s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
                 logger.info("Artikel im S3 Bucket gespeichert.")
+
+
+                # Generieren des Thumbnails mit DALL-E
+                try:
+                    image_generation = client.images.generate(
+                    model="dall-e-3",
+                    prompt=(
+                        "Basierend auf der folgenden Artikel eines Fußballspiels, erstelle bitte ein lebendiges und dynamisches Bild, das ein Fußballspiel darstellt. \n"
+                        "Die Szene sollte die Spannung und Energie des Spiels einfangen, \n"
+                        "mit zwei Teams inmitten der Aktion und die Spieler inmitten des Fußballfeldes auf dem das Spiel stattgefunden haben könnte. \n"
+                        "Die Spieler tragen die Trikots ihres jeweiligen Teams. Versuche auch die Logos der Teams zu representieren. Das Stadion ist voll mit begeisterten Fans, was für eine lebhafte Atmosphäre sorgt. \n"
+                        "Dieses Bild sollte die Begeisterung und Leidenschaft des Fußballs vermitteln und ist perfekt als Thumbnail für einen Artikel über ein Fußballspiel geeignet. \n"
+                        "Das Bild soll zudem photorealistisch sein!\n"
+                        f"{article}"
+                        ),
+                    size="1024x1024",
+                    quality="hd",
+                    n=1,
+                    )
+                except Exception as e:
+                    logger.error(f"Fehler beim Generieren des Thumbnails mit DALL-E: {e}")
+                    return {
+                        'statusCode': 500,
+                        'body': json.dumps(f'Fehler beim Generieren des Thumbnails mit DALL-E: {e}')
+                    }
+
+                image_url = image_generation.data[0].url
+                response = requests.get(image_url)
+                if response.status_code == 200:
+                    with open("thumbnail.png", "wb") as file:
+                        file.write(response.content)
+                    print("Bild erfolgreich gespeichert als fussballspiel_thumbnail.png")
+                else:
+                    print("Fehler beim Herunterladen des Bildes")
 
             except Exception as e:
                 logger.error(f"Beim Parsen der Transkription ist ein Fehler aufgetreten: {e}")
@@ -179,6 +215,10 @@ def handler(event, context):
                     'statusCode': 500,
                     'body': json.dumps(f'Fehler beim Parsen der Transkription: {e}')
                 }
+            
+            # Speichern des Thumbnails im S3 Bucket
+            s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
+            logger.info("Thumbnail im S3 Bucket gespeichert.")
 
             # Speichern der Ergebnisse im S3 Bucket
             s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
