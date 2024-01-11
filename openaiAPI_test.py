@@ -31,6 +31,10 @@ chat_completion = client.chat.completions.create(
 # Extrahieren und Drucken des Inhalts der Antwort
 article = chat_completion.choices[0].message.content
 
+# Extrahieren Sie die Token-Information aus der Antwort
+print(f"Anzahl der Tokens für die Eingabe: {chat_completion.usage.prompt_tokens}")
+print(f"Anzahl der Tokens für die Ausgabe: {chat_completion.usage.completion_tokens}")
+
 image_generation = client.images.generate(
     model="dall-e-3",
     prompt=(

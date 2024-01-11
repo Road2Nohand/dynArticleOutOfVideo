@@ -124,7 +124,7 @@ def handler(event, context):
             else:
                 if not progress_created:
                     timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Inferenz gestartet um {timestamp}...')
+                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
             sleep(5) # to poll AWS Transcription Progress
@@ -158,7 +158,7 @@ def handler(event, context):
 
                         data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
                         chat_completion = client.chat.completions.create(
-                            model="gpt-4-32k-0613",
+                            model="gpt-4-1106-preview",
                             messages=[
                                 {
                                     "role": "user",
@@ -168,7 +168,7 @@ def handler(event, context):
                                     Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
                                     bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
                                     Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
-                                    {data}"      
+                                    {data}"
                                 }
                             ]
                         )
