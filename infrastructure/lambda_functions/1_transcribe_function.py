@@ -15,7 +15,8 @@ logger.setLevel(logging.INFO)
 try:
     from openai import OpenAI
     # Einen Test-Print oder eine einfache Funktionsausführung durchführen
-    logger.info(f"OpenAI erfolgreich importiert.")
+    client = OpenAI(api_key=os.environ.get("OPEN_AI_API_KEY"))
+    logger.info(f"OpenAI erfolgreich importiert und OPEN_AI_API_KEY ausgelesen.")
 except ImportError as e:
     # Loggen des Fehlers und ggf. Behandlung
     logger.error("Fehler beim Import von OpenAI: %s", e)
@@ -106,19 +107,29 @@ def handler(event, context):
             ]
         )
 
+        progress_created = False
         while True:
             status = transcribe.get_call_analytics_job(CallAnalyticsJobName=job_name)
             job_status = status['CallAnalyticsJob']['CallAnalyticsJobStatus']
             logger.info(f"Aktueller Status des Call Analytics-Jobs '{job_name}': {job_status}")
             if job_status in ['COMPLETED', 'FAILED']:
                 break
+            else:
+                if not progress_created:
+                    s3.put_object(Bucket=website_bucket_name, Key='PROGRESS.txt', Body='Job in progress', ACL='public-read')
+                    logger.info("PROGRESS.txt im S3 Bucket erstellt.")
+                    progress_created = True
             sleep(5)
         
         if job_status == 'FAILED':
             failure_reason = status['CallAnalyticsJob']['FailureReason']
             logger.error(f"Call Analytics-Job '{job_name}' ist fehlgeschlagen. Grund: {failure_reason}")
+            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job failed', ACL='public-read')
+
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
+            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job completed', ACL='public-read')
+            logger.info("COMPLETED.txt im S3 Bucket erstellt.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
             transcript_bucket_name = 'dyn-bucket-for-static-article-website-dev'
@@ -128,6 +139,40 @@ def handler(event, context):
             try:
                 parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
                 logger.info(f"Parsing der Transkription abgeschlossen.")
+
+                try:
+                    # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
+                    # Und möglichst viel historisches Wissen in den Artikel einfließen soll.
+                    logger.info(f"Generiere Artikel mit GPT-4 Turbo.")
+
+                    data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
+                    chat_completion = client.chat.completions.create(
+                        model="gpt-4-1106-preview",
+                        messages=[
+                            {
+                                "role": "user",
+                                "content": \
+                                f"Basierend auf der folgenden Transkription eines Fußballspiels, erstelle bitte einen spannenden und kurzen Fußballartikel, \
+                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung halten. \
+                                Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
+                                bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
+                                Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
+                                {data}"      
+                            }
+                        ]
+                    )
+                    html_content = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                except Exception as e:
+                    logger.error(f"Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}")
+                    return {
+                        'statusCode': 500,
+                        'body': json.dumps(f'Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}')
+                    }
+
+                # Speichern des HTML-Artikels im S3 Bucket
+                s3.put_object(Bucket=website_bucket_name, Key='article.html', Body=html_content, ACL='public-read')
+                logger.info("Artikel im S3 Bucket gespeichert.")
+
             except Exception as e:
                 logger.error(f"Beim Parsen der Transkription ist ein Fehler aufgetreten: {e}")
                 return {
@@ -136,10 +181,8 @@ def handler(event, context):
                 }
 
             # Speichern der Ergebnisse im S3 Bucket
-            parsed_output_file_name = transcript_file_name.replace('.json', '_transcript_parsed.json')
-            cleaned_output_file_name = transcript_file_name.replace('.json', '_transcript_cleaned_from_noise.json')
-            s3.put_object(Bucket=website_bucket_name, Key=parsed_output_file_name, Body=json.dumps(parsed_transcript))
-            s3.put_object(Bucket=website_bucket_name, Key=cleaned_output_file_name, Body=json.dumps(cleaned_transcript))
+            s3.put_object(Bucket=website_bucket_name, Key="transcript_parsed.json", Body=json.dumps(parsed_transcript), ACL='public-read')
+            s3.put_object(Bucket=website_bucket_name, Key="transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript), ACL='public-read')
 
     return {
         'statusCode': 200,

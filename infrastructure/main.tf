@@ -367,7 +367,7 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
             WEBSITE_BUCKET_NAME = aws_s3_bucket.website_bucket.bucket,
             DATA_ACCESS_ROLE_ARN = data.aws_iam_role.transcribe_role.arn,
             VIDEO_BUCKET_NAME = aws_s3_bucket.video_bucket.bucket,
-            OPEN_AI_API_KEY = "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"
+            OPEN_AI_API_KEY = "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"
         }
     }
 }

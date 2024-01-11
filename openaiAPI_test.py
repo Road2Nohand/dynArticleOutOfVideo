@@ -21,7 +21,7 @@ chat_completion = client.chat.completions.create(
             wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung halten. \
             Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
             bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
-            Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und endendes ``` weg. Hier ist die Transkription: \n \
+            Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
             {data}"      
         }
     ]
