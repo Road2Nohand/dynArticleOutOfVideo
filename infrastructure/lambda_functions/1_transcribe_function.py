@@ -149,7 +149,11 @@ def handler(event, context):
                 # Parsen der Transkription
                 try:
                     parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
-                    logger.info(f"Parsing der Transkription abgeschlossen.")
+                    logger.info(f"Parsing der Transkription abgeschlossen.")                    
+
+                    # Speichern der Ergebnisse im S3 Bucket
+                    s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
+                    s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
                     try:
                         # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
@@ -218,11 +222,24 @@ def handler(event, context):
                     print(image_url)
                     http = urllib3.PoolManager()
                     response = http.request('GET', image_url)
-
+                    
                     if response.status == 200:
-                        with open("thumbnail.png", "wb") as file:
+                        # Speichern der Datei im /tmp Verzeichnis
+                        temp_file_path = "/tmp/thumbnail.png"
+                        with open(temp_file_path, "wb") as file:
                             file.write(response.data)
-                        print("Bild erfolgreich gespeichert als thumbnail.png")
+                        print("Bild erfolgreich gespeichert als /tmp/thumbnail.png")
+                    
+                        # Hochladen der Datei von /tmp zum S3 Bucket
+                        try:
+                            s3.upload_file(temp_file_path, website_bucket_name, "analytics/thumbnail.png")
+                            logger.info("Thumbnail im S3 Bucket gespeichert.")
+                        except Exception as e:
+                            logger.error(f"Fehler beim Hochladen des Thumbnails in den S3 Bucket: {e}")
+                            return {
+                                'statusCode': 500,
+                                'body': json.dumps(f'Fehler beim Hochladen des Thumbnails: {e}')
+                            }
                     else:
                         print("Fehler beim Herunterladen des Bildes")
 
@@ -239,10 +256,6 @@ def handler(event, context):
                 # Speichern des Thumbnails im S3 Bucket
                 s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
                 logger.info("Thumbnail im S3 Bucket gespeichert.")
-
-                # Speichern der Ergebnisse im S3 Bucket
-                s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
-                s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
                 timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
