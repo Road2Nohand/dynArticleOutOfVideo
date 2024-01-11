@@ -116,7 +116,7 @@ def handler(event, context):
                 break
             else:
                 if not progress_created:
-                    s3.put_object(Bucket=website_bucket_name, Key='PROGRESS.txt', Body='Job in progress')
+                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body='Job in progress')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
             sleep(5)
@@ -170,7 +170,7 @@ def handler(event, context):
                     }
 
                 # Speichern des HTML-Artikels im S3 Bucket
-                s3.put_object(Bucket=website_bucket_name, Key='article.html', Body=html_content)
+                s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=html_content)
                 logger.info("Artikel im S3 Bucket gespeichert.")
 
             except Exception as e:
@@ -181,8 +181,8 @@ def handler(event, context):
                 }
 
             # Speichern der Ergebnisse im S3 Bucket
-            s3.put_object(Bucket=website_bucket_name, Key="transcript_parsed.json", Body=json.dumps(parsed_transcript))
-            s3.put_object(Bucket=website_bucket_name, Key="transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
+            s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
+            s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
     return {
         'statusCode': 200,
