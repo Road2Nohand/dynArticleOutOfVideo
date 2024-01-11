@@ -28,6 +28,7 @@
         color: white; /* Typischerweise Schwarz oder eine andere auffällige Farbe */
         opacity: 0.5;
         margin-top: 10vh;
+        padding: 2%;
         }
     p {
         color: gray;
@@ -53,6 +54,17 @@
         font-size: 0.7em;
         opacity: 0.8;
     }
+
+    #ytLinkDiv {
+        text-align: center;
+    }
+    #ytLinkDiv a {
+        color: gray;
+    }
+    #ytLinkDiv a:hover {
+        color: white;
+    }
+
     #inProgress {
         color: white;
         font-family: "consolas";
@@ -62,6 +74,7 @@
         margin-left: 20vw;
         margin-right: 20vw;
     }
+
     #transcript {
         color: white;
         font-family: "consolas";
@@ -77,6 +90,32 @@
         font-size: 1.5em;
         opacity: 0.8;
     }
+
+    #thumbnail {
+        color: white;
+        font-family: "consolas";
+        font-size: 0.7em;
+        opacity: 1;
+        margin-top: 5vh;
+        margin-left: 20vw;
+        margin-right: 20vw;
+    }
+    #thumbnail p {
+        color: white;
+        font-family: "consolas";
+        font-size: 1.5em;
+        opacity: 0.8;
+    }
+    #thumbnailImage {
+        width: 50vw;
+        height: auto;
+    }
+    #imageContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
     #inProgress {
         text-align: center;
     }
@@ -105,6 +144,10 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    .hidden {
+        display: none;
     }
 </style>
 
@@ -170,9 +213,13 @@
                     })
                     .then(data => {
                         if(data) {
-                            element = document.getElementById('article');
-                            element.innerHTML = data;
-                            element.classList.add('fade-in-slide-down');
+                            const articleElement = document.getElementById('article');
+                            articleElement.innerHTML = data;
+                            articleElement.classList.add('fade-in-slide-down');
+                        
+                            // Entfernen der 'hidden'-Klasse von Thumbnail und Link
+                            const thumbnailElements = document.querySelectorAll('#thumbnail .hidden');
+                            thumbnailElements.forEach(el => el.classList.remove('hidden'));
                         }
                     })
                     .catch(error => {
@@ -187,12 +234,68 @@
         
 
 
+        <!-- Container für Thumbnail -->
+        <div id="thumbnail">
+            <div id="ytLinkDiv" class="hidden">
+                <a id="ytLink" href="https://youtu.be/U_J0FFl3DWM">Historische-Niederlage für Bayern | M'gladbach - FC Bayern 5:0 | DFB-Pokal 2021/22</a>
+            </div>
+            <br>
+            <br>
+            <p class="showIfArticleHasLoaded hidden">Fußball Artikel generiert von einem Neuronalen Netz</p>
+            <br>
+            <p class="showIfArticleHasLoaded hidden">Thumbnail generiert aus dem generierten Artikel von einem Neuronalen Netz:</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- Container für das Bild -->
+            <div id="imageContainer" class="hidden">
+                <img id="thumbnailImage" style="display: none;" alt="" />
+            </div>
+            <br>
+            <br>
+        </div>
+        <script>
+            const bucketUrlThumbnail = 'https://dyn-bucket-for-static-article-website-dev.s3.eu-central-1.amazonaws.com/analytics/thumbnail.png';
+        
+            function checkFileStatus() {
+                fetch(bucketUrlThumbnail)
+                    .then(response => {
+                        if (!response.ok) {
+                            if(response.status === 404) {
+                                console.log('thumbnail.png noch nicht vorhanden, wird geladen...');
+                            } else {
+                                throw new Error('Fehler beim Laden der Datei thumbnail.png');
+                            }
+                        } else {
+                            return response.blob(); // Verwenden von blob() statt text()
+                        }
+                    })
+                    .then(blob => {
+                        if(blob) {
+                            const imageUrl = URL.createObjectURL(blob);
+                            const imgElement = document.getElementById('thumbnailImage');
+                            imgElement.src = imageUrl;
+                            imgElement.style.display = 'block'; // Bild anzeigen
+                            imgElement.classList.add('fade-in-slide-down');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fehler:', error);
+                    });
+            }
+        
+            // Polling jede Sekunde
+            setInterval(checkFileStatus, 1500);
+        </script>
+
+
+
         <!-- Container für Transkription -->
         <div id="transcript">
             <br>
-            <p class="showIfArticleHasLoaded">:Fußball Artikel generiert von einem Neuronalen Netz</p>
             <br>
-            <p class="showIfArticleHasLoaded">generiert aus eine Transkription von einem Neuronalen Netz:</p>
+            <p class="showIfArticleHasLoaded">:alles generiert aus einer von Rausch bereinigten Transkription eines Neuronalen Netzes für insg. 3€:</p>
             <br>
             <br>
             <br>
@@ -228,7 +331,7 @@
             }
         
             // Polling jede Sekunde
-            setInterval(checkFileStatus, 1000);
+            setInterval(checkFileStatus, 2000);
         </script>
 
     </body>

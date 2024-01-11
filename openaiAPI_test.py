@@ -9,6 +9,7 @@ client = OpenAI(
 
 # Öffne die Datei BundesligaSpiel1std37min_transcript_parsed.json
 # Die volle Länge des Spiels hatte 26.451 Input Tokens
+# Bei der 30min Variante sinds nur  7.724 Input Tokens
 with open("BundesligaSpiel1std37min_transcript_parsed.json") as f:
     data = f.read()
 

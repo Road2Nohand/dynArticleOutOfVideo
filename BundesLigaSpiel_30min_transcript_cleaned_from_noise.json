@@ -1,0 +1,639 @@
+[
+    {
+        "timestamp": "0:00:00",
+        "sentiment": "MIXED",
+        "loudness_avg": 90.515,
+        "confidence_avg": 0.8260434782608695,
+        "content": "ein herzliches Willkommen zu einem DFB Pokal Klassiker und das, obwohl dieses Spiel gerade mal etwas mehr als ein Jahr zur\u00fcckliegt."
+    },
+    {
+        "timestamp": "0:00:07",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.37,
+        "confidence_avg": 0.8273333333333334,
+        "content": "Wir befinden uns am 27."
+    },
+    {
+        "timestamp": "0:00:09",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.24666666666667,
+        "confidence_avg": 0.7138749999999999,
+        "content": "Oktober 2021, 20,45 im Borussia Park."
+    },
+    {
+        "timestamp": "0:00:14",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 91.0625,
+        "confidence_avg": 0.9066875000000001,
+        "content": "Das Duell der zweiten Runde wartet auf uns Borussia M\u00f6nchengladbach empf\u00e4ngt den FC Bayern M\u00fcnchen."
+    },
+    {
+        "timestamp": "0:00:21",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.18222222222221,
+        "confidence_avg": 0.8437924528301884,
+        "content": "Eines der historischsten Duelle der Fu\u00dfballgeschichte Deutschlands, das heute hier auf uns wartet und zwei Mannschaften, die nat\u00fcrlich im Vorfeld enorm hei\u00df waren, um in die n\u00e4chste Runde des Pokals zu kommen Beide Mannschaften dabei nahezu in Bestbesetzung, die Bayern allerdings ohne Trainer Julian Nagelsmann auf der Ersatzbank."
+    },
+    {
+        "timestamp": "0:00:47",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.83125000000001,
+        "confidence_avg": 0.9200277777777779,
+        "content": "Er fehlte zu diesem Zeitpunkt Corona Kack Jan Sommer und Co hatten sich in der ersten Runde mit M\u00fche durchgesetzt gegen den Ersten FC Kaiserslautern, die Bayern 12 null wiederum gegen den Bremer SV."
+    },
+    {
+        "timestamp": "0:01:02",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.58500000000001,
+        "confidence_avg": 0.8223333333333334,
+        "content": "Und wir sehen den Schiedsrichter."
+    },
+    {
+        "timestamp": "0:01:03",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.70333333333333,
+        "confidence_avg": 0.7644736842105264,
+        "content": "Tobias Stiehler aus Hamburg, assistiert von Christian Gitt und Eduard weer Der vierte Offizielle ist Nicolas Winter."
+    },
+    {
+        "timestamp": "0:01:11",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 87.74875,
+        "confidence_avg": 0.875181818181818,
+        "content": "Schneller Blick auf die Aufstellungen beider Mannschaften bei n\u00e4chster Gelegenheit."
+    },
+    {
+        "timestamp": "0:01:18",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.35882352941178,
+        "confidence_avg": 0.8123571428571428,
+        "content": "Wenn wir hier noch mal den Unparteiischen vorgestellt bekommen, erfahren, ist er absoluter Topmann und genau das, was eine solche Partie eben auch erfordert."
+    },
+    {
+        "timestamp": "0:01:35",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.79374999999999,
+        "confidence_avg": 0.7447777777777778,
+        "content": "Also Scheller Wick bei Gladbach Jan Sommer im Tor folge eine Dreierkette mit G\u00fcnther Elvedi und Bayer."
+    },
+    {
+        "timestamp": "0:01:43",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 87.85092592592592,
+        "confidence_avg": 0.7938999999999998,
+        "content": "Sally und Bence Beii \u00fcber die Au\u00dfen, Zakaria und Cone auf der Doppel sechs Jonas Hofmann und das Stindl auf den halben Breen bolo als Neuner ganz vorne drin bei den Bayern neu am Tor vor ihm eine Viererkette mit Davis Herandez UPA Mean und Pawa Goretzka fehlte davor wegen Erk\u00e4ltung wieder mit dabei an der Seite von Kimmich, Sane M\u00fcller und Gnaby hinter der Solo Spitze Robert Lewandowski Alles vorbereitet, alles bereit die Partie freigegeben die Bayern in den roten Trikots im ersten Durchgang von rechts nach links gegen die ganz in wei\u00df gekleideten Fohlen, das stimmt, freundschaftliches Abklatschen im Vorfeld mit Josua Kinn"
+    },
+    {
+        "timestamp": "0:02:41",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 85.40714285714286,
+        "confidence_avg": 0.7715423728813562,
+        "content": "Fernandes und zum ersten Mal Tobias Stiller, wenn auch nur m\u00e4\u00dfig gefordert, Thomas M\u00fcller, selbstredend einer der Wortf\u00fchrer seiner Mannschaft Wenn wir hier die No Toppm\u00f6ller im Bild haben, der Mann, der Julian Nagelsmann eben wie schon thematisiert in dieser Partie wie auch in Jena davor auf der Ersatzbank vertritt, vertreten muss."
+    },
+    {
+        "timestamp": "0:03:08",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 90.44200000000001,
+        "confidence_avg": 0.8155882352941176,
+        "content": "Nagelsmann meinte aber im Vorfeld Das hat ja zuletzt gut geklappt, die Mannschaft ist hei\u00df."
+    },
+    {
+        "timestamp": "0:03:12",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.8825,
+        "confidence_avg": 0.891090909090909,
+        "content": "Und genau das erwartet er sich auch von dieser Begegnung."
+    },
+    {
+        "timestamp": "0:03:17",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 90.10499999999998,
+        "confidence_avg": 0.8615999999999999,
+        "content": "Guter Ball der Gastgeber \u00fcber die rechte Seite Zakaria."
+    },
+    {
+        "timestamp": "0:03:24",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 80.868,
+        "confidence_avg": 0.85795,
+        "content": "Gegen Davis, der den Zweikampf gewinnt, dann aber dieser Fehlpass und die erste M\u00f6glichkeit der Partie Conne 10"
+    },
+    {
+        "timestamp": "0:03:40",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 76.15384615384616,
+        "confidence_avg": 0.9406000000000001,
+        "content": "Was f\u00fcr ein Auftakt f\u00fcr die Gastgeber Borussia M\u00f6nchengladbach braucht keine 80 Sek, um hier zum ersten Mal zuzuschlagen"
+    },
+    {
+        "timestamp": "0:03:57",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 45.805,
+        "confidence_avg": 0.7946,
+        "content": "\u00fcber die rechte Seite."
+    },
+    {
+        "timestamp": "0:03:58",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 89.6067857142857,
+        "confidence_avg": 0.8331851851851849,
+        "content": "Die Szene schien schon gekl\u00e4rt, dann aber dieser Fehlpass von Davis Embolo, der sich durchsetzt und am Ende Manu Cone, der den Ball selbst erobert hatte, aufmerksam war und dann eben auch durchl\u00e4uft und hier f\u00fcr die ganz fr\u00fche F\u00fchrung der Gro\u00dfen sorgt, f\u00fcr Neuer nicht zu halten."
+    },
+    {
+        "timestamp": "0:04:25",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.618,
+        "confidence_avg": 0.8619130434782609,
+        "content": "Jubel auch auf der Bank bei Adi H\u00fctter, der ja zu diesem Zeitpunkt gerade erst mal drei Monate im Amt war."
+    },
+    {
+        "timestamp": "0:04:34",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.14916666666666,
+        "confidence_avg": 0.920235294117647,
+        "content": "Und wir werden inzwischen wissen auch das Ende der Saison dann nicht weiter als Trainer \u00fcberlebt hat"
+    },
+    {
+        "timestamp": "0:04:52",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.02,
+        "confidence_avg": 0.7735454545454545,
+        "content": "mittlerweile Daniel Fake auch durchaus erfolgreich Trainer bei Borussia M\u00f6nchengladbach."
+    },
+    {
+        "timestamp": "0:05:00",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.29714285714284,
+        "confidence_avg": 0.8559166666666668,
+        "content": "Aber Adi H\u00fctter hatte zu diesem Zeitpunkt nat\u00fcrlich ganz andere Gedanken."
+    },
+    {
+        "timestamp": "0:05:07",
+        "sentiment": "MIXED",
+        "loudness_avg": 89.737,
+        "confidence_avg": 0.79456,
+        "content": "Der Ligat die ist zum Oktober hin m\u00e4\u00dfig nicht schlecht, aber eben auch noch nicht die ganz gro\u00dfe Erfolgs Strecke mit dabei gewesen."
+    },
+    {
+        "timestamp": "0:05:16",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.36,
+        "confidence_avg": 0.9013749999999999,
+        "content": "Vor dieser Partie gegen die Bayern gab es f\u00fcr Borussia eine Niederlage bei Hertha BSC."
+    },
+    {
+        "timestamp": "0:05:23",
+        "sentiment": "MIXED",
+        "loudness_avg": 89.851,
+        "confidence_avg": 0.8758636363636364,
+        "content": "Insgesamt ein fast schon kontinuierliches Auf und Ab in der Anfangsphase teilweise ganz gute Spiele, teilweise fehlten allerdings die Ergebnisse."
+    },
+    {
+        "timestamp": "0:05:32",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.94105263157896,
+        "confidence_avg": 0.7962368421052631,
+        "content": "Julian Nagelsmann meinte vor dieser Begegnung, dass es durchaus \u00fcberraschend ist, dass, obwohl Borussia so intensiv spielt, die Ergebnisse so h\u00e4ufig bis zu diesem Zeitpunkt eben eine andere Sprache an den Tag legen."
+    },
+    {
+        "timestamp": "0:05:50",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.64363636363636,
+        "confidence_avg": 0.7502727272727273,
+        "content": "Er bald zur\u00fcck f\u00fcr neuer Foulspiel richtig gesehen von Tobias Steher"
+    },
+    {
+        "timestamp": "0:06:06",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.86,
+        "confidence_avg": 0.8935925925925926,
+        "content": "Ein langes Gesicht bei Oliver Kern Den Auftakt in so eine zweite Runde im Pokal d\u00fcrfte er sich auch anders vorgestellt haben nat\u00fcrlich unangenehm als Ausw\u00e4rtsmannschaft."
+    },
+    {
+        "timestamp": "0:06:18",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.39142857142856,
+        "confidence_avg": 0.811,
+        "content": "Das ist genau das, was die Bayern in solchen Partien selbst verhindern m\u00f6chten, insbesondere ausw\u00e4rts."
+    },
+    {
+        "timestamp": "0:06:31",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 82.94944444444442,
+        "confidence_avg": 0.8994333333333333,
+        "content": "Klar ist nat\u00fcrlich, dass die Bayern als gro\u00dfer Favorit in dieses Duell gehen zu diesem Zeitpunkt bereits souver\u00e4ner Tabellenf\u00fchrer sollten ja am Ende dann auch erneut Meister werden."
+    },
+    {
+        "timestamp": "0:07:04",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 87.25,
+        "confidence_avg": 0.979,
+        "content": "Davis"
+    },
+    {
+        "timestamp": "0:07:18",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 90.01699999999998,
+        "confidence_avg": 0.8803999999999997,
+        "content": "das, was man bereits nach f\u00fcnf Minuten sehr gut erkennen kann Bei den Hausherren ist das gute Spiel gegen den Ball sehr aggressiv, auch gegen den Gegner."
+    },
+    {
+        "timestamp": "0:07:27",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 78.13111111111112,
+        "confidence_avg": 0.8756470588235293,
+        "content": "Auch wenn es mal auf Kosten eines Freisto\u00df geht wie in diesem Falle bei Hofmann Mannschaft aufmerksam"
+    },
+    {
+        "timestamp": "0:07:43",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 77.73624999999998,
+        "confidence_avg": 0.7751428571428571,
+        "content": "und Konterchance Gladbach aber abgelaufen, auch weil Sane den Weg nach hinten sucht"
+    },
+    {
+        "timestamp": "0:08:09",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 77.32428571428571,
+        "confidence_avg": 0.7832,
+        "content": "da noch mal den bislang ersten Treffer dieser Begegnung."
+    },
+    {
+        "timestamp": "0:08:16",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 88.7009090909091,
+        "confidence_avg": 0.6559999999999999,
+        "content": "Cone schneller als M\u00fcller, da es noch mal Hofmann, der zun\u00e4chst verpasst hatte, dann Gutes zu upa."
+    },
+    {
+        "timestamp": "0:08:26",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 81.94363636363636,
+        "confidence_avg": 0.83564,
+        "content": "Mino verliert den Zweikampf Frage W\u00e4re gewesen was h\u00e4tte Embolo aus dieser Szene machen k\u00f6nnen, wenn er nicht die Unterst\u00fctzung connes bekommen h\u00e4tte?"
+    },
+    {
+        "timestamp": "0:10:00",
+        "sentiment": "MIXED",
+        "loudness_avg": 83.90200000000002,
+        "confidence_avg": 0.8492631578947369,
+        "content": "F\u00fcr mich Davis Eine gute Position kann dann aber M\u00fcller in diesem Falle nicht genauer in Aktion bringen."
+    },
+    {
+        "timestamp": "0:10:16",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.78466666666665,
+        "confidence_avg": 0.8302734374999999,
+        "content": "Viel geht bei den Bayern nat\u00fcrlich auch \u00fcber Leroy Sane, aber bis zu diesem Zeitpunkt steht Gladbach hinten noch ganz gut, kann die ersten w\u00fctenden Angriffe der Bayern parieren, die selbstredend darauf dr\u00e4ngen, fr\u00fchzeitig das zweite Tor einerseits zu verhindern und andererseits das zweite Tor dieser Partie selbst zu erzielen, um dann f\u00fcr den 11 Ausgleich zu sorgen."
+    },
+    {
+        "timestamp": "0:10:47",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.18666666666665,
+        "confidence_avg": 0.8315,
+        "content": "Gleichzeitig das Team von Adi H\u00fctter, aber auch eines mit vielen schnellen Spielern vorne."
+    },
+    {
+        "timestamp": "0:10:52",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 88.98,
+        "confidence_avg": 0.6971428571428572,
+        "content": "Umschalt Momente sind da durchaus vorhanden."
+    },
+    {
+        "timestamp": "0:10:57",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.41125,
+        "confidence_avg": 0.868090909090909,
+        "content": "Macht ist f\u00fcr den Rekordmeister und Rekordpokalsieger nicht unbedingt leichter."
+    },
+    {
+        "timestamp": "0:11:05",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.61555555555555,
+        "confidence_avg": 0.8238461538461538,
+        "content": "Und jetzt die Chance f\u00fcr Hofmann Hofmann Riesengelegenheit Und er fordert offenbar einen Elfmeter Geht's zu Tobias Ieder, der sagt Aber da war nichts."
+    },
+    {
+        "timestamp": "0:11:22",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.11923076923077,
+        "confidence_avg": 0.7917619047619047,
+        "content": "Zweite Runde, DFB Pokal Noch keine Partie, in der der Videosystem Reff dabei ist und entsprechend eingreifen k\u00f6nnte."
+    },
+    {
+        "timestamp": "0:11:40",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 90.578,
+        "confidence_avg": 0.7535000000000001,
+        "content": "Und Bodo, derjenige, der zu Beginn dieser Aktion gefoult wurde, gab dann aber eben den Vorteil, der sich hier sichtbar ergab."
+    },
+    {
+        "timestamp": "0:11:49",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.93769230769232,
+        "confidence_avg": 0.8780476190476189,
+        "content": "UPA Mean versuchte da an Hofmann heranzukommen Ber\u00fchrung ist da wirkt auf den ersten Blick ja nicht so richtig dramatisch."
+    },
+    {
+        "timestamp": "0:12:01",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.28944444444444,
+        "confidence_avg": 0.8416338028169014,
+        "content": "Aber wom\u00f6glich kam Opa Meo eben auf den Fu\u00df beziehungsweise gegen das Bein Hofmanns Unmittelbar bevor dieser den Abschluss gefunden hatte, reichte aber eben nicht f\u00fcr einen Strafsto\u00df dennoch ein bisschen Gl\u00fcck f\u00fcr den FC Bayern in dieser Situation, dass es dann fr\u00fch in der Partie nicht sofort auch noch einen Elfmeter gab, um f\u00fcr Borussia M\u00f6nchengladbach hier die Chance auf das 20 noch mal zu potenzieren."
+    },
+    {
+        "timestamp": "0:12:36",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.74000000000001,
+        "confidence_avg": 0.8679411764705883,
+        "content": "Nichtsdestotrotz macht auch das deutlich, wie gut bestimmte Bereiche hier offensichtlich gleich zu Beginn harmonierten."
+    },
+    {
+        "timestamp": "0:12:54",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 82.26368421052632,
+        "confidence_avg": 0.6005909090909091,
+        "content": "cone Guten Tag ja, gut gespielt, Klasse Auge und neuer 11 Minuten vorbei die dritte gro\u00dfe Chance f\u00fcr Borussia."
+    },
+    {
+        "timestamp": "0:13:17",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 84.59718749999999,
+        "confidence_avg": 0.6929722222222222,
+        "content": "Opa Meco versch\u00e4tzt sich ohne Embolo hinten mit der Riesengelegenheit Breel Embolo stark freigelaufen, profitiert aber auch von Opa Mean Schnitzer in dieser Aktion Ecke gut ausgef\u00fchrt, N\u00e4chster gef\u00e4hrlicher Abschluss Zakaria an diesem Fall"
+    },
+    {
+        "timestamp": "0:14:00",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 82.385,
+        "confidence_avg": 0.92352,
+        "content": "Und auch da die Gladbacher einfach gedankenschnell als die Bayern, die gek\u00fchlt zu diesem Zeitpunkt immer noch nicht richtig da sind in dieser Partie"
+    },
+    {
+        "timestamp": "0:14:22",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.04249999999999,
+        "confidence_avg": 0.8300909090909091,
+        "content": "das Team von Adi H\u00fctter auf der anderen Seite deutlich pr\u00e4senter"
+    },
+    {
+        "timestamp": "0:14:36",
+        "sentiment": "MIXED",
+        "loudness_avg": 83.17263157894736,
+        "confidence_avg": 0.8033454545454545,
+        "content": "Freisto\u00df Prob, Mann Kopfballchance, aber letzten Endes Bence Bai Doch ein gutes St\u00fcck \u00fcber ein neues Tor haben die Benni, ein extrem torgef\u00e4hrlicher Au\u00dfenverteidiger und die Gesichtsz\u00fcge der Bayern Bosse sahen schon nach drei Minuten eher unzufrieden aus und Mundwinkel Oliver Kahns h\u00e4ngen keine zehn Minuten sp\u00e4ter noch deutlich weiter nach S\u00fcden"
+    },
+    {
+        "timestamp": "0:15:26",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 74.70833333333333,
+        "confidence_avg": 0.8365714285714284,
+        "content": "Zuschauer fordern eine Gelbe Karte Ich meine, dass es die nicht braucht."
+    },
+    {
+        "timestamp": "0:15:35",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 71.298,
+        "confidence_avg": 0.8715454545454544,
+        "content": "Scheint wiederum er der Meinung seiner eigenen Welt zu sein."
+    },
+    {
+        "timestamp": "0:15:56",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 85.84,
+        "confidence_avg": 0.661,
+        "content": "Sommer Langer, weiter, Ball nach vorne, neuer"
+    },
+    {
+        "timestamp": "0:16:19",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 79.777,
+        "confidence_avg": 0.7859666666666666,
+        "content": "Hofmann gute Kombination, scall auch das stark Hofmann Hofmann ist das \u00fcberragende Spiel 20"
+    },
+    {
+        "timestamp": "0:16:36",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 88.03600000000002,
+        "confidence_avg": 0.8430000000000001,
+        "content": "Rami Benze bei ein Ergebnis, das nach einer Viertelstunde auch absolut verdient ist"
+    },
+    {
+        "timestamp": "0:16:51",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 85.64857142857143,
+        "confidence_avg": 0.8273409090909091,
+        "content": "kein Abseits von Jonas Hofmann gut gesehen und dann ist diese \u00fcbersicht einfach Weltklasse embolo Hofmann Benze bai f\u00fcr Neuer \u00fcberhaupt nichts auszurichten und Ben Seni muss aus so einer Position den Ball nicht mal perfekt treffen, um den eben zu verwandeln."
+    },
+    {
+        "timestamp": "0:17:18",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.6225,
+        "confidence_avg": 0.7605555555555555,
+        "content": "Und man hatte fast ein bisschen den Eindruck, dass eben dieser eigentlich technisch fast m\u00e4\u00dfige Abschluss Penzel bei in das Ergebnis noch mal verbessert hat."
+    },
+    {
+        "timestamp": "0:17:30",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.35400000000001,
+        "confidence_avg": 0.8089999999999999,
+        "content": "Denn so landete Neuer in der Ecke, hatte keine Abwehrchance mehr."
+    },
+    {
+        "timestamp": "0:17:36",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 90.10624999999999,
+        "confidence_avg": 0.7217,
+        "content": "Homer und Hass sacc drau\u00dfen merken dann schon nach einer Viertelstunde Das k\u00f6nnte heute ein richtig schwieriger Tag werden."
+    },
+    {
+        "timestamp": "0:17:45",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 81.62470588235294,
+        "confidence_avg": 0.8159565217391302,
+        "content": "Und Max Eberl d\u00fcrfte zufrieden gewesen sein mit dem, was er bis zu diesem Zeitpunkt von seinem Team hier gesehen hat."
+    },
+    {
+        "timestamp": "0:18:56",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 83.20521739130434,
+        "confidence_avg": 0.7650833333333334,
+        "content": "Korea Davis Sane Flanke Richtung Lewandowski, der bis zu diesem Zeitpunkt aber eben auch noch kein Faktor ist Dorea Elvedi vor Lewandowski,"
+    },
+    {
+        "timestamp": "0:19:24",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 52.622,
+        "confidence_avg": 0.52275,
+        "content": "M\u00fcller wie der Kimmich"
+    },
+    {
+        "timestamp": "0:20:25",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 72.45909090909092,
+        "confidence_avg": 0.7596153846153846,
+        "content": "n\u00e4chste Chance f\u00fcr das Team von Adi H\u00fctter embolo Embolo Schuss kommt."
+    },
+    {
+        "timestamp": "0:20:39",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 89.016,
+        "confidence_avg": 0.7495,
+        "content": "Na, da fehlte dann ein wenig die Unterst\u00fctzung."
+    },
+    {
+        "timestamp": "0:20:43",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 88.375,
+        "confidence_avg": 0.3333333333333333,
+        "content": "Gesamt mannschaftlich,"
+    },
+    {
+        "timestamp": "0:20:52",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 76.59571428571428,
+        "confidence_avg": 0.8548600000000001,
+        "content": "aber wer wird es ihm verdenken, nach einem fulminanten Auftakt in diese Partie mit einer 20 F\u00fchrung, die auch extrem verdient ist?"
+    },
+    {
+        "timestamp": "0:21:26",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 45.12,
+        "confidence_avg": 0.6942,
+        "content": "Und es gibt Elfmeter."
+    },
+    {
+        "timestamp": "0:21:32",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 59.84333333333333,
+        "confidence_avg": 0.9285454545454545,
+        "content": "Tobias Stiller hat keine Sekunde gez\u00f6gert und zeigt auf den Punkt"
+    },
+    {
+        "timestamp": "0:21:43",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 89.09394736842104,
+        "confidence_avg": 0.7739868421052629,
+        "content": "Dann noch einmal Er ist der sich versch\u00e4tzt, Embolo, der da gut hingeht, die Szene riecht, sie wittert und Lukas Hernanes geht da eben mit dem Oberschenkel rein vorhin Gab's ja eine Szene, der Hofmann einen Elfmeter h\u00e4tte bekommen k\u00f6nnen in diesem Falle auch im Prinzip ein can Elfmeter einmal f\u00fcr Gladbach gepfiffen, das andere Mal gegen Gladbach gepfiffen, so jedenfalls kommt Benze bei ihm in der 21."
+    },
+    {
+        "timestamp": "0:22:20",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.6575,
+        "confidence_avg": 0.9435714285714286,
+        "content": "Minute zu seiner Chance auf den Doppelpack"
+    },
+    {
+        "timestamp": "0:22:29",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 80.06727272727274,
+        "confidence_avg": 0.8036785714285714,
+        "content": "Peni gegen Neujahr Rami Benze Bai und das Tor 30 Es geht ja alles"
+    },
+    {
+        "timestamp": "0:23:04",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 78.83666666666666,
+        "confidence_avg": 0.6623999999999999,
+        "content": "noch einmal er es gegen Embolo und dann Ben Seni, der neue Ausguckt."
+    },
+    {
+        "timestamp": "0:23:12",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 88.42652173913044,
+        "confidence_avg": 0.8450476190476189,
+        "content": "Die Souver\u00e4nit\u00e4t hat im letzten Moment sich zu entscheiden, f\u00fcr neuer Kappen was zu machen, nachdem man die falsche Ecke geschickt wird und damit ist es die schnellste oder der schnellste 30 R\u00fcckstand der Bayern in der Pokal Geschichte."
+    },
+    {
+        "timestamp": "0:23:35",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 90.22375,
+        "confidence_avg": 0.9757916666666665,
+        "content": "Nach 21 Minuten lag der Rekordpokalsieger noch nie mit drei Toren hinten"
+    },
+    {
+        "timestamp": "0:24:42",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 44.7825,
+        "confidence_avg": 0.3213333333333333,
+        "content": "Mean dr\u00fcber."
+    },
+    {
+        "timestamp": "0:24:49",
+        "sentiment": "NEGATIVE",
+        "loudness_avg": 78.29875,
+        "confidence_avg": 0.8681764705882354,
+        "content": "Die Bayern m\u00fcssen jetzt aufpassen, dass das Ganze hier nicht richtig bitter f\u00fcr sie endet."
+    },
+    {
+        "timestamp": "0:24:57",
+        "sentiment": "MIXED",
+        "loudness_avg": 84.33687499999999,
+        "confidence_avg": 0.7506538461538461,
+        "content": "Drei Tore R\u00fcckstand sind durchaus aufhol, aber die Herausforderung selbstverst\u00e4ndlich gro\u00df, vor allem ausw\u00e4rts, vor allem gegen eine wie entfesselt aufspielende Fohlenelf."
+    },
+    {
+        "timestamp": "0:25:17",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 85.26181818181819,
+        "confidence_avg": 0.8462978723404253,
+        "content": "Und genau das ist eben auch die Herausforderung, kein viertes, kein f\u00fcnftes 6. Gegentor zu kassieren, weiterhin in einer Position zu bleiben, aus der man aus Sicht der Bayern wieder zur\u00fcckkommen kann, um hier doch noch das Achtelfinale des Pokals zu erreichen"
+    },
+    {
+        "timestamp": "0:25:45",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 62.728571428571435,
+        "confidence_avg": 0.5255,
+        "content": "Neujahr kurz rausgekommen, Sky und"
+    },
+    {
+        "timestamp": "0:26:29",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 43.7475,
+        "confidence_avg": 0.4505,
+        "content": "na elvedi"
+    },
+    {
+        "timestamp": "0:27:38",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 54.15,
+        "confidence_avg": 0.218,
+        "content": "ja und"
+    },
+    {
+        "timestamp": "0:27:56",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 84.785,
+        "confidence_avg": 0.418,
+        "content": "Davis K f\u00fcr mich"
+    },
+    {
+        "timestamp": "0:28:33",
+        "sentiment": "POSITIVE",
+        "loudness_avg": 89.46421052631578,
+        "confidence_avg": 0.8400857142857142,
+        "content": "gut gespielt weiterhin die Bem\u00fchungen, eben auch zu erkennen, von Borussia M\u00f6nchengladbach hier sogar auf Treffer Nummer vier zu gehen, um wom\u00f6glich die Partie fr\u00fchzeitig noch in H\u00e4lfte Nummer eins vorentscheiden,"
+    },
+    {
+        "timestamp": "0:29:24",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 67.815,
+        "confidence_avg": 0.7314285714285713,
+        "content": "nochmal das erste Tor durch Cone."
+    },
+    {
+        "timestamp": "0:29:28",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 84.35777777777778,
+        "confidence_avg": 0.8245000000000001,
+        "content": "In der zweiten Minute dann dieser herrlich herausgespielte Treffer zum 20 durch Bence Bai, der dann mit seinem Strafsto\u00df in der 21 den aktuellen Zwischenstand beisteuern konnte."
+    },
+    {
+        "timestamp": "0:29:52",
+        "sentiment": "NEUTRAL",
+        "loudness_avg": 89.06500000000001,
+        "confidence_avg": 0.8795185185185185,
+        "content": "die Frage nat\u00fcrlich auch Wie viel Einfluss hat das Federn von Julian Nagelsmann In so einer Phase h\u00e4tte er was korrigieren k\u00f6nnen, h\u00e4tte er wom\u00f6glich gar"
+    }
+]

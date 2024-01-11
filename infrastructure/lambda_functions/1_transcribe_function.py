@@ -5,7 +5,7 @@ from time import sleep
 import logging
 from datetime import datetime
 from datetime import timedelta
-from botocore.vendored import requests
+import urllib3
 
 # Konfiguration des Loggings
 logger = logging.getLogger()
@@ -215,11 +215,14 @@ def handler(event, context):
                         }
 
                     image_url = image_generation.data[0].url
-                    response = requests.get(image_url)
+                    print(image_url)
+                    http = urllib3.PoolManager()
+                    response = http.request('GET', image_url)
+
                     if response.status_code == 200:
                         with open("thumbnail.png", "wb") as file:
                             file.write(response.content)
-                        print("Bild erfolgreich gespeichert als fussballspiel_thumbnail.png")
+                        print("Bild erfolgreich gespeichert als thumbnail.png")
                     else:
                         print("Fehler beim Herunterladen des Bildes")
 
@@ -229,6 +232,9 @@ def handler(event, context):
                         'statusCode': 500,
                         'body': json.dumps(f'Fehler beim Parsen der Transkription: {e}')
                     }
+                
+                timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+                s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
 
                 # Speichern des Thumbnails im S3 Bucket
                 s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
