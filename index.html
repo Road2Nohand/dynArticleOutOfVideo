@@ -103,7 +103,10 @@
                     })
                     .then(data => {
                         if(data) {
-                            document.getElementById('inProgress').innerHTML = data;
+                            document.getElementById('inProgress').innerHTML = "Inferenz läuft...";
+                        }
+                        else {
+                            document.getElementById('inProgress').innerHTML = "Inferenz abgeschlossen!";
                         }
                     })
                     .catch(error => {
@@ -192,6 +195,6 @@
             // Polling alle 5 Sekunden
             setInterval(checkFileStatus, 5000);
         </script>
-                
+
     </body>
 </html>
