@@ -5,7 +5,7 @@ from time import sleep
 import logging
 from datetime import datetime
 from datetime import timedelta
-import requests
+from botocore.vendored import requests
 
 # Konfiguration des Loggings
 logger = logging.getLogger()
@@ -118,7 +118,7 @@ def handler(event, context):
                 break
             else:
                 if not progress_created:
-                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body='Job in progress')
+                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Inferenz gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
             sleep(5)
@@ -126,12 +126,14 @@ def handler(event, context):
         if job_status == 'FAILED':
             failure_reason = status['CallAnalyticsJob']['FailureReason']
             logger.error(f"Call Analytics-Job '{job_name}' ist fehlgeschlagen. Grund: {failure_reason}")
-            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job failed')
+            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Trankskription fehlgeschlagen: \n {failure_reason}')
 
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
-            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job completed')
-            logger.info("COMPLETED.txt im S3 Bucket erstellt.")
+            # aktueller timestmamp für PROGRESS.txt
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um {timestamp}... \n Generiere Artikel und Thumbnail.')
+            logger.info("Transkription abgeschlossen um {timestamp}")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
             transcript_bucket_name = 'dyn-bucket-for-static-article-website-dev'
@@ -223,6 +225,9 @@ def handler(event, context):
             # Speichern der Ergebnisse im S3 Bucket
             s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
             s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
+
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
 
     return {
         'statusCode': 200,

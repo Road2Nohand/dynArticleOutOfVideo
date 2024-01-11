@@ -70,6 +70,11 @@ jobs:
 
       # Damit durch Pushes keine Differenz entsteht zwischen plan und apply, sollte im apply die tfplan-* verwendet werden
       
+      # bestehende Infra abreißen. Das sollte später auch branch-abhängig sein, DEV -> destroy, PROD -> nicht destroy
+      - name: Terraform Destroy
+        run: |
+          ls -al
+          terraform destroy -auto-approve
 
       # || true bewirkt ein continue on error -> workaround für die s3 policy
       - name: Terraform Apply
