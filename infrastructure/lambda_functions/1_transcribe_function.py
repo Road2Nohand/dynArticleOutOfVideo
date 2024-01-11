@@ -116,7 +116,7 @@ def handler(event, context):
                 break
             else:
                 if not progress_created:
-                    s3.put_object(Bucket=website_bucket_name, Key='PROGRESS.txt', Body='Job in progress', ACL='public-read')
+                    s3.put_object(Bucket=website_bucket_name, Key='PROGRESS.txt', Body='Job in progress')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
             sleep(5)
@@ -124,11 +124,11 @@ def handler(event, context):
         if job_status == 'FAILED':
             failure_reason = status['CallAnalyticsJob']['FailureReason']
             logger.error(f"Call Analytics-Job '{job_name}' ist fehlgeschlagen. Grund: {failure_reason}")
-            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job failed', ACL='public-read')
+            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job failed')
 
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
-            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job completed', ACL='public-read')
+            s3.put_object(Bucket=website_bucket_name, Key=f'{job_status}.txt', Body='Job completed')
             logger.info("COMPLETED.txt im S3 Bucket erstellt.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
@@ -170,7 +170,7 @@ def handler(event, context):
                     }
 
                 # Speichern des HTML-Artikels im S3 Bucket
-                s3.put_object(Bucket=website_bucket_name, Key='article.html', Body=html_content, ACL='public-read')
+                s3.put_object(Bucket=website_bucket_name, Key='article.html', Body=html_content)
                 logger.info("Artikel im S3 Bucket gespeichert.")
 
             except Exception as e:
@@ -181,8 +181,8 @@ def handler(event, context):
                 }
 
             # Speichern der Ergebnisse im S3 Bucket
-            s3.put_object(Bucket=website_bucket_name, Key="transcript_parsed.json", Body=json.dumps(parsed_transcript), ACL='public-read')
-            s3.put_object(Bucket=website_bucket_name, Key="transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript), ACL='public-read')
+            s3.put_object(Bucket=website_bucket_name, Key="transcript_parsed.json", Body=json.dumps(parsed_transcript))
+            s3.put_object(Bucket=website_bucket_name, Key="transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
     return {
         'statusCode': 200,
