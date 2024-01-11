@@ -173,6 +173,8 @@ def handler(event, context):
                             ]
                         )
                         article = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                        print(f"Anz. Input Tokens: {chat_completion.usage.prompt_tokens}")
+                        print(f"Anz. Output Tokens: {chat_completion.usage.completion_tokens}")
                         # Speichern des HTML-Artikels im S3 Bucket
                         s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
                         logger.info("Artikel im S3 Bucket gespeichert.")
