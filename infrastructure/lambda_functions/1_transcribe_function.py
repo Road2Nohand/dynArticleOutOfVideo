@@ -26,6 +26,25 @@ except ImportError as e:
 s3 = boto3.client('s3')
 transcribe = boto3.client('transcribe')
 
+
+http_s3_upload = urllib3.PoolManager()
+def upload_file_to_s3(bucket_name, file_path, file_content):
+    url = f'https://{bucket_name}.s3.amazonaws.com/{file_path}'
+    headers = {'Content-Type': 'application/octet-stream'}
+
+    response = http_s3_upload.request(
+        'PUT',
+        url,
+        body=file_content,
+        headers=headers
+    )
+
+    if response.status == 200:
+        print("Datei erfolgreich hochgeladen.")
+    else:
+        print(f"Fehler beim Hochladen: Statuscode {response.status}")
+
+
 def parse_transcript(file_name, bucket_name):
     # Pfad zur JSON-Datei im S3 Bucket
     file_path = f"s3://{bucket_name}/{file_name}"
@@ -86,6 +105,16 @@ def handler(event, context):
     data_access_role_arn = os.environ.get('DATA_ACCESS_ROLE_ARN')
     
     logger.info(f'Data Access Role ARN, die an Transcribe übergeben wird: {data_access_role_arn}')
+
+
+    # Neue Upload Methode testen
+    upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", "TEST")
+    logger.inof("PROGRESS.txt upload mit neuer Funktion upload_file_to_s3 zum test aufrufen")
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Write PROGRESS.txt TEST beendet!')
+    }
+
 
     for record in event['Records']:
         bucket_name = record['s3']['bucket']['name']
@@ -224,22 +253,25 @@ def handler(event, context):
                     response = http.request('GET', image_url)
                     
                     if response.status == 200:
-                        # Speichern der Datei im /tmp Verzeichnis
                         temp_file_path = "/tmp/thumbnail.png"
                         with open(temp_file_path, "wb") as file:
                             file.write(response.data)
                         print("Bild erfolgreich gespeichert als /tmp/thumbnail.png")
                     
-                        # Hochladen der Datei von /tmp zum S3 Bucket
-                        try:
-                            s3.upload_file(temp_file_path, website_bucket_name, "analytics/thumbnail.png")
-                            logger.info("Thumbnail im S3 Bucket gespeichert.")
-                        except Exception as e:
-                            logger.error(f"Fehler beim Hochladen des Thumbnails in den S3 Bucket: {e}")
-                            return {
-                                'statusCode': 500,
-                                'body': json.dumps(f'Fehler beim Hochladen des Thumbnails: {e}')
-                            }
+                        # Überprüfen, ob die Datei existiert, bevor sie hochgeladen wird
+                        if os.path.exists(temp_file_path):
+                            print("Datei existiert, wird hochgeladen.")
+                            try:
+                                s3.upload_file(temp_file_path, website_bucket_name, "analytics/thumbnail.png")
+                                logger.info("Thumbnail im S3 Bucket gespeichert.")
+                            except Exception as e:
+                                logger.error(f"Fehler beim Hochladen des Thumbnails in den S3 Bucket: {e}")
+                                return {
+                                    'statusCode': 500,
+                                    'body': json.dumps(f'Fehler beim Hochladen des Thumbnails: {e}')
+                                }
+                        else:
+                            print(f"Datei {temp_file_path} existiert nicht.")
                     else:
                         print("Fehler beim Herunterladen des Bildes")
 

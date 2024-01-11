@@ -30,7 +30,7 @@ def extract_video_info(video_path):
         return None
 
 # Pfad zur Videodatei
-video_file = "BundesligaSpielmitZweiKommentatoren_reindexed.mp4"
+video_file = "BundesligaSpiel_Stereo.mp4"
 
 # Extrahieren der Video-Informationen
 video_info = extract_video_info(video_file)
