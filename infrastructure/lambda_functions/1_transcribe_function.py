@@ -75,10 +75,15 @@ def parse_transcript(file_name, bucket_name):
 
     return transcripts, cleaned_transcripts
 
+
+# Variable hinzufügen, um zu verfolgen, ob der Artikel bereits generiert wurde
+article_generated = False
+
 def handler(event, context):
+    global article_generated
+
     website_bucket_name = os.environ.get('WEBSITE_BUCKET_NAME')
     data_access_role_arn = os.environ.get('DATA_ACCESS_ROLE_ARN')
-    video_bucket_name = os.environ.get('VIDEO_BUCKET_NAME')
     
     logger.info(f'Data Access Role ARN, die an Transcribe übergeben wird: {data_access_role_arn}')
 
@@ -133,102 +138,106 @@ def handler(event, context):
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
             # aktueller timestmamp für PROGRESS.txt
             timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um {timestamp}... \n Generiere Artikel und Thumbnail...')
+            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
             logger.info(f"Transkription abgeschlossen um {timestamp}.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
             transcript_bucket_name = 'dyn-bucket-for-static-article-website-dev'
             transcript_file_name = f"analytics/{job_name}.json"
             
-            # Parsen der Transkription
-            try:
-                parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
-                logger.info(f"Parsing der Transkription abgeschlossen.")
-
+            if not article_generated:
+                # Parsen der Transkription
                 try:
-                    # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
-                    # Und möglichst viel historisches Wissen in den Artikel einfließen soll.
-                    logger.info(f"Generiere Artikel mit GPT-4 Turbo.")
+                    parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
+                    logger.info(f"Parsing der Transkription abgeschlossen.")
 
-                    data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
-                    chat_completion = client.chat.completions.create(
-                        model="gpt-4-1106-preview",
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": \
-                                f"Basierend auf der folgenden Transkription eines Fußballspiels, erstelle bitte einen spannenden und kurzen Fußballartikel, \
-                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung halten. \
-                                Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
-                                bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
-                                Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
-                                {data}"      
-                            }
-                        ]
-                    )
-                    article = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                    try:
+                        # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
+                        # Und möglichst viel historisches Wissen in den Artikel einfließen soll.
+                        logger.info(f"Generiere Artikel mit GPT-4 Turbo.")
+
+                        data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
+                        chat_completion = client.chat.completions.create(
+                            model="gpt-4-1106-preview",
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": \
+                                    f"Basierend auf der folgenden Transkription eines Fußballspiels, erstelle bitte einen spannenden und kurzen Fußballartikel, \
+                                    wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung halten. \
+                                    Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
+                                    bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
+                                    Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
+                                    {data}"      
+                                }
+                            ]
+                        )
+                        article = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                        # Speichern des HTML-Artikels im S3 Bucket
+                        s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
+                        logger.info("Artikel im S3 Bucket gespeichert.")
+                        article_generated = True
+                        
+                    except Exception as e:
+                        logger.error(f"Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}")
+                        return {
+                            'statusCode': 500,
+                            'body': json.dumps(f'Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}')
+                        }
+
+                    
+
+
+                    # Generieren des Thumbnails mit DALL-E
+                    try:
+                        image_generation = client.images.generate(
+                        model="dall-e-3",
+                        prompt=(
+                            "Basierend auf der folgenden Artikel eines Fußballspiels, erstelle bitte ein lebendiges und dynamisches Bild, das ein Fußballspiel darstellt. \n"
+                            "Die Szene sollte die Spannung und Energie des Spiels einfangen, \n"
+                            "mit zwei Teams inmitten der Aktion und die Spieler inmitten des Fußballfeldes auf dem das Spiel stattgefunden haben könnte. \n"
+                            "Die Spieler tragen die Trikots ihres jeweiligen Teams. Versuche auch die Logos der Teams zu representieren. Das Stadion ist voll mit begeisterten Fans, was für eine lebhafte Atmosphäre sorgt. \n"
+                            "Dieses Bild sollte die Begeisterung und Leidenschaft des Fußballs vermitteln und ist perfekt als Thumbnail für einen Artikel über ein Fußballspiel geeignet. \n"
+                            "Das Bild soll zudem photorealistisch sein!\n"
+                            f"{article}"
+                            ),
+                        size="1024x1024",
+                        quality="standard",
+                        n=1,
+                        )
+                    except Exception as e:
+                        logger.error(f"Fehler beim Generieren des Thumbnails mit DALL-E: {e}")
+                        return {
+                            'statusCode': 500,
+                            'body': json.dumps(f'Fehler beim Generieren des Thumbnails mit DALL-E: {e}')
+                        }
+
+                    image_url = image_generation.data[0].url
+                    response = requests.get(image_url)
+                    if response.status_code == 200:
+                        with open("thumbnail.png", "wb") as file:
+                            file.write(response.content)
+                        print("Bild erfolgreich gespeichert als fussballspiel_thumbnail.png")
+                    else:
+                        print("Fehler beim Herunterladen des Bildes")
+
                 except Exception as e:
-                    logger.error(f"Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}")
+                    logger.error(f"Beim Parsen der Transkription ist ein Fehler aufgetreten: {e}")
                     return {
                         'statusCode': 500,
-                        'body': json.dumps(f'Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}')
+                        'body': json.dumps(f'Fehler beim Parsen der Transkription: {e}')
                     }
 
-                # Speichern des HTML-Artikels im S3 Bucket
-                s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
-                logger.info("Artikel im S3 Bucket gespeichert.")
+                # Speichern des Thumbnails im S3 Bucket
+                s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
+                logger.info("Thumbnail im S3 Bucket gespeichert.")
 
+                # Speichern der Ergebnisse im S3 Bucket
+                s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
+                s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
-                # Generieren des Thumbnails mit DALL-E
-                try:
-                    image_generation = client.images.generate(
-                    model="dall-e-3",
-                    prompt=(
-                        "Basierend auf der folgenden Artikel eines Fußballspiels, erstelle bitte ein lebendiges und dynamisches Bild, das ein Fußballspiel darstellt. \n"
-                        "Die Szene sollte die Spannung und Energie des Spiels einfangen, \n"
-                        "mit zwei Teams inmitten der Aktion und die Spieler inmitten des Fußballfeldes auf dem das Spiel stattgefunden haben könnte. \n"
-                        "Die Spieler tragen die Trikots ihres jeweiligen Teams. Versuche auch die Logos der Teams zu representieren. Das Stadion ist voll mit begeisterten Fans, was für eine lebhafte Atmosphäre sorgt. \n"
-                        "Dieses Bild sollte die Begeisterung und Leidenschaft des Fußballs vermitteln und ist perfekt als Thumbnail für einen Artikel über ein Fußballspiel geeignet. \n"
-                        "Das Bild soll zudem photorealistisch sein!\n"
-                        f"{article}"
-                        ),
-                    size="1024x1024",
-                    quality="hd",
-                    n=1,
-                    )
-                except Exception as e:
-                    logger.error(f"Fehler beim Generieren des Thumbnails mit DALL-E: {e}")
-                    return {
-                        'statusCode': 500,
-                        'body': json.dumps(f'Fehler beim Generieren des Thumbnails mit DALL-E: {e}')
-                    }
-
-                image_url = image_generation.data[0].url
-                response = requests.get(image_url)
-                if response.status_code == 200:
-                    with open("thumbnail.png", "wb") as file:
-                        file.write(response.content)
-                    print("Bild erfolgreich gespeichert als fussballspiel_thumbnail.png")
-                else:
-                    print("Fehler beim Herunterladen des Bildes")
-
-            except Exception as e:
-                logger.error(f"Beim Parsen der Transkription ist ein Fehler aufgetreten: {e}")
-                return {
-                    'statusCode': 500,
-                    'body': json.dumps(f'Fehler beim Parsen der Transkription: {e}')
-                }
-            
-            # Speichern des Thumbnails im S3 Bucket
-            s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
-            logger.info("Thumbnail im S3 Bucket gespeichert.")
-
-            # Speichern der Ergebnisse im S3 Bucket
-            s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
-            s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
-
-            timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
+                timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+                s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
 
     return {
         'statusCode': 200,
