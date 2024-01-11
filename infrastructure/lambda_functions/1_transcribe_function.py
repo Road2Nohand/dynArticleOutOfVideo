@@ -219,9 +219,9 @@ def handler(event, context):
                     http = urllib3.PoolManager()
                     response = http.request('GET', image_url)
 
-                    if response.status_code == 200:
+                    if response.status == 200:
                         with open("thumbnail.png", "wb") as file:
-                            file.write(response.content)
+                            file.write(response.data)
                         print("Bild erfolgreich gespeichert als thumbnail.png")
                     else:
                         print("Fehler beim Herunterladen des Bildes")
