@@ -35,8 +35,8 @@
         text-align: left;
         font-family: "Freshman";
         font-size: 1.5em;
-        margin-left: 20vw;
-        margin-right: 20vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
     }
     ol {
         color: gray;
@@ -67,7 +67,7 @@
         font-family: "consolas";
         font-size: 0.7em;
         opacity: 0;
-        margin-top: 2vh;
+        margin-top: 5vh;
         margin-left: 20vw;
         margin-right: 20vw;
     }
@@ -76,6 +76,9 @@
         font-family: "consolas";
         font-size: 1.5em;
         opacity: 0.8;
+    }
+    #inProgress {
+        text-align: center;
     }
 </style>
 
@@ -103,7 +106,7 @@
                     })
                     .then(data => {
                         if(data) {
-                            document.getElementById('inProgress').innerHTML = "Inferenz läuft...";
+                            document.getElementById('inProgress').innerHTML = "Inferenz gestartet...";
                         }
                         else {
                             document.getElementById('inProgress').innerHTML = "Inferenz abgeschlossen!";
@@ -114,8 +117,8 @@
                     });
             }
         
-            // Polling alle 5 Sekunden
-            setInterval(checkFileStatus, 5000);
+            // Polling jede Sekunde
+            setInterval(checkFileStatus, 1000);
         </script>
 
 
@@ -147,8 +150,8 @@
                     });
             }
         
-            // Polling alle 5 Sekunden
-            setInterval(checkFileStatus, 5000);
+            // Polling jede Sekunde
+            setInterval(checkFileStatus, 1000);
         </script>
 
         
@@ -192,8 +195,8 @@
                     });
             }
         
-            // Polling alle 5 Sekunden
-            setInterval(checkFileStatus, 5000);
+            // Polling jede Sekunde
+            setInterval(checkFileStatus, 1000);
         </script>
 
     </body>

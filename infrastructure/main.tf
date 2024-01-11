@@ -293,6 +293,8 @@ resource "aws_iam_policy" "policy_transcribe_service_access_to_video_and_website
             {
                 Action = [
                     "s3:PutObject",
+                    "s3.PutObjectAcl",
+                    "s3.GetObjectAcl",
                     "s3:GetObject",
                     "s3:ListBucket"
                 ],
