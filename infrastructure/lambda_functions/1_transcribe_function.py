@@ -127,7 +127,7 @@ def handler(event, context):
                     s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Inferenz gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
-            sleep(5)
+            sleep(5) # to poll AWS Transcription Progress
         
         if job_status == 'FAILED':
             failure_reason = status['CallAnalyticsJob']['FailureReason']
@@ -158,7 +158,7 @@ def handler(event, context):
 
                         data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
                         chat_completion = client.chat.completions.create(
-                            model="gpt-4-1106-preview",
+                            model="gpt-4-32k",
                             messages=[
                                 {
                                     "role": "user",
@@ -177,7 +177,7 @@ def handler(event, context):
                         s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
                         logger.info("Artikel im S3 Bucket gespeichert.")
                         article_generated = True
-                        
+
                     except Exception as e:
                         logger.error(f"Fehler beim Generieren des Artikels mit GPT-4 Turbo: {e}")
                         return {
