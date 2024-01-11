@@ -158,7 +158,7 @@ def handler(event, context):
 
                         data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
                         chat_completion = client.chat.completions.create(
-                            model="gpt-4-32k",
+                            model="gpt-4-32k-0613",
                             messages=[
                                 {
                                     "role": "user",
