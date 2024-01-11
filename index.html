@@ -80,8 +80,31 @@
     #inProgress {
         text-align: center;
     }
+    #inProgress p {
+        text-align: center;
+        color: white;
+        font-family: "consolas";
+        font-size: 1.5em;
+        opacity: 0.8;
+    }
     .showIfArticleHasLoaded {
         text-align: center;
+    }
+    .fade-in-slide-down {
+    opacity: 0;
+    transform: translateY(-1vh);
+    animation: fadeInSlideDown 2s forwards;
+    }
+
+    @keyframes fadeInSlideDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-2vh);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
 
@@ -90,16 +113,19 @@
 
 
         <!-- Container für inProgress -->
-        <div id="inProgress"></div>
+        <div id="inProgress"><p>Inferenz-Status: <span id="progressStatus"></span></p></div>
         <script>
             const bucketUrlProgress = 'https://dyn-bucket-for-static-article-website-dev.s3.eu-central-1.amazonaws.com/analytics/PROGRESS.txt';
 
-            function checkFileStatus() {
+            function checkProgressFileStatus() {
                 fetch(bucketUrlProgress)
                     .then(response => {
                         if (!response.ok) {
                             if(response.status === 404) {
                                 console.log('PROGRESS.txt noch nicht vorhanden, wird geladen...');
+                                document.getElementById('progressStatus').innerText = 'Wird geladen...';
+                                progressStatus = document.getElementById('progressStatus')
+                                progressStatus.classList.add('fade-in-slide-down');
                             } else {
                                 throw new Error('Fehler beim Laden der Datei PROGRESS.txt');
                             }
@@ -109,10 +135,9 @@
                     })
                     .then(data => {
                         if(data) {
-                            document.getElementById('inProgress').innerHTML = "Inferenz gestartet...";
-                        }
-                        else {
-                            document.getElementById('inProgress').innerHTML = "Inferenz noch nicht gestartet!";
+                            const element = document.getElementById('progressStatus');
+                            element.innerText = data;
+                            element.classList.add('fade-in-slide-down');
                         }
                     })
                     .catch(error => {
@@ -121,7 +146,7 @@
             }
         
             // Polling jede Sekunde
-            setInterval(checkFileStatus, 1000);
+            setInterval(checkProgressFileStatus, 1000);
         </script>
 
 
@@ -145,7 +170,9 @@
                     })
                     .then(data => {
                         if(data) {
-                            document.getElementById('article').innerHTML = data;
+                            element = document.getElementById('article');
+                            element.innerHTML = data;
+                            element.classList.add('fade-in-slide-down');
                         }
                     })
                     .catch(error => {
@@ -189,8 +216,10 @@
                     })
                     .then(data => {
                         if(data) {
-                            document.getElementById('transcript').style.opacity = 1;
-                            document.getElementById('transcript').innerHTML += data;
+                            element = document.getElementById('transcript');
+                            element.style.opacity = 1;
+                            element.innerHTML += data;
+                            element.classList.add('fade-in-slide-down');
                         }
                     })
                     .catch(error => {

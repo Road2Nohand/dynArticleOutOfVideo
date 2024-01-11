@@ -118,6 +118,7 @@ def handler(event, context):
                 break
             else:
                 if not progress_created:
+                    timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                     s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Inferenz gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
@@ -131,9 +132,9 @@ def handler(event, context):
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
             # aktueller timestmamp für PROGRESS.txt
-            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um {timestamp}... \n Generiere Artikel und Thumbnail.')
-            logger.info("Transkription abgeschlossen um {timestamp}")
+            timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um {timestamp}... \n Generiere Artikel und Thumbnail...')
+            logger.info(f"Transkription abgeschlossen um {timestamp}.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
             transcript_bucket_name = 'dyn-bucket-for-static-article-website-dev'
@@ -226,7 +227,7 @@ def handler(event, context):
             s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
             s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
 
-            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
             s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
 
     return {
