@@ -50,14 +50,14 @@ for entry in data.get('Transcript', []):
            loudness_average >= 0.2 and confidence_average >= 0.2:
             cleaned_transcripts.append(transcript_entry)
 
-# Ergebnis als JSON-Datei speichern
+""" # Ergebnis als JSON-Datei speichern
 with open(out_file_path, 'w') as output_file:
-    json.dump(transcripts, output_file, indent=2)
+    json.dump(transcripts, output_file, indent=2) """
 
 # Ergebnis ausgeben
-for transcript in transcripts:
-    print(transcript)
+""" for transcript in transcripts:
+    print(transcript) """
 
 # Bereinigte Version als JSON-Datei speichern
 with open(cleaned_out_file_path, 'w') as cleaned_output_file:
-    json.dump(cleaned_transcripts, cleaned_output_file, indent=2)
+    json.dump(cleaned_transcripts, cleaned_output_file, indent=2, ensure_ascii=False)

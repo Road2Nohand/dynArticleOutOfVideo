@@ -154,14 +154,14 @@ def handler(event, context):
             failure_reason = status['CallAnalyticsJob']['FailureReason']
             logger.error(f"Call Analytics-Job '{job_name}' ist fehlgeschlagen. Grund: {failure_reason}")
             # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Trankskription fehlgeschlagen: \n {failure_reason}')
-            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", 'Trankskription fehlgeschlagen: \n {failure_reason}')
+            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Trankskription fehlgeschlagen: \n {failure_reason}')
 
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
             # aktueller timestmamp für PROGRESS.txt
             timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
             # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
-            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", 'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
+            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
             logger.info(f"Transkription abgeschlossen um {timestamp}.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
@@ -176,16 +176,18 @@ def handler(event, context):
 
                     # Speichern der Ergebnisse im S3 Bucket
                     #s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
-                    upload_file_to_s3(website_bucket_name, "analytics/transcript_parsed.json", json.dumps(parsed_transcript))
+                    parsed_transcript_json = json.dumps(parsed_transcript, ensure_ascii=False).encode('utf-8')
+                    upload_file_to_s3(website_bucket_name, "analytics/transcript_parsed.json", parsed_transcript_json)
                     #s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
-                    upload_file_to_s3(website_bucket_name, "analytics/transcript_cleaned_from_noise.json", json.dumps(cleaned_transcript))
+                    cleaned_transcript_json = json.dumps(cleaned_transcript, ensure_ascii=False).encode('utf-8')
+                    upload_file_to_s3(website_bucket_name, "analytics/transcript_cleaned_from_noise.json", cleaned_transcript_json)
 
                     try:
                         # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
                         # Und möglichst viel historisches Wissen in den Artikel einfließen soll.
                         logger.info(f"Generiere Artikel mit GPT-4 Turbo.")
 
-                        data = json.dumps(cleaned_transcript)  # Konvertieren der bereinigten Transkription in einen String
+                        data = json.dumps(cleaned_transcript, ensure_ascii=False)  # Konvertieren der bereinigten Transkription in einen String
                         chat_completion = client.chat.completions.create(
                             model="gpt-4-1106-preview",
                             messages=[
