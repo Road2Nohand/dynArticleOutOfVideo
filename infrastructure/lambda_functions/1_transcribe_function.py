@@ -107,15 +107,6 @@ def handler(event, context):
     logger.info(f'Data Access Role ARN, die an Transcribe übergeben wird: {data_access_role_arn}')
 
 
-    # Neue Upload Methode testen
-    upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", "TEST")
-    logger.inof("PROGRESS.txt upload mit neuer Funktion upload_file_to_s3 zum test aufrufen")
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Write PROGRESS.txt TEST beendet!')
-    }
-
-
     for record in event['Records']:
         bucket_name = record['s3']['bucket']['name']
         file_name = record['s3']['object']['key']
@@ -153,7 +144,8 @@ def handler(event, context):
             else:
                 if not progress_created:
                     timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-                    s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'gestartet um {timestamp}...')
+                    # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=)
+                    upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
                     progress_created = True
             sleep(5) # to poll AWS Transcription Progress
@@ -161,13 +153,15 @@ def handler(event, context):
         if job_status == 'FAILED':
             failure_reason = status['CallAnalyticsJob']['FailureReason']
             logger.error(f"Call Analytics-Job '{job_name}' ist fehlgeschlagen. Grund: {failure_reason}")
-            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Trankskription fehlgeschlagen: \n {failure_reason}')
+            # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Trankskription fehlgeschlagen: \n {failure_reason}')
+            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", 'Trankskription fehlgeschlagen: \n {failure_reason}')
 
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
             # aktueller timestmamp für PROGRESS.txt
             timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-            s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
+            # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
+            upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", 'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
             logger.info(f"Transkription abgeschlossen um {timestamp}.")
 
             # Ermitteln des Pfads der Ausgabedatei des Transcribe-Jobs
@@ -181,8 +175,10 @@ def handler(event, context):
                     logger.info(f"Parsing der Transkription abgeschlossen.")                    
 
                     # Speichern der Ergebnisse im S3 Bucket
-                    s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
-                    s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
+                    #s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
+                    upload_file_to_s3(website_bucket_name, "analytics/transcript_parsed.json", json.dumps(parsed_transcript))
+                    #s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_cleaned_from_noise.json", Body=json.dumps(cleaned_transcript))
+                    upload_file_to_s3(website_bucket_name, "analytics/transcript_cleaned_from_noise.json", json.dumps(cleaned_transcript))
 
                     try:
                         # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
@@ -209,7 +205,8 @@ def handler(event, context):
                         print(f"Anz. Input Tokens: {chat_completion.usage.prompt_tokens}")
                         print(f"Anz. Output Tokens: {chat_completion.usage.completion_tokens}")
                         # Speichern des HTML-Artikels im S3 Bucket
-                        s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
+                        # s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
+                        upload_file_to_s3(website_bucket_name, "analytics/article.html", article)
                         logger.info("Artikel im S3 Bucket gespeichert.")
                         article_generated = True
 
@@ -262,7 +259,8 @@ def handler(event, context):
                         if os.path.exists(temp_file_path):
                             print("Datei existiert, wird hochgeladen.")
                             try:
-                                s3.upload_file(temp_file_path, website_bucket_name, "analytics/thumbnail.png")
+                                # s3.upload_file(temp_file_path, website_bucket_name, "analytics/thumbnail.png")
+                                upload_file_to_s3(website_bucket_name, "analytics/thumbnail.png", response.data)
                                 logger.info("Thumbnail im S3 Bucket gespeichert.")
                             except Exception as e:
                                 logger.error(f"Fehler beim Hochladen des Thumbnails in den S3 Bucket: {e}")
@@ -283,14 +281,17 @@ def handler(event, context):
                     }
                 
                 timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-                s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
+                # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
+                upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
 
                 # Speichern des Thumbnails im S3 Bucket
-                s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
+                # s3.upload_file("thumbnail.png", website_bucket_name, "analytics/thumbnail.png")
+                upload_file_to_s3(website_bucket_name, "analytics/thumbnail.png", response.data)
                 logger.info("Thumbnail im S3 Bucket gespeichert.")
 
                 timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-                s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
+                #s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
+                upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
 
     return {
         'statusCode': 200,
