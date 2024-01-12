@@ -67,16 +67,19 @@ def parse_transcript(file_name, bucket_name):
             # Fehlerbehandlung, falls AWS-Transcribe "null" für LoudnessScores oder Confidence zurückgibt
             loudness_scores = entry.get("LoudnessScores", [])
             confidences = [item.get("Confidence", "0.0") for item in entry.get("Items", [])]
-
+    
+            loudness_average = None
+            confidence_average = None
+    
             if loudness_scores:
                 loudness_average = sum(loudness_scores) / len(loudness_scores)
             else:
-                loudness_average = 0
-
+                loudness_average = 0  # oder setzen Sie es auf None, wenn das bevorzugt ist
+    
             if confidences:
                 confidence_average = sum(float(c) for c in confidences) / len(confidences)
             else:
-                confidence_average = 0
+                confidence_average = 0  # oder setzen Sie es auf None
 
             # Loudness und confidence auf 3 Nachkomma-Stellen gerundet und Datensatz weiter zu verkleinern
             transcript_entry = {

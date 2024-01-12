@@ -168,7 +168,7 @@
                         if (!response.ok) {
                             if(response.status === 404) {
                                 console.log('PROGRESS.txt noch nicht vorhanden, wird geladen...');
-                                document.getElementById('progressStatus').innerText = 'Wird geladen...';
+                                document.getElementById('progressStatus').innerText = 'Warte auf .mp4 event...';
                                 progressStatus = document.getElementById('progressStatus')
                                 progressStatus.classList.add('fade-in-slide-down');
                             } else {
