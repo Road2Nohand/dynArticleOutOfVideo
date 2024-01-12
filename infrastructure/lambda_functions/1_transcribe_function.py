@@ -192,8 +192,7 @@ def handler(event, context):
                         # Generieren des Artikels mit GPT-4 Turbo und 128k Context-Length, da 1std.37min Transkription, selbst geparsed, bereits 28k Tokens hatte.
                         # Und möglichst viel historisches Wissen in den Artikel einfließen soll.
                         logger.info(f"Generiere Artikel mit GPT-4 Turbo.")
-
-                        data = json.dumps(cleaned_transcript, ensure_ascii=False)  # Konvertieren der bereinigten Transkription in einen String
+                        
                         chat_completion = client.chat.completions.create(
                             model="gpt-4-1106-preview",
                             messages=[
@@ -205,7 +204,7 @@ def handler(event, context):
                                     Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
                                     bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche innerhalb der Absätze. \
                                     Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
-                                    {data}"
+                                    {cleaned_transcript_json}"
                                 }
                             ]
                         )
