@@ -67,15 +67,15 @@ def parse_transcript(file_name, bucket_name):
             # Fehlerbehandlung, falls AWS-Transcribe "null" für LoudnessScores oder Confidence zurückgibt
             loudness_scores = entry.get("LoudnessScores", [])
             confidences = [item.get("Confidence", "0.0") for item in entry.get("Items", [])]
-    
+
             loudness_average = None
             confidence_average = None
-    
+
             if loudness_scores:
                 loudness_average = sum(loudness_scores) / len(loudness_scores)
             else:
                 loudness_average = 0  # oder setzen Sie es auf None, wenn das bevorzugt ist
-    
+
             if confidences:
                 confidence_average = sum(float(c) for c in confidences) / len(confidences)
             else:
@@ -146,7 +146,7 @@ def handler(event, context):
                 break
             else:
                 if not progress_created:
-                    timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+                    timestamp = (datetime.now() + timedelta(hours=1)).strftime("%d.%m.%Y %H:%M:%S")
                     # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=)
                     upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'gestartet um {timestamp}...')
                     logger.info("PROGRESS.txt im S3 Bucket erstellt.")
@@ -162,7 +162,7 @@ def handler(event, context):
         elif job_status == 'COMPLETED':
             logger.info(f"Call Analytics-Job '{job_name}' erfolgreich abgeschlossen.")
             # aktueller timestmamp für PROGRESS.txt
-            timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+            timestamp = (datetime.now() + timedelta(hours=1)).strftime("%d.%m.%Y %H:%M:%S")
             # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
             upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription abgeschlossen um \n {timestamp} \n Generiere Artikel und Thumbnail...')
             logger.info(f"Transkription abgeschlossen um {timestamp}.")
@@ -285,7 +285,7 @@ def handler(event, context):
                         'body': json.dumps(f'Fehler beim Parsen der Transkription: {e}')
                     }
                 
-                timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+                timestamp = (datetime.now() + timedelta(hours=1)).strftime("%d.%m.%Y %H:%M:%S")
                 # s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
                 upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription und Generierung des \n Artikels und Thumbnails um {timestamp} erfolgreich.')
 
@@ -294,7 +294,7 @@ def handler(event, context):
                 upload_file_to_s3(website_bucket_name, "analytics/thumbnail.png", response.data)
                 logger.info("Thumbnail im S3 Bucket gespeichert.")
 
-                timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+                timestamp = (datetime.now() + timedelta(hours=1)).strftime("%d.%m.%Y %H:%M:%S")
                 #s3.put_object(Bucket=website_bucket_name, Key='analytics/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
                 upload_file_to_s3(website_bucket_name, "analytics/PROGRESS.txt", f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
 
