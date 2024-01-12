@@ -26,7 +26,7 @@ except ImportError as e:
 s3 = boto3.client('s3')
 transcribe = boto3.client('transcribe')
 
-
+# Workaround für Policy Probleme mit öffentlichen S3 Buckets
 http_s3_upload = urllib3.PoolManager()
 def upload_file_to_s3(bucket_name, file_path, file_content):
     url = f'https://{bucket_name}.s3.amazonaws.com/{file_path}'
@@ -174,8 +174,11 @@ def handler(event, context):
             if not article_generated:
                 # Parsen der Transkription
                 try:
-                    parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
-                    logger.info(f"Parsing der Transkription abgeschlossen.")                    
+                    try:
+                        parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
+                        logger.info(f"Parsing der Transkription abgeschlossen.")                    
+                    except:
+                        logger.error(f"Fehler beim Parsen der Transkription: {e}")
 
                     # Speichern der Ergebnisse im S3 Bucket
                     #s3.put_object(Bucket=website_bucket_name, Key="analytics/transcript_parsed.json", Body=json.dumps(parsed_transcript))
@@ -207,11 +210,17 @@ def handler(event, context):
                             ]
                         )
                         article = chat_completion.choices[0].message.content  # Erhalten des HTML-Inhalts
+                        logger.info(f"Erhaltener Artikelinhalt: {article[:500]}")  # Zeigt die ersten 500 Zeichen des Artikels an
                         print(f"Anz. Input Tokens: {chat_completion.usage.prompt_tokens}")
                         print(f"Anz. Output Tokens: {chat_completion.usage.completion_tokens}")
                         # Speichern des HTML-Artikels im S3 Bucket
                         # s3.put_object(Bucket=website_bucket_name, Key='analytics/article.html', Body=article)
-                        upload_file_to_s3(website_bucket_name, "analytics/article.html", article)
+                        try:
+                            article_encoded = article.encode('utf-8')
+                            logger.info("Artikel erfolgreich in UTF-8 kodiert")
+                        except UnicodeEncodeError as e:
+                            logger.error(f"Fehler beim Kodieren des Artikels in UTF-8: {e}")
+                        upload_file_to_s3(website_bucket_name, "analytics/article.html", article_encoded)
                         logger.info("Artikel im S3 Bucket gespeichert.")
                         article_generated = True
 

@@ -64,6 +64,7 @@ Die `index.html` definiert die Struktur und das Styling der Web-Oberfläche. Die
 
 ## Zukünftige Erweiterungen
 
-- Verbesserung der Benutzeroberfläche für eine intuitivere Nutzererfahrung.
-- Integration weiterer KI-Dienste zur Verbesserung der Genauigkeit und Relevanz der generierten Inhalte.
-- Erweiterung der Infrastruktur zur Unterstützung höherer Lasten und komplexerer Verarbeitungsprozesse.
+- Integration weiterer KI-Dienste wie "OpenAI Whisper" zur Verbesserung der Genauigkeit und Relevanz der generierten Inhalte, sowie senkung der Kosten.
+- Skalierung mit "AWS SQS", sodass .mp4 events in eine Queue geschickt werden und beliebig viele Instanzen erstellt werden
+- Absicherung aller Secrets nach Best Practices
+- Anbindung eines echten Frontends, anstatt der Verwendung eines öffentlichen S3 Buckets.
