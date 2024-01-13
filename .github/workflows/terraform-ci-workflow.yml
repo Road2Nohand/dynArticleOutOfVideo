@@ -49,11 +49,12 @@ jobs:
           terraform workspace select DEV
 
       - name: Terraform Validate
+        env:
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ls -al
           terraform validate
-          env:
-            TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          
 
       # Hier später noch einen Plan einfügen, sodass der Apply halb-automatisch ausgeführt werden muss wenn auf den "main" strang gepushed wird, ansonsten bei "develop" voll-automatisiert.
       
@@ -74,19 +75,19 @@ jobs:
       
       # bestehende Infra abreißen. Das sollte später auch branch-abhängig sein, DEV -> destroy, PROD -> nicht destroy
       - name: Terraform Destroy
+        env:
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ls -al
           terraform destroy -auto-approve
-          env:
-            TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
       # || true bewirkt ein continue on error -> workaround für die s3 policy
       - name: Terraform Apply
+        env:
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ls -al
           terraform apply -auto-approve
-          env:
-            TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
       # Der Bucket-Name muss später auch Workspace, also Branch abhängig gesetzt werden
       - name: Upload HTML to S3

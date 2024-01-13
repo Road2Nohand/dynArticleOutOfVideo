@@ -346,7 +346,7 @@ resource "aws_iam_role_policy_attachment" "attach_transcribe_service_policy" {
 data "archive_file" "lambda_function_zip" {
     type        = "zip"
     source_dir  = "lambda_functions"
-    output_path = "${path.module}/1_transcribe__function_v2.zip"
+    output_path = "${path.module}/1_transcribe__function.zip"
 }
 
 # OpenAI Lib als Layer der Lambda-Funktion hinzufügen
@@ -365,7 +365,7 @@ data "aws_iam_role" "transcribe_role" {
 # Lambda-Funktion für Transkription
 resource "aws_lambda_function" "transcribe_lambda_function" {
     function_name = "1_transcribe_function"
-    filename      = "1_transcribe__function_v2.zip"
+    filename      = "1_transcribe__function.zip"
     runtime       = "python3.10"
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
