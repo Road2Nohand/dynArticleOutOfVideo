@@ -25,6 +25,15 @@ variable "video_bucket_name" {
     type = string
 }
 
+variable "SPORTART" {
+    type = string
+}
+
+variable "openai_api_key" {
+    type = string
+    description = "API Key for OpenAI"
+}
+
 #endregion Variables
 
 
@@ -337,7 +346,7 @@ resource "aws_iam_role_policy_attachment" "attach_transcribe_service_policy" {
 data "archive_file" "lambda_function_zip" {
     type        = "zip"
     source_dir  = "lambda_functions"
-    output_path = "${path.module}/1_transcribe__function.zip"
+    output_path = "${path.module}/1_transcribe__function_v2.zip"
 }
 
 # OpenAI Lib als Layer der Lambda-Funktion hinzufügen
@@ -356,11 +365,11 @@ data "aws_iam_role" "transcribe_role" {
 # Lambda-Funktion für Transkription
 resource "aws_lambda_function" "transcribe_lambda_function" {
     function_name = "1_transcribe_function"
-    filename      = "1_transcribe__function.zip"
+    filename      = "1_transcribe__function_v2.zip"
     runtime       = "python3.10"
     role          = aws_iam_role.lambda_transcribe_role.arn
     handler       = "1_transcribe_function.handler"
-    timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden
+    timeout       = 900  # Setzt das Timeout auf 15 Minuten, Lambdas laufen per default nur 3 Sekunden, der Job braucht in etwa 10 Minuten
     layers = [aws_lambda_layer_version.openai_layer.arn]
 
     # für den Zugriff aus der 1_transcribe_function.py, damit Transcribe-Function in den Bucket schreiben kann
@@ -368,8 +377,8 @@ resource "aws_lambda_function" "transcribe_lambda_function" {
         variables = {
             WEBSITE_BUCKET_NAME = aws_s3_bucket.website_bucket.bucket,
             DATA_ACCESS_ROLE_ARN = data.aws_iam_role.transcribe_role.arn,
-            VIDEO_BUCKET_NAME = aws_s3_bucket.video_bucket.bucket,
-            OPEN_AI_API_KEY = "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"
+            SPORTART = var.SPORTART,
+            OPEN_AI_API_KEY = var.openai_api_key
         }
     }
 }
