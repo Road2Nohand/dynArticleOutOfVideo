@@ -39,6 +39,8 @@ Definiert einen Workflow für Continuous Integration und Deployment mit Terrafor
 
 ### Transkriptionsfunktion (`1_transcribe_function.py`)
 Eine Python-Funktion, die AWS Transcribe verwendet, um Transkripte aus Videoinhalten zu erstellen und anschließend Artikel und Thumbnails zu generieren mit "GPT-4 Turbo" und "Dall-E-3".
+Vor der generierung der Produkte wird der Datensatz um Features geparsed und bereinigt.
+
 
 ## Web-Frontend (Verzeichnis: `root`)
 
