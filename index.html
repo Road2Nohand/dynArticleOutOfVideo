@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SportsVideo-to-Article</title>
+    <meta property="og:image" content="https://dyn-bucket-for-static-article-website-dev.s3.eu-central-1.amazonaws.com/analytics/thumbnail.png" />
 </head>
 
 <style>
@@ -29,7 +30,7 @@
         opacity: 0.5;
         margin-top: 10vh;
         padding: 2%;
-        }
+    }
     p {
         color: gray;
         margin-top: 2vh;
@@ -167,7 +168,7 @@
                     .then(response => {
                         if (!response.ok) {
                             if(response.status === 404) {
-                                console.log('PROGRESS.txt noch nicht vorhanden, wird geladen...');
+                                // console.log('PROGRESS.txt noch nicht vorhanden, wird geladen...');
                                 document.getElementById('progressStatus').innerText = 'Warte auf .mp4 event...';
                                 progressStatus = document.getElementById('progressStatus')
                                 progressStatus.classList.add('fade-in-slide-down');
@@ -205,7 +206,7 @@
                     .then(response => {
                         if (!response.ok) {
                             if(response.status === 404) {
-                                console.log('article.html noch nicht vorhanden, wird geladen...');
+                                // console.log('article.html noch nicht vorhanden, wird geladen...');
                             } else {
                                 throw new Error('Fehler beim Laden der Datei article.html');
                             }
@@ -265,7 +266,7 @@
                     .then(response => {
                         if (!response.ok) {
                             if(response.status === 404) {
-                                console.log('thumbnail.png noch nicht vorhanden, wird geladen...');
+                                // console.log('thumbnail.png noch nicht vorhanden, wird geladen...');
                             } else {
                                 throw new Error('Fehler beim Laden der Datei thumbnail.png');
                             }
@@ -311,7 +312,7 @@
                     .then(response => {
                         if (!response.ok) {
                             if(response.status === 404) {
-                                console.log('transcript_cleaned_from_noise.json noch nicht vorhanden, wird geladen...');
+                                // console.log('transcript_cleaned_from_noise.json noch nicht vorhanden, wird geladen...');
                             } else {
                                 throw new Error('Fehler beim Laden der Datei transcript_cleaned_from_noise.json');
                             }

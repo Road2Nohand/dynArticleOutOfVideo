@@ -224,7 +224,8 @@ def handler(event, context):
                                 "role": "user",
                                 "content": \
                                 f"Basierend auf der folgenden Transkription eines {SPORTART}-Spiels, erstelle bitte einen spannenden und kurzen Fußballartikel, \
-                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung halten. \
+                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung\Neugier halten. \
+                                Dennoch soll der Artikel dabei realistisch bleiben und nicht zu euphorisch auch in Bezug auf den Kontext vergangener und zukünftiger Spiele. \
                                 Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
                                 bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche der Absätze. \
                                 Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
@@ -296,7 +297,7 @@ def handler(event, context):
                     logger.error(f"Fehler beim Generieren des Thumbnails: Statuscode {response.status}")
 
                 timestamp = (datetime.now() + timedelta(hours=1)).strftime("%d.%m.%Y %H:%M:%S")
-                s3.put_object(Bucket=WEBSITE_BUCKET_NAME, Key=f'{SPORTART}/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert um {timestamp}!')
+                s3.put_object(Bucket=WEBSITE_BUCKET_NAME, Key=f'{SPORTART}/PROGRESS.txt', Body=f'Transkription, Article und Thumbnail erfolgreich inferiert am {timestamp}')
                 # upload_file_to_s3(WEBSITE_BUCKET_NAME, "analytics/PROGRESS.txt", f'Transkription, Article und Thumbnail erfolgreich inferiert am {timestamp}!')
                 logger.info(f"Transkription, Article und Thumbnail erfolgreich inferiert am {timestamp}!")
 

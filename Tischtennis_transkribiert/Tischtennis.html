@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsVideo-to-Article</title>
+    <!-- Meta-Tag für WhatsApp Thumbnail -->
+    <meta property="og:image" content="thumbnail.png" />
+    <style>
+        * {
+            background: black;
+        }
+        #prototypeHeading {
+            color: white;
+            opacity: 0.9;
+            font-style: normal;
+            text-transform: none;
+            margin-top: 2vh;
+            text-align: center;
+            font-family: "consolas", "Monaco";
+            font-size: 2vh;
+        }
+        h1 {
+            font-family: 'Arial Black', 'Helvetica Neue';
+            font-size: 2.5vh; 
+            text-align: center;
+            text-transform: uppercase; /* Für Großbuchstaben */
+            color: white; /* Typischerweise Schwarz oder eine andere auffällige Farbe */
+            opacity: 0.5;
+            margin-top: 10vh;
+            padding: 2%;
+        }
+        p {
+            color: gray;
+            margin-top: 2vh;
+            text-align: justify;
+            text-align-last: left;
+            font-family: "Freshman", "Times New Roman";
+            font-size: 2vh;
+            margin-left: 10vw;
+            margin-right: 10vw;
+        }
+        #progress {
+            font-family: "consolas", "Monaco";
+            color: gray;
+            text-align: center;
+            text-align-last: center;
+            font-size: 1.2vh;
+        }
+
+        #article {
+            margin-bottom: 5vh;
+        }
+
+        #ytLinkDiv {
+            font-size: 1.5vh;
+            font-family: "Freshman", "Times New Roman";;
+            text-align: center;
+            margin: 5vh;
+        }
+        #ytLink {
+            color: gray;
+            transition: font-size 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+        #ytLink:hover{
+            color: white;
+            /*größer machen*/
+            font-size: 1.6vh;
+        }
+
+        .inferenzText p {
+            font-family: "consolas", "Monaco";
+            color: white;
+            text-align: center;
+            text-align-last: center;
+            font-size: 1.5vh;
+        }
+        .inferenzText {
+            margin-top: 8vh;
+            margin-bottom: 8vh;
+        }
+
+        #thumbnail {
+            text-align: center;
+        }
+        #thumbnailImage {
+            width: 40vh;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid white;
+        }
+
+        #transcript {
+            color: gray;
+            font-family: "consolas", "Monaco";
+            font-size: 10px;
+            margin-top: 5vh;
+            margin-left: 10vw;
+            margin-right: 10vw;
+        }
+
+        @media screen and (min-width: 1280px) {
+            #thumbnailImage {
+                width: 60vh;
+            }
+            p {
+                margin-left: 20vw;
+                margin-right: 20vw;
+            }
+            #transcript {
+                font-size: 15px;
+                margin-left: 15vw;
+                margin-right: 15vw;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(4vh); /*von unten nach oben reinfaden*/
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+    </style>
+
+<!-- Animate Elements in if visible -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const elements = document.querySelectorAll('.fade-in');
+    const offset = -80; // Pufferzone von 50px
+
+    let loadedElements = 0;
+    const totalElementsToLoad = 3; // Gesamtzahl der zu ladenden Elemente
+
+    const checkVisibility = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(el => {
+            const positionFromTop = el.getBoundingClientRect().top;
+            if (positionFromTop - windowHeight <= offset) {
+                el.classList.add('visible');
+            }
+        });
+    };
+
+    const elementLoaded = () => {
+        loadedElements++;
+        if (loadedElements === totalElementsToLoad) {
+            // Wenn alle Elemente geladen sind, führen Sie die Sichtbarkeitsprüfung aus
+            checkVisibility();
+        }
+    };
+
+    // Artikel laden
+    fetch('article.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('article').innerHTML = data;
+            elementLoaded(); // Zähler aktualisieren
+        })
+        .catch(error => console.error('Fehler beim Laden der article.html:', error));
+    
+    // Thumbnail laden
+    fetch('thumbnail.png')
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            document.getElementById('thumbnailImage').src = url;
+            elementLoaded(); // Zähler aktualisieren
+        })
+        .catch(error => console.error('Fehler beim Laden des Thumbnails:', error));
+    
+    // Transkript laden
+    fetch('transcript_cleaned_from_noise.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('transcript').textContent = JSON.stringify(data, null, 2);
+            elementLoaded(); // Zähler aktualisieren
+        })
+        .catch(error => console.error('Fehler beim Laden der transcript.json:', error));
+
+    window.addEventListener('scroll', checkVisibility);
+});
+</script>
+
+</head>
+<body>
+    <h1 id="prototypeHeading">SportsVideo-to-Article-to-Thumbnail</h1>
+    <p id="progress">
+        <script>
+            fetch('PROGRESS.txt')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('progress').innerHTML = data;
+                    elementLoaded(); // Zähler aktualisieren
+                })
+                .catch(error => console.error('Fehler beim Laden der PROGRESS.txt:', error));
+        </script>
+    </p>
+
+    <!-- Container für Article -->
+    <div id="article" class="fade-in"></div>
+
+
+    <div id="ytLinkDiv" class="fade-in">
+        <a  id="ytLink" href="https://youtu.be/rp1CJ04Rqlo" target="_blank" class="fade-in">(Tischtennis WM das Viertelfinale zwischen Timo Boll und Ma Long)</a>
+    </div>
+
+    <br>
+    <br>
+
+
+    <div class="inferenzText">
+        <p class="fade-in">:Artikel generiert von einem Neuronalen Netz</p>
+        <p class="fade-in">Thumbnail generiert aus dem generierten Artikel von einem Neuronalen Netz:</p>
+    </div>
+
+    <br>
+    <br>
+
+        
+    <!-- Container für das Bild -->
+    <div id="thumbnail">
+        <img id="thumbnailImage" class="fade-in"/>
+    </div>
+
+    <br>
+    <br>
+
+
+    <div class="inferenzText">
+        <p class="fade-in">:alles generiert aus einer von Rausch bereinigten Transkription</p>
+        <p class="fade-in">eines Neuronalen Netzes für insgesamt ~2,66€ und ~8min pro SportVideo:</p>
+    </div>
+
+    <br>
+
+    <!-- Container für Transkription -->
+    <div id="transcript" class="fade-in"></div>
