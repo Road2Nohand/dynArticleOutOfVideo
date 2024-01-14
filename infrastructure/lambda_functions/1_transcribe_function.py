@@ -222,11 +222,11 @@ def handler(event, context):
                                 "role": "user",
                                 "content": \
                                 f"Basierend auf der folgenden Transkription eines {SPORTART}-Spiels, erstelle bitte einen spannenden und kurzen Fußballartikel, \
-                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung\Neugier halten. \
+                                wie er in einem Sportmagazin stehen könnte. Der Artikel soll einen reißerischen Titel haben und den Leser in Spannung und Neugier halten. \
                                 Dennoch soll der Artikel dabei realistisch bleiben und nicht zu euphorisch auch in Bezug auf den Kontext vergangener und zukünftiger Spiele. \
                                 Bitte korrigiere auch falsch transkribierte Spielernamen mit deinem historischen Wissen. Gib mir die Antwort ausschließlich als HTML-Code, \
                                 bestehend nur aus einer h1-Überschrift für den Titel und p-Tags für die Absätze des Artikels. Verwende <br>-Tags für Zeilenumbrüche der Absätze. \
-                                Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \
+                                Lasse alle anderen HTML-Tags, wie doctype, html, head, body und auch ein anfängliches ```html und ein endendes ``` weg. Hier ist die Transkription: \n \
                                 {cleaned_transcript_json}"
                             }
                         ]
