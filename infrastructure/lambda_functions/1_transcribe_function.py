@@ -46,8 +46,6 @@ def upload_file_to_s3(bucket_name, file_path, file_content):
 
 
 def parse_transcript(file_name, bucket_name):
-    # Pfad zur JSON-Datei im S3 Bucket
-    file_path = f"s3://{bucket_name}/{file_name}"
 
     # Lese die Datei aus S3
     obj = s3.get_object(Bucket=bucket_name, Key=file_name)
@@ -196,7 +194,7 @@ def handler(event, context):
                 try:
                     parsed_transcript, cleaned_transcript = parse_transcript(transcript_file_name, transcript_bucket_name)
                     logger.info(f"Parsing der Transkription abgeschlossen.")                    
-                except:
+                except Exception as e:
                     logger.error(f"Fehler beim Parsen der Transkription: {e}")
                     return {
                         'statusCode': 500,
