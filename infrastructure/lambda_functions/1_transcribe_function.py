@@ -46,7 +46,6 @@ def upload_file_to_s3(bucket_name, file_path, file_content):
 
 
 def parse_transcript(file_name, bucket_name):
-
     # Lese die Datei aus S3
     obj = s3.get_object(Bucket=bucket_name, Key=file_name)
     data = json.loads(obj['Body'].read().decode('utf-8'))
@@ -61,25 +60,19 @@ def parse_transcript(file_name, bucket_name):
             content = entry.get('Content')
             begin_offset_millis = entry.get('Items', [{}])[0].get('BeginOffsetMillis', 0)
             timestamp = str(timedelta(milliseconds=begin_offset_millis))[:7]
-           
-            # Fehlerbehandlung, falls AWS-Transcribe "null" für LoudnessScores oder Confidence zurückgibt
+
+            # Behandlung von None-Werten in LoudnessScores
             loudness_scores = entry.get("LoudnessScores", [])
-            confidences = [item.get("Confidence", "0.0") for item in entry.get("Items", [])]
+            loudness_total = sum(score if score is not None else 0 for score in loudness_scores)
+            loudness_average = loudness_total / len(loudness_scores) if len(loudness_scores) > 0 else 0
 
-            loudness_average = None
-            confidence_average = None
+            # Behandlung von None-Werten in Confidence
+            confidences = [item.get("Confidence") for item in entry.get("Items", [])]
+            confidence_total = sum(float(c) if c is not None else 0 for c in confidences)
+            confidence_average = confidence_total / len(confidences) if len(confidences) > 0 else 0
 
-            if loudness_scores:
-                loudness_average = sum(loudness_scores) / len(loudness_scores)
-            else:
-                loudness_average = 0  # oder setzen Sie es auf None, wenn das bevorzugt ist
 
-            if confidences:
-                confidence_average = sum(float(c) for c in confidences) / len(confidences)
-            else:
-                confidence_average = 0  # oder setzen Sie es auf None
-
-            # Loudness und confidence auf 3 Nachkomma-Stellen gerundet und Datensatz weiter zu verkleinern
+            # Loudness und confidence auf 3 Nachkomma-Stellen gerundet
             transcript_entry = {
                 "timestamp": timestamp,
                 "sentiment": sentiment,
